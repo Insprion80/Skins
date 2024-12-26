@@ -1,0 +1,28 @@
+#!/bin/sh
+echo "   "
+echo "------------------------------------------------------------------------"
+echo "                            Welcome To XDREAMY                          "
+echo "                         XDREAMY Skin By Inspiron                       "
+echo "                       Don't Remove this Disclaimer                     "
+echo "------------------------------------------------------------------------"
+echo "          Experience Enigma2 skin like never before with XDREAMY        "
+echo "------------------------------------------------------------------------"
+sleep 2
+echo "  "
+echo "You are going to install XDREAMY skin, please wait...      "
+status='/var/lib/opkg/status'
+package='enigma2-plugin-skins-xDreamy'
+
+if grep -q $package $status; then
+opkg remove $package > /dev/null 2>&1
+fi
+if [ -d /control ] ; then
+rm -rf /control  > /dev/null 2>&1
+fi
+if [ -d /CONTROL ] ; then
+rm -rf /CONTROL  > /dev/null 2>&1
+fi
+if [ -f /Control ] ; then
+rm -rf /Control  > /dev/null 2>&1
+fi
+exit 0

@@ -1,0 +1,9 @@
+#!/bin/bash
+echo "   "
+echo 'Removing package : XDREAMY skin ...' 
+echo "   "
+sleep 2
+echo 'Please wait for few seconds ...' 
+echo "   "
+sleep 2
+exit 0

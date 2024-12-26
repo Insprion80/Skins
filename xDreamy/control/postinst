@@ -1,0 +1,136 @@
+#!/bin/sh
+
+SKINDIR='/usr/share/enigma2/xDreamy'
+TMPDIR='/tmp'
+set -e
+echo "   "
+sleep 2
+echo "------------------------------------------------------------------"
+echo "                  XDREAMY Skin Supported Images                   "
+echo "------------------------------------------------------------------"
+echo "   "
+sleep 2
+echo "---------------------- ALLIANCE BASED Images ---------------------"
+echo "1. OpenATV 6.x , OpenATV 7.x , OpenATV 7.x Devel versions"
+echo "2. Egami 10.4 , Egami 10.5"
+echo "3. PurE2 7.3 , 7.4"
+echo "4. OpenSPA 8.x"
+echo "5. OpenDroid 7.x"
+echo "6. OpenBh 5.x"
+echo "------------------------ PLI BASED Images ------------------------"
+echo "7. OpenPLi 8.x , OpenPLi 9.x, OpenPLi Devel versions"
+echo "8. OpenViX 6.x"
+echo "9. HDF freaks 7.x"
+echo "10. NonSoloSat (NSS)"
+echo "11. satlodge"
+echo "    "
+sleep 2
+echo "Identify your installed image ...."
+echo "  "
+sleep 2
+
+if grep -qs -i "openATV" /etc/image-version; then
+    echo "You have OpenATV image"
+    echo "Adjusting some files according to your image..."
+    cp $SKINDIR/image_logo/openatv/imagelogo.png $SKINDIR/imagelogo.png
+
+elif grep -qs -i "egami" /etc/image-version; then
+    echo "You have Egami image"
+    echo "Adjusting some files according to your image..."
+    cp $SKINDIR/image_logo/egami/imagelogo.png $SKINDIR/imagelogo.png
+
+elif grep -qs -i "PURE2" /etc/image-version; then
+    echo "You have PURE2 image"
+    echo "Adjusting some files according to your image..."
+    cp $SKINDIR/image_logo/pure2/imagelogo.png $SKINDIR/imagelogo.png
+
+elif grep -qs -i "OpenSPA" /etc/image-version; then
+    echo "You have OpenSPA image"
+    echo "Adjusting some files according to your image..."
+    cp $SKINDIR/image_logo/openspa/imagelogo.png $SKINDIR/imagelogo.png
+
+elif grep -qs -i "OpenDroid" /etc/image-version; then
+    echo "You have OpenDroid image"
+    echo "Adjusting some files according to your image..."
+    cp $SKINDIR/image_logo/opendroid/imagelogo.png $SKINDIR/imagelogo.png
+
+elif grep -qs -i "openvix" /etc/image-version; then
+    echo "You have OpenVIX image"
+    echo "Adjusting some files according to your image..."
+    cp $SKINDIR/image_logo/openvix/imagelogo.png $SKINDIR/imagelogo.png
+    
+elif grep -qs -i "openHDF" /etc/image-version; then
+    echo "You have OpenHDF image"
+    echo "Adjusting some files according to your image..."
+    cp $SKINDIR/image_logo/HDF/imagelogo.png $SKINDIR/imagelogo.png
+    
+elif grep -qs -i "openbh" /etc/issue; then
+    echo "You have OpenBh image"
+    echo "Adjusting some files according to your image..."
+    cp $SKINDIR/image_logo/openbh/imagelogo.png $SKINDIR/imagelogo.png
+
+elif grep -qs -i "openpli" /etc/issue; then
+    echo "You have OpenPLi image"
+    echo "Adjusting some files according to your image..."
+    cp $SKINDIR/image_logo/openpli/imagelogo.png $SKINDIR/imagelogo.png
+    
+elif grep -qs -i "nonsolosat" /etc/issue; then
+    echo "You have NonSoloSat image"
+    echo "Adjusting some files according to your image..."
+    cp $SKINDIR/image_logo/NSS/imagelogo.png $SKINDIR/imagelogo.png
+    
+elif grep -qs -i "satlodge" /etc/issue; then
+    echo "You have SatLodge image"
+    echo "Adjusting some files according to your image..."
+    cp $SKINDIR/image_logo/satlodge/imagelogo.png $SKINDIR/imagelogo.png
+    
+elif grep -qs -i "cobra" /etc/issue; then
+    echo "You have COBRA image"
+    echo "Adjusting some files according to your image..."
+    cp $SKINDIR/image_logo/cobra/imagelogo.png $SKINDIR/imagelogo.png
+
+else
+    echo "even if you do not have supported image , you can try XDREAMY SKIN"
+fi
+sleep 2
+echo "   "
+
+# Identify the box type from the hostname file
+box_type=$(head -n 1 /etc/hostname)
+
+# Check if the box type image exists
+if [[ -f "/usr/share/enigma2/$box_type.png" ]]; then
+    # Copy the matched image to the skin directory
+    cp "/usr/share/enigma2/$box_type.png" "$SKINDIR/boximage.png"
+    echo "Box type identified: $box_type"
+    echo "   "
+    echo "Skin configuration updated."
+    echo "   "
+else
+    # If the image doesn't exist, log a warning and continue with default image
+    echo "Warning: Box type image '$box_type.png' is not found. Using default image."
+    echo "   "
+fi
+
+# Create an error debug file in /tmp/
+echo "Debug information:" > /tmp/xdreamy_debug.txt
+echo "Box model: $box_type" >> /tmp/xdreamy_debug.txt
+echo "Image filename: $IMAGE_FILENAME" >> /tmp/xdreamy_debug.txt
+echo "      "
+echo "Please wait while removing some files..."
+rm -rf "$SKINDIR/image_logo" > /dev/null 2>&1
+rm -rf /control > /dev/null 2>&1
+echo "      "
+sleep 2
+rm -rf /var/volatile/tmp/*.ipk > /dev/null 2>&1
+echo "      "
+sleep 2
+echo "--------------------------------------------------"
+echo "                  CONGRATULATIONS                 "
+echo "      XDREAMY Skin Installed Successfully         "
+echo "--------------------------------------------------"
+echo "      "
+sleep 2
+echo "Please restart your GUI "
+echo "      "
+exit 0

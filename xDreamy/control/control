@@ -1,0 +1,10 @@
+Package: enigma2-plugin-skins-xDreamy
+Version: 4.8.0
+Section: base
+Priority: required
+Architecture: all
+Maintainer: Mahmoud Hussein
+Description: XDREAMY is a New Vision Skin By Inspiron
+Source: enigma2-plugin-skins-xDreamy.bb
+OE: enigma2-plugin-skins-xDreamy
+License: GPLv2+
