@@ -1,0 +1,118 @@
+<screen name="Weather_infobar">
+    <!-- Weather infobar -->
+    <widget source="session.MSNWeather" render="Label" position="275,0" size="150,60" font="Regular; 46" text="54 `C" valign="center" halign="left" foregroundColor="green" backgroundColor="header" noWrap="1" borderWidth="1" transparent="1" zPosition="10">
+        <convert type="MSNWeather">temperature_current</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="275,130" size="250,30" font="Regular; 24" halign="left" foregroundColor="yellow" backgroundColor="back" noWrap="1" typeSpeed="1500" typeCaret="_" zPosition="10" transparent="1">
+        <convert type="MSNWeather">temperature_text,current</convert>
+    </widget>
+    <widget alphatest="blend" render="MSNWeatherPixmap" position="0,0" size="220,220" source="session.MSNWeather" transparent="1" zPosition="1" scale="1">
+        <convert type="MSNWeather">weathericon,current,/usr/share/enigma2/xDreamy/weather_icons/,png</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="275,100" size="250,30" font="Regular; 24" halign="left" foregroundColor="white" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">temperature_heigh_low,day1</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="275,60" size="250,40" font="Regular; 30" halign="left" foregroundColor="ltbluette" backgroundColor="header" noWrap="1" typeSpeed="1500" typeCaret="_" zPosition="1" transparent="1" borderWidth="2">
+        <convert type="MSNWeather">city</convert>
+    </widget>
+</screen>
+<screen name="Weather_infobar3days">
+    <!--day2 -->
+    <widget source="session.MSNWeather" render="Label" position="870,130" size="200,50" font="Regular; 24" halign="center" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">temperature_heigh_low,day3</convert>
+    </widget>
+    <widget render="MSNWeatherPixmap" source="session.MSNWeather" position="510,50" size="100,100" zPosition="1" alphatest="blend" transparent="1">
+        <convert type="MSNWeather">weathericon,day1,/usr/share/enigma2/xDreamy/weather_icons/,png</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="470,15" size="200,50" font="Regular; 24" halign="center" foregroundColor="ltbluette" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">weekday,day1</convert>
+    </widget>
+    <!-- day3 -->
+    <widget source="session.MSNWeather" render="Label" position="670,15" size="200,50" font="Regular; 24" halign="center" foregroundColor="ltbluette" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">weekday,day2</convert>
+    </widget>
+    <widget render="MSNWeatherPixmap" source="session.MSNWeather" position="710,50" size="100,100" zPosition="1" alphatest="blend" transparent="1">
+        <convert type="MSNWeather">weathericon,day2,/usr/share/enigma2/xDreamy/weather_icons/,png</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="670,130" size="200,50" font="Regular; 24" halign="center" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">temperature_heigh_low,day2</convert>
+    </widget>
+    <!--day4-->
+    <widget source="session.MSNWeather" render="Label" position="1070,15" size="200,50" font="Regular; 24" halign="center" foregroundColor="ltbluette" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">weekday,day4</convert>
+    </widget>
+    <widget render="MSNWeatherPixmap" source="session.MSNWeather" position="910,50" size="100,100" zPosition="1" alphatest="blend" transparent="1">
+        <convert type="MSNWeather">weathericon,day3,/usr/share/enigma2/xDreamy/weather_icons/,png</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="470,130" size="200,50" font="Regular; 24" halign="center" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">temperature_heigh_low,day1</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="870,15" size="200,50" font="Regular; 24" halign="center" foregroundColor="ltbluette" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">weekday,day3</convert>
+    </widget>
+    <widget render="MSNWeatherPixmap" source="session.MSNWeather" position="1110,50" size="100,100" zPosition="1" alphatest="blend" transparent="1">
+        <convert type="MSNWeather">weathericon,day4,/usr/share/enigma2/xDreamy/weather_icons/,png</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="1070,130" size="200,50" font="Regular; 24" halign="center" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">temperature_heigh_low,day4</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="1270,15" size="200,50" font="Regular; 24" halign="center" foregroundColor="ltbluette" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">weekday,day5</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="1270,130" size="200,50" font="Regular; 24" halign="center" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">temperature_heigh_low,day5</convert>
+    </widget>
+    <widget render="MSNWeatherPixmap" source="session.MSNWeather" position="1310,50" size="100,100" zPosition="1" alphatest="blend" transparent="1">
+        <convert type="MSNWeather">weathericon,day5,/usr/share/enigma2/xDreamy/weather_icons/,png</convert>
+    </widget>
+</screen>
+<screen name="Weather_infobar3days2">
+    <eLabel position="1560,145" size="350,680" backgroundColor="header" zPosition="-1" cornerRadius="20"/>
+    <widget source="session.MSNWeather" render="Label" position="1575,65" size="320,70" font="Regular; 30" halign="left" foregroundColor="ltbluette" backgroundColor="header" noWrap="1" typeSpeed="1500" typeCaret="_" zPosition="1" transparent="1" borderWidth="2">
+        <convert type="MSNWeather">city</convert>
+    </widget>
+    <!-- Day1  -->
+    <widget source="session.MSNWeather" render="Label" position="1690,175" size="200,50" font="Regular; 46" text="54 `C" valign="center" halign="left" foregroundColor="green" backgroundColor="header" noWrap="1" borderWidth="1" transparent="1" zPosition="10">
+        <convert type="MSNWeather">temperature_current</convert>
+    </widget>
+    <widget alphatest="blend" render="MSNWeatherPixmap" position="1578,175" size="100,100" source="session.MSNWeather" transparent="1" zPosition="1" scale="1">
+        <convert type="MSNWeather">weathericon,current,/usr/share/enigma2/xDreamy/weather_icons/,png</convert>
+    </widget>
+    <!-- Day2  -->
+    <widget source="session.MSNWeather" render="Label" position="1690,233" size="200,50" font="Regular; 24" halign="left" foregroundColor="white" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">temperature_heigh_low,day1</convert>
+    </widget>
+    <widget render="MSNWeatherPixmap" source="session.MSNWeather" position="1588,415" size="80,80" scale="1" zPosition="1" alphatest="blend" transparent="1">
+        <convert type="MSNWeather">weathericon,day2,/usr/share/enigma2/xDreamy/weather_icons/,png</convert>
+    </widget>
+    <!-- Day3  -->
+    <widget render="MSNWeatherPixmap" source="session.MSNWeather" position="1588,570" size="80,80" scale="1" zPosition="1" alphatest="blend" transparent="1">
+        <convert type="MSNWeather">weathericon,day3,/usr/share/enigma2/xDreamy/weather_icons/,png</convert>
+    </widget>
+    <!-- Day4  -->
+    <widget render="MSNWeatherPixmap" source="session.MSNWeather" position="1588,725" size="80,80" scale="1" zPosition="1" alphatest="blend" transparent="1">
+        <convert type="MSNWeather">weathericon,day4,/usr/share/enigma2/xDreamy/weather_icons/,png</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="1688,564" size="200,40" font="Regular; 20" halign="center" foregroundColor="ltbluette" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">weekday,day3</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="1690,720" size="200,40" font="Regular; 20" halign="center" foregroundColor="ltbluette" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">weekday,day4</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="1690,410" size="200,40" font="Regular; 20" halign="center" foregroundColor="ltbluette" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">weekday,day2</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="1690,770" size="200,40" font="Regular; 22" halign="center" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">temperature_heigh_low,day3</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="1690,615" size="200,40" font="Regular; 22" halign="center" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">temperature_heigh_low,day3</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="1690,461" size="200,40" font="Regular; 22" halign="center" backgroundColor="header" transparent="1" zPosition="1">
+        <convert type="MSNWeather">temperature_heigh_low,day2</convert>
+    </widget>
+    <widget source="session.MSNWeather" render="Label" position="1588,295" size="300,60" font="Regular; 40" halign="left" foregroundColor="yellow" backgroundColor="back" noWrap="1" typeSpeed="1500" typeCaret="_" zPosition="10" transparent="1">
+        <convert type="MSNWeather">temperature_text,current</convert>
+    </widget>
+    <eLabel position="1560,60" size="350,80" backgroundColor="header" zPosition="-1" cornerRadius="20"/>
+</screen>

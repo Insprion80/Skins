@@ -1,0 +1,10 @@
+<screen name="Volume" position="1694,367" size="149,134" cornerRadius="10" backgroundColor="transparent" zPosition="55" flags="wfNoBorder" transparent="0">
+  <widget source="global.CurrentTime" render="iVolume2" path="skin_default/volume/" zPosition="25" position="15,10" size="120,120" cornerRadius="10" alphatest="blend" transparent="1" />
+  <ePixmap name="" pixmap="skin_default/voli.png" alphatest="on" zPosition="11" position="2,2" size="145,130" cornerRadius="10" transparent="1" />
+  <widget render="iVolumeText" source="global.CurrentTime" position="15,5" size="120,120" font="Regular; 50" zPosition="25" halign="center" valign="center" foregroundColor="ltbluette" backgroundColor="header" transparent="1" />
+  <eLabel position="0,0" size="149,134" backgroundColor="ltbluette" cornerRadius="10" zPosition="10" />
+</screen>
+<screen name="Mute" title="Mute" position="center,center" size="250,250" backgroundColor="transparent" zPosition="10" flags="wfNoBorder">
+  <eLabel position="2,2" size="246,246" backgroundColor="ltbluette" cornerRadius="125" zPosition="1" />
+  <ePixmap pixmap="skin_default/mute.png" position="center,center" size="250,250" scale="1" transparent="1" alphatest="blend" zPosition="2" />
+</screen>

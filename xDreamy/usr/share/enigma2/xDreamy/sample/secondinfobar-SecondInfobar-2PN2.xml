@@ -1,0 +1,18 @@
+<screen name="SecondInfoBar" position="fill" title="SecondInfoBar" backgroundColor="transparent" flags="wfNoBorder">
+  <panel name="InfoBarTemplateN" />
+  <panel name="Weather_infobar3days2" />
+  <eLabel name="" position="56,93" size="1425,720" cornerRadius="10" zPosition="0" />
+  <eLabel name="" position="70,105" size="230,330" cornerRadius="20" backgroundColor="#10404040" zPosition="1" />
+  <eLabel name="" position="70,460" size="230,330" cornerRadius="20" backgroundColor="#10404040" zPosition="1" />
+  <eLabel name="" position="318,105" size="1150,340" cornerRadius="20" zPosition="1" backgroundColor="#10404040" />
+  <eLabel name="" position="318,460" size="1150,340" cornerRadius="20" zPosition="1" backgroundColor="#10404040" />
+  <eLabel name="" position="54,91" size="1429,724" cornerRadius="10" zPosition="-10" backgroundColor="ltbluette" />
+  <widget source="session.Event_Now" render="iRunningText" position="328,115" size="1130,310" font="Regular; 26" halign="center" foregroundColor="#f2f2f2" backgroundColor="#10000000" transparent="1" zPosition="1" options="movetype=running,direction=top,startpoint=0,startdelay=5000,wrap=1,always=0,repeat=2,oneshot=1">
+    <convert type="EventName">FullDescription</convert>
+  </widget>
+  <widget source="session.Event_Next" render="iRunningText" position="327,480" size="1130,310" font="Regular; 30" halign="center" foregroundColor="#808080" backgroundColor="header" transparent="1" zPosition="1" options="movetype=running,direction=top,startpoint=0,startdelay=5000,wrap=1,always=0,repeat=2,oneshot=1">
+    <convert type="EventName">ExtendedDescription</convert>
+  </widget>
+  <widget source="session.Event_Now" render="iPosterX" position="70,105" size="230,330" cornerRadius="10" borderWidth="1" borderColor="ltbluette" zPosition="1" alphatest="blend" transparent="1" />
+  <widget source="session.Event_Next" render="iPosterX" nexts="1" position="70,460" size="230,330" cornerRadius="10" borderWidth="1" borderColor="ltbluette" zPosition="1" alphatest="blend" transparent="1" />
+</screen>

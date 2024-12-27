@@ -1,0 +1,17 @@
+<screen backgroundColor="transparent" flags="wfNoBorder" name="HistoryZapSelector" position="0,0" size="1920,1080">
+<panel name="p500_Template" />
+  <widget backgroundColorSelected="bluette" backgroundColor="header" itemCornerRadius="12" foregroundColor="white" position="75,160" render="Listbox" scrollbarMode="showOnDemand" scrollbarForegroundColor="ltbluette" scrollbarBackgroundColor="header" scrollbarBorderWidth="1" scrollbarBorderColor="ltbluette" scrollbarWidth="6" size="650,770" source="menu" transparent="1" foregroundColorServiceNotAvail="NoColor" cornerRadius="10" colorServiceDescriptionSelected="NoColor" colorServiceDescription="NoColor" foregroundColorSelected="NoColor" colorEventProgressbar="NoColor" colorEventProgressbarSelected="NoColor" colorEventProgressbarBorder="NoColor" colorEventProgressbarBorderSelected="NoColor">
+    <convert type="TemplatedMultiContent">
+				{"template": [
+						MultiContentEntryText(pos = (128, 37), size = (20, 26), font = 1, flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, text = 1, color = 0x0000BFFF, color_sel = 0x0000BFFF), # Current Service
+						MultiContentEntryText(pos = (150, 3), size = (395, 37), font = 1, flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 2, color_sel = 0x0000BFFF), # Servicename
+						MultiContentEntryText(pos = (150, 36), size = (395, 35), font = 2, flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER | RT_WRAP, text = 3, color_sel = 0x00ffffff), # Eventname
+						MultiContentEntryText(pos = (150, 70), size = (395, 25), font = 3, flags = RT_HALIGN_LEFT, text = 5, color = 0x00FFEF97, color_sel = 0x00ffffff), # Eventtime
+						MultiContentEntryPixmapAlphaBlend(pos=(5, 20), size=(120, 70), png=6, flags = BT_SCALE) # picon
+					],
+				 "fonts": [gFont("Regular",28), gFont("Regular",25), gFont("Regular",23), gFont("Regular",22)],
+				 "itemHeight": 110
+				}
+			</convert>
+  </widget>
+</screen>

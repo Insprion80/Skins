@@ -1,0 +1,52 @@
+<screen name="ChannelSelection" position="0,0" size="1920,1080" title="Channel Selection" backgroundColor="transparent" flags="wfNoBorder">
+  <panel name="CLB" />
+  <panel name="CLF_Template" />
+  <!-- Rating Stars -->
+  <ePixmap pixmap="xDreamy/menu/stargrey.png" position="1190,30" size="316,27" alphatest="blend" zPosition="1" transparent="1" />
+  <widget source="ServiceEvent" render="iStarX" pixmap="xDreamy/menu/staryellow.png" position="1190,30" size="316,27" alphatest="blend" transparent="1" zPosition="1" />
+  <widget render="iParental" source="ServiceEvent" position="1517,19" size="50,50" scale="1" zPosition="1" transparent="1" alphatest="blend" />
+  <!-- List Channel -->
+  <widget options="movetype=running,direction=left,startpoint=0,steptime=50,repeat=5,startdelay=2000,always=0,oneshot=1" backgroundColor="transparent" font="Regular; 25" render="iRunningText" halign="left" position="229,75" size="850,50" source="ServiceEvent" transparent="1" valign="center">
+    <convert type="EventName">Name</convert>
+  </widget>
+  <widget name="list" position="20,140" size="1050,800" itemCornerRadius="12" scrollbarRadius="5" scrollbarMode="showOnDemand" transparent="1" zPosition="1" serviceNumberFont="Regular;30" serviceNameFont="Regular;30" serviceInfoFont="Regular;30" foregroundColor="white" foregroundColorSelected="yellow" backgroundColor="header" backgroundColorSelected="bluette" colorServiceDescription="ltbluette" colorServiceDescriptionSelected="white" foregroundColorServiceNotAvail="#505050" colorEventProgressbarBorder="grey" colorEventProgressbarSelected="yellow" colorEventProgressbarBorderSelected="yellow" scrollbarForegroundColor="ltbluette" scrollbarBackgroundColor="transparent" scrollbarBorderWidth="1" scrollbarBorderColor="ltbluette" scrollbarWidth="5" colorEventProgressbar="NoColor" scrollbarOffset="5" scrollbarSliderForegroundColor="ltbluette" scrollbarSliderBackgroundColor="header" scrollbarSliderBorderColor="ltbluette" />
+  <widget backgroundColor="black" font="Regular; 30" foregroundColor="white" halign="left" noWrap="1" position="1100,486" render="Label" size="121,48" source="ServiceEvent" transparent="1" valign="top" zPosition="1">
+    <convert type="EventTime">StartTime</convert>
+    <convert type="ClockToText">Format:%H:%M </convert>
+  </widget>
+  <widget backgroundColor="black" font="Regular; 30" foregroundColor="white" noWrap="1" position="1177,486" render="Label" size="142,48" source="ServiceEvent" transparent="1" valign="top" zPosition="1">
+    <convert type="EventTime">EndTime</convert>
+    <convert type="ClockToText">Format: - %H:%M</convert>
+  </widget>
+  <widget render="iRunningText" options="movetype=running,direction=top,startpoint=0,startdelay=17000,wrap=1,always=0,repeat=2,oneshot=1" backgroundColor="header" font="Regular; 34" foregroundColor="grey" position="1100,570" size="800,165" source="ServiceEvent" transparent="1" valign="top" zPosition="1">
+    <convert type="EventName">FullDescription</convert>
+  </widget>
+  <widget backgroundColor="black" font="Regular; 30" foregroundColor="ltbluette" noWrap="0" position="229,10" render="Label" size="1300,60" source="Title" transparent="1" valign="center" halign="left" />
+  <widget source="session.VideoPicture" render="Pig" position="1102,82" size="796,396" cornerRadius="15" transparent="0" backgroundColor="transparent" zPosition="2" />
+  <widget halign="right" position="1724,486" render="Label" size="177,48" source="ServiceEvent" transparent="1" foregroundColor="white" font="Regular; 30" valign="top" backgroundColor="black" noWrap="1">
+    <convert type="EventTime">Remaining</convert>
+    <convert type="RemainingToText">InMinutes</convert>
+  </widget>
+  <widget source="session.CurrentService" render="Label" position="1102,413" size="796,50" font="Regular; 35" zPosition="2" halign="center" valign="center" noWrap="1" transparent="0" backgroundColor="transpBlack">
+    <convert type="ServiceName">Name</convert>
+  </widget>
+  <!-- iPosterX Events */ -->
+  <widget source="ServiceEvent" render="iNxtEvnt" nxtEvents="" snglEvent="1" font="Regular;23" position="1100,758" size="800,27" halign="left" zPosition="1" foregroundColor="yellow" backgroundColor="black" transparent="1" />
+  <widget source="ServiceEvent" render="iNxtEvnt" nxtEvents="" snglEvent="2" font="Regular;23" position="1100,790" size="800,27" halign="left" zPosition="1" foregroundColor="#eeeeee" backgroundColor="black" transparent="1" />
+  <widget source="ServiceEvent" render="iNxtEvnt" nxtEvents="" snglEvent="3" font="Regular;23" position="1100,822" size="800,27" halign="left" zPosition="1" foregroundColor="#dcdcdc" backgroundColor="black" transparent="1" />
+  <widget source="ServiceEvent" render="iNxtEvnt" nxtEvents="" snglEvent="4" font="Regular;23" position="1100,852" size="800,27" halign="left" zPosition="1" foregroundColor="#c4c4c4" backgroundColor="black" transparent="1" />
+  <widget source="ServiceEvent" render="iNxtEvnt" nxtEvents="" snglEvent="5" font="Regular;23" position="1100,884" size="800,27" halign="left" zPosition="1" foregroundColor="#818181" backgroundColor="black" transparent="1" />
+  <widget source="ServiceEvent" render="iNxtEvnt" nxtEvents="" snglEvent="6" font="Regular;23" position="1100,915" size="800,27" halign="left" zPosition="1" foregroundColor="#a0a0a0" backgroundColor="black" transparent="1" />
+  <eLabel name="" position="1100,750" size="800,1" foregroundColor="ltbluette" transparent="0" backgroundColor="ltbluette" />
+  <widget alphatest="blend" position="15,10" render="Picon" size="200,120" source="Service" transparent="1" zPosition="1">
+    <convert type="ServiceName">Reference</convert>
+  </widget>
+  <widget source="ServiceEvent" render="Progress" position="1310,500" size="420,10" backgroundColor="header" foregroundGradient="green,yellow,red,horizontal" borderWidth="1" borderColor="grey" cornerRadius="20" zPosition="1" transparent="1">
+    <convert type="EventTime">Progress</convert>
+  </widget>
+  <eLabel name="" text="XDREAMY" position="1581,17" size="330,54" font="Eurofighteroutital; 50" foregroundColor="ltbluette" transparent="1" zPosition="1" />
+  <eLabel name="" position="1099,80" size="800,400" zPosition="1" cornerRadius="15" backgroundColor="ltbluette" />
+  <widget source="Event" render="Label" text="GenreList" position="1100,525" size="800,40" halign="left" font="Regular; 30" transparent="1" backgroundColor="background" zPosition="1" foregroundColor="yellow" valign="bottom">
+    <convert type="EventName">GenreList</convert>
+  </widget>
+</screen>

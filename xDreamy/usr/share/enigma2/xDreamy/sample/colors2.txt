@@ -1,0 +1,16 @@
+Color		Dark		Light
+Blue		#2f00ff		#03a0ff
+Brown		#7b4f44		#d2b48c
+Green
+Grey		#424242		#9f9f9f
+Maroon		#800000		#bc7a80
+Orange		#ff5a00		#ff9200
+Pink		#ff3377		#ff99bb
+Purpel		#79155B		#C23373
+Teal		#006666		#66b2b2
+Gold		#aa7700		#ffee00
+Red			#ff0000		#ff7b7b
+
+
+
+

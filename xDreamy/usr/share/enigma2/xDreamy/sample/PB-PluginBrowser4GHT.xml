@@ -1,0 +1,29 @@
+<screen name="PluginBrowserGrid" position="0,0" size="1920,1080" Title="EGAMI Plugins" backgroundColor="#ff000000" flags="wfNoBorder">
+  <panel name="p100T_Template" />
+  <widget name="quickselect" position="45,70" size="1840,140" backgroundColor="header" font="Regular;15" halign="center" transparent="1" valign="center" zPosition="1" />
+  <widget source="pluginGrid" render="Listbox" position="45,70" size="1840,140" backgroundColor="header" transparent="1" zPosition="1" itemSpacing="10,15" selectionZoom="3" scrollbarBorderColor="#000000" backgroundColorSelected="bluette" scrollbarRadius="5" scrollbarMode="showOnDemand" scrollbarForegroundColor="ltbluette" scrollbarWidth="5" itemCornerRadius="15" listOrientation="grid" moveBackgroundColor="bluette">
+    <convert type="TemplatedMultiContent">
+			{
+			"template": [
+			<!-- MultiContentEntryText(pos = (47, 83), size = (160, 30), font=0, backcolor = 0x505050), -->
+			MultiContentEntryText(pos = (15, 85), size = (150, 25), font=0, color=0xffff00, flags = RT_VALIGN_CENTER|RT_HALIGN_CENTER|RT_WRAP, text=1),
+			MultiContentEntryPixmapAlphaBlend(pos=(15, 15), size=(150, 60), png=3, flags=BT_SCALE)
+			],
+			"fonts": [gFont("Regular", 22),gFont("Regular", 20)],
+			"itemWidth" : 180,
+			"itemHeight" : 115
+			}
+		</convert>
+  </widget>
+  <eLabel position="360,25" size="5,35" backgroundColor="#ff2525" foregroundColor="#ff2525" cornerRadius="0" zPosition="1" />
+  <eLabel position="585,25" size="5,35" backgroundColor="#389416" foregroundColor="#389416" cornerRadius="0" zPosition="1" />
+  <eLabel position="810,25" size="5,35" backgroundColor="#ffff00" foregroundColor="#ffff00" cornerRadius="0" zPosition="1" />
+  <eLabel position="1035,25" size="5,35" backgroundColor="#2b68ff" foregroundColor="#2b68ff" cornerRadius="0" zPosition="1" />
+  <widget source="key_red" render="Label" position="370,25" size="200,35" font="Regular; 20" zPosition="1" halign="left" valign="center" foregroundColor="white" backgroundColor="header" transparent="1" />
+  <widget source="key_green" render="Label" position="595,25" size="200,35" font="Regular; 20" zPosition="1" halign="left" valign="center" foregroundColor="white" backgroundColor="header" transparent="1" />
+  <widget source="key_yellow" render="Label" position="820,25" size="200,35" font="Regular; 20" zPosition="1" halign="left" valign="center" foregroundColor="white" backgroundColor="header" transparent="1" />
+  <widget source="key_blue" render="Label" position="1045,25" size="200,35" font="Regular; 20" zPosition="1" halign="left" valign="center" foregroundColor="white" backgroundColor="header" transparent="1" />
+  <widget source="key_menu" text="MENU" render="Label" position="1400,25" cornerRadius="20" size="100,35" backgroundColor="bluette" font="Regular; 20" foregroundColor="white" halign="center" valign="center">
+    <convert type="ConditionalShowHide" />
+  </widget>
+<eLabel name="" position="45,25" size="250,40" transparent="1" font="Eurofighteroutital; 38" foregroundColor="ltbluette" text="XDREAMY" /></screen>

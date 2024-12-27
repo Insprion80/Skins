@@ -1,0 +1,79 @@
+﻿  <screen name="MENU_BGY">
+    <!-- Button Blue -->
+    <ePixmap position="50,988" pixmap="buttons/key_blue1.png" scale="1" size="30,30" alphatest="blend" objectTypes="key_red,Button,Label" transparent="1" zPosition="2" />
+    <widget source="key_blue" render="Pixmap" pixmap="buttons/key_blue1.png" position="90,988" size="260,95" alphatest="blend" objectTypes="key_blue,StaticText" transparent="1">
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget name="key_blue" position="130,955" size="260,95" noWrap="1" zPosition="1" valign="center" font="Regular;30" halign="left" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_blue,Button,Label" transparent="1" />
+    <widget source="key_blue" render="Label" position="130,955" size="260,95" noWrap="1" zPosition="1" valign="center" font="Regular;30" halign="left" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_blue,StaticText" transparent="1" />
+    <!-- Button Green -->
+    <ePixmap position="400,988" pixmap="buttons/key_green1.png" scale="1" size="30,30" alphatest="blend" objectTypes="key_green,Button,Label" transparent="1" zPosition="2" />
+    <widget source="key_green" render="Pixmap" pixmap="buttons/key_green1.png" position="440,988" size="330,95" alphatest="blend" objectTypes="key_green,StaticText" transparent="1">
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget name="key_green" position="480,955" size="330,95" noWrap="1" zPosition="1" valign="center" font="Regular;30" halign="left" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_green,Button,Label" transparent="1" />
+    <widget source="key_green" render="Label" position="480,955" size="330,95" noWrap="1" zPosition="1" valign="center" font="Regular;30" halign="left" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_green,StaticText" transparent="1" />
+    <!-- Button Yellow -->
+    <ePixmap position="800,988" pixmap="buttons/key_yellow1.png" scale="1" size="30,30" alphatest="blend" objectTypes="key_yellow,Button,Label" transparent="1" />
+    <widget source="key_yellow" render="Pixmap" pixmap="buttons/key_yellow1.png" position="840,988" size="260,95" alphatest="blend" objectTypes="key_yellow,StaticText" transparent="1">
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget name="key_yellow" position="880,955" size="260,95" noWrap="1" zPosition="1" valign="center" font="Regular;30" halign="left" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_yellow,Button,Label" transparent="1" />
+    <widget source="key_yellow" render="Label" position="880,955" size="260,95" font="Regular;30" halign="left" valign="center" foregroundColor="#b0b0b0" backgroundColor="header" zPosition="1" objectTypes="key_yellow,StaticText" transparent="1" />
+  </screen>
+  <screen name="s_RGYB">
+    <!-- Button Red -->
+    <ePixmap position="80,988" pixmap="buttons/key_red1.png" scale="1" size="30,30" alphatest="blend" objectTypes="key_red,Button,Label" transparent="1" />
+    <widget source="key_red" render="Pixmap" pixmap="buttons/key_red1.png" position="80,988" size="30,30" alphatest="blend" objectTypes="key_red,StaticText" transparent="1">
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget name="key_red" position="125,965" size="215,75" zPosition="+1" halign="left" valign="center" font="Regular;30" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_red,Button,Label" transparent="1" />
+    <widget source="key_red" render="Label" position="125,965" size="215,75" zPosition="+1" halign="left" valign="center" font="Regular;30" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_red,StaticText" transparent="1" />
+    <!-- Button Green -->
+    <ePixmap position="360,988" pixmap="buttons/key_green1.png" scale="1" size="30,30" alphatest="blend" objectTypes="key_green,Button,Label" transparent="1" />
+    <widget source="key_green" render="Pixmap" pixmap="buttons/key_green1.png" position="360,988" size="30,30" alphatest="blend" objectTypes="key_green,StaticText" transparent="1">
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget name="key_green" position="400,965" size="210,75" zPosition="+1" halign="left" valign="center" font="Regular;30" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_green,Button,Label" transparent="1" />
+    <widget source="key_green" render="Label" position="400,965" size="210,75" zPosition="+1" halign="left" valign="center" font="Regular;30" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_green,StaticText" transparent="1" />
+    <!-- Button Yellow -->
+    <ePixmap position="640,988" pixmap="buttons/key_yellow1.png" scale="1" size="30,30" alphatest="blend" objectTypes="key_yellow,Button,Label" transparent="1" />
+    <widget source="key_yellow" render="Pixmap" pixmap="buttons/key_yellow1.png" position="640,988" size="30,30" alphatest="blend" objectTypes="key_yellow,StaticText" transparent="1">
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget name="key_yellow" position="680,965" size="210,75" zPosition="+1" halign="left" valign="center" font="Regular;30" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_yellow,Button,Label" transparent="1" />
+    <widget source="key_yellow" render="Label" position="680,965" size="210,75" font="Regular;30" halign="left" valign="center" foregroundColor="#b0b0b0" backgroundColor="header" zPosition="+1" objectTypes="key_yellow,StaticText" transparent="1" />
+    <!-- Button Blue -->
+    <ePixmap position="910,988" pixmap="buttons/key_blue1.png" scale="1" size="30,30" alphatest="blend" objectTypes="key_blue,Button,Label" transparent="1" />
+    <widget source="key_blue" render="Pixmap" pixmap="buttons/key_blue1.png" position="910,988" size="30,30" alphatest="blend" objectTypes="key_blue,StaticText" transparent="1">
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget name="key_blue" position="955,965" size="250,75" zPosition="+1" halign="left" valign="center" font="Regular;30" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_blue,Button,Label" transparent="1" />
+    <widget source="key_blue" position="955,965" size="250,75" zPosition="+1" render="Label" font="Regular;30" halign="left" valign="center" foregroundColor="#b0b0b0" backgroundColor="header" objectTypes="key_blue,StaticText" transparent="1" />
+  </screen>
+  <screen name="s_RG">
+    <!-- Button Red -->
+    <ePixmap position="70,988" pixmap="buttons/key_red1.png" scale="1" size="30,30" alphatest="blend" objectTypes="key_red,Button,Label" transparent="1" />
+    <widget source="key_red" render="Pixmap" pixmap="buttons/key_red1.png" position="70,988" size="30,30" alphatest="blend" objectTypes="key_red,StaticText" transparent="1">
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget name="key_red" position="110,955" size="220,95" noWrap="1" zPosition="+1" valign="center" font="Regular;28" halign="left" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_red,Button,Label" transparent="1" />
+    <widget source="key_red" render="Label" position="110,955" size="220,95" noWrap="1" zPosition="+1" valign="center" font="Regular;28" halign="left" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_red,StaticText" transparent="1" />
+    <!-- Button Green -->
+    <ePixmap position="360,988" pixmap="buttons/key_green1.png" scale="1" size="30,30" alphatest="blend" objectTypes="key_green,Button,Label" />
+    <widget source="key_green" render="Pixmap" pixmap="buttons/key_green1.png" position="360,988" size="30,30" alphatest="blend" objectTypes="key_green,StaticText" transparent="1">
+      <convert type="ConditionalShowHide" />
+    </widget>
+    <widget name="key_green" position="400,955" size="300,95" noWrap="1" zPosition="1" valign="center" font="Regular;28" halign="left" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_green,Button,Label" transparent="1" />
+    <widget source="key_green" render="Label" position="400,955" size="300,95" noWrap="1" zPosition="+1" valign="center" font="Regular;28" halign="left" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_green,StaticText" transparent="1" />
+  </screen>
+ <screen name="s_RGYB1">
+    <!-- Button Red -->
+    <ePixmap position="80,988" pixmap="buttons/key_red1.png" scale="1" size="30,30" alphatest="blend" transparent="1" />
+    <!-- Button Green -->
+    <ePixmap position="360,988" pixmap="buttons/key_green1.png" scale="1" size="30,30" alphatest="blend" transparent="1" />
+    <!-- Button Yellow -->
+    <ePixmap position="640,988" pixmap="buttons/key_yellow1.png" scale="1" size="30,30" alphatest="blend" transparent="1" />
+    <!-- Button Blue -->
+    <ePixmap position="910,988" pixmap="buttons/key_blue1.png" scale="1" size="30,30" alphatest="blend" transparent="1" />
+  </screen>

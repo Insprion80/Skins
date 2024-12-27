@@ -1,0 +1,19 @@
+<screen name="Cam">
+<widget source="session.CurrentService" render="Label" position="785,79" size="350,26" font="Regular; 22" foregroundColor="ltbluette" backgroundColor="header" transparent="1" zPosition="1" valign="center" halign="center">
+  <convert type="iAccess">CamName</convert>
+</widget>
+</screen>
+<screen name="Cam1">
+<widget source="session.CurrentService" position="1244,7" size="670,37" render="Label" font="Regular; 26" halign="right" valign="center" backgroundColor="bluette" foregroundColor="ltbluette" transparent="1" noWrap="1" zPosition="1">
+  <convert type="iAccess">CamName</convert>
+</widget>
+</screen>
+<screen name="Cam2">
+  <widget name="info" position="100,500" size="720,400" font="Regular; 30" transparent="1" foregroundColor="ltbluette" zPosition="1" />
+  <widget source="session.CurrentService" render="Label" position="100,400" size="828,40" font="Regular; 30" halign="left" zPosition="1" backgroundColor="header" transparent="1" text="camname" valign="center" noWrap="1" conditional="info">
+    <convert type="iAccess">CamName</convert>
+  </widget>
+  <widget source="session.CurrentService" render="Label" position="100,450" size="828,40" font="Regular; 30" halign="left" zPosition="1" backgroundColor="header" transparent="1" text="EcmInfo" valign="center" noWrap="1" foregroundColor="green" conditional="info">
+    <convert type="iAccess">CryptInfo</convert>
+  </widget>
+</screen>

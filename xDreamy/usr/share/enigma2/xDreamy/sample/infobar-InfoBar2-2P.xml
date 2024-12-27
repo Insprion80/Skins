@@ -1,0 +1,8 @@
+<screen name="InfoBar" position="0,0" size="1920,1080" title="InfoBar" backgroundColor="transparent" flags="wfNoBorder">
+  <panel name="InfoBarTemplateN" />
+  <widget source="session.CurrentService" render="Label" position="410,745" size="1100,90" font="Regular; 80" noWrap="1" foregroundColor="white" backgroundColor="header" borderColor="black" borderWidth="1" transparent="1" halign="center">
+    <convert type="ServiceName">Name</convert>
+  </widget>
+  <widget source="session.Event_Now" render="iPosterX" position="20,470" cornerRadius="15" size="250,350" alphatest="blend" transparent="1" zPosition="-5" />
+  <widget source="session.Event_Next" render="iPosterX" nexts="1" position="1650,470" cornerRadius="15" size="250,350" alphatest="blend" transparent="1" zPosition="-5" />
+</screen>

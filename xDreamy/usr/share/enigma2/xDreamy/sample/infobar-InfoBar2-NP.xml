@@ -1,0 +1,6 @@
+<screen name="InfoBar" position="0,0" size="1920,1080" title="InfoBar" backgroundColor="transparent" flags="wfNoBorder">
+  <panel name="InfoBarTemplateN" />
+  <widget source="session.CurrentService" render="Label" position="5,745" size="1100,90" font="Regular; 80" noWrap="1" foregroundColor="white" backgroundColor="header" borderColor="black" borderWidth="1" transparent="1">
+    <convert type="ServiceName">Name</convert>
+  </widget>
+</screen>

@@ -1,0 +1,10 @@
+<screen name="EventView" position="fill" transparent="0" backgroundColor="transparent" flags="wfNoBorder">
+        <panel name="Event_Info" />
+        <widget name="epg_description" position="80,650" size="1150,325" font="Regular;30" valign="bottom" foregroundColor="white" backgroundColor="header" transparent="1" zPosition="1" />
+        <widget source="Event" render="iBackdropX" nextEvent="0" alphatest="blend" position="center,center" size="1796,896" cornerRadius="15" zPosition="-1" />
+        <eLabel name="" position="center,center" size="1796,896" cornerRadius="15" zPosition="-2" />
+        <eLabel position="center,center" size="1800,900" backgroundColor="ltbluette" cornerRadius="15" transparent="0" zPosition="-3" />
+        <ePixmap alphatest="blend" pixmap="difuse.png" position="center,center" size="1796,896" cornerRadius="15" transparent="0" zPosition="-1" />
+    <widget font="Regular; 100" noWrap="1" foregroundColor="yellow" backgroundColor="header" position="80,120" size="1000,350" source="Event" render="Label" transparent="1" zPosition="1" valign="top">
+  <convert type="EventName">Name</convert>
+</widget></screen>

@@ -1,0 +1,49 @@
+<screen name="MenuTemplate">
+  <panel name="p700_Template_black" />
+  <panel name="p700_Logo" />
+  <panel name="s_RGYB" />
+  <!-- menu images -->
+  <widget name="menuimage" position="850,650" size="0,0" scale="1" zPosition="2" alphatest="blend" conditional="menuimage" scaleFlags="scaleCenter" transparent="1" />
+  <ePixmap position="850,650" size="250,250" scale="1" pixmap="menu/setup_selection.png" alphatest="blend" />
+  <widget source="description" render="Label" position="1155,955" size="750,95" cornerRadius="10" conditional="description" font="Regular;27" valign="center" halign="center" foregroundColor="ltbluette" backgroundColor="header">
+    <convert type="ConditionalShowHide" />
+  </widget>
+  <!-- menu list -->
+  <widget source="menu" render="Listbox" position="80,180" size="700,720" scrollbarForegroundColor="ltbluette" scrollbarBorderWidth="1" scrollbarBorderColor="ltbluette" scrollbarWidth="5" scrollbarRadius="5" scrollbarMode="showOnDemand" enableWrapAround="1" zPosition="1" foregroundColor="ltbluette" foregroundColorSelected="white" backgroundColor="header" backgroundColorSelected="bluette" itemCornerRadius="15" selectionZoom="4" itemHeight="60" transparent="1">
+    <convert type="TemplatedMultiContent">
+				{"templates":
+					{"default": (60,[
+						MultiContentEntryText(pos = (20, 0), size = (650, 60), flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 0)
+						]),
+					"text": (60,[
+						MultiContentEntryText(pos = (20, 0), size = (650, 60), flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 3)
+						]),
+					"number": (60,[
+						MultiContentEntryText(pos = (20, 0), size = (40, 60), font = 1, flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, text = 2),
+						MultiContentEntryText(pos = (80, 0), size = (650, 60), font = 1, flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 3),
+						]),
+					"image": (60,[
+						MultiContentEntryPixmapAlphaBlend(pos = (25, 10), size = (40, 40), png = 1, flags = BT_SCALE),
+						MultiContentEntryText(pos = (113, 0), size = (650, 60), font = 1, flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 3),
+						]),
+					"both": (60,[
+						MultiContentEntryPixmapAlphaBlend(pos = (25, 10), size = (40, 40), png = 1, flags = BT_SCALE),
+						MultiContentEntryText(pos = (95, 0), size = (40, 60), font = 2, flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, text = 2),
+						MultiContentEntryText(pos = (150, 0), size = (650, 60), font = 2, flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 3),
+						])
+					},
+				"fonts": [gFont("Regular", 35),gFont("Regular", 35),gFont("Regular", 35)],
+				"itemHeight": 60,
+				}
+			</convert>
+  </widget>
+  <!--<widget source="key_menu" render="Label" position="838,860" size="140,40" backgroundColor="bluette" font="Regular;20" foregroundColor="white" halign="center" valign="center">
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="key_help" render="Label" position="988,860" size="140,40" backgroundColor="bluette" font="Regular;20" foregroundColor="white" halign="center" valign="center">
+			<convert type="ConditionalShowHide" />
+		</widget>-->
+  <widget source="key_menu" render="Label" position="1015,988" size="0,0" cornerRadius="10" backgroundColor="bluette" font="Regular; 20" foregroundColor="white" halign="center" valign="center">
+    <convert type="ConditionalShowHide" />
+  </widget>
+</screen>

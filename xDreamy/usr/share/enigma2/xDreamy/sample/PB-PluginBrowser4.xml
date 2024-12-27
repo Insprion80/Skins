@@ -1,0 +1,23 @@
+<screen name="PluginBrowserGrid" position="0,0" size="1920,1080" flags="wfNoBorder" backgroundColor="transparent">
+  <panel name="p800_Template" />
+  <panel name="p800_Ext" />
+  <panel name="Box_Info" />
+  <panel name="s_RGYB" />
+  <panel name="ME" />
+  <panel name="p800_Date" />
+  <widget name="description" position="80,160" size="1140,50" font="Regular;34" transparent="1" zPosition="1" backgroundColor="header" foregroundColor="ltbluette" valign="center" />
+  <widget source="pluginGrid" render="Listbox" position="80,225" size="1140,700" backgroundColor="header" transparent="1" zPosition="1" itemSpacing="12,20" selectionZoom="5" scrollbarBorderColor="#000000" backgroundColorSelected="bluette" scrollbarRadius="5" scrollbarMode="showOnDemand" scrollbarForegroundColor="ltbluette" scrollbarWidth="5" itemCornerRadius="10" listOrientation="grid" moveBackgroundColor="bluette">
+    <convert type="TemplatedMultiContent">
+				{
+					"template": [
+						MultiContentEntryText(pos = (10, 60), size = (130, 40), font=0, color=0x00aaaaaa, color_sel=0x00ffc000, flags = RT_VALIGN_CENTER|RT_HALIGN_CENTER|RT_WRAP, text=1),
+						MultiContentEntryPixmapAlphaBlend(pos=(10, 10), size=(130, 50), png=3, flags=BT_SCALE)
+					],
+					"fonts": [gFont("Regular", 18),gFont("Regular", 16)],
+					"itemWidth": 150,
+					"itemHeight": 100
+				}
+			</convert>
+  </widget>
+  <widget name="quickselect" position="76,160" size="1140,788" backgroundColor="header" foregroundColor="white" font="Regular;150" halign="center" transparent="1" valign="center" zPosition="1" />
+</screen>

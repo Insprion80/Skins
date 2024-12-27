@@ -1,0 +1,86 @@
+<screen name="EventView" position="fill" flags="wfNoBorder">
+<panel name="RSE1" />
+  <widget name="epg_description" position="15,550" size="1250,250" valign="bottom" font="Regular;34" foregroundColor="white" backgroundColor="header" transparent="1" zPosition="1" />
+  <widget source="Event" render="iBackdropX" alphatest="blend" position="0,0" size="1920,1080" zPosition="-1" />
+  
+  <ePixmap alphatest="blend" pixmap="difuse.png" position="0,0" size="1920,1080" cornerRadius="0" transparent="0" zPosition="-1" />
+  <!-- PosterX Name -->
+  <widget source="Event" render="iPosterX" nexts="1" position="31,815" size="170,240" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="2" position="217,815" size="170,240" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="3" position="403,815" size="170,240" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="4" position="589,815" size="170,240" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="5" position="775,815" size="170,240" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="6" position="961,815" size="170,240" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="7" position="1147,815" size="170,240" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="8" position="1333,815" size="170,240" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="9" position="1519,815" size="170,240" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="10" position="1705,815" size="170,240" cornerRadius="20" zPosition="1" />
+  <!-- Side Column Data -->
+  <widget alphatest="blend" pixmap="icons/art/ico_rec_on.png" position="1765,650" render="Pixmap" size="54,23" source="session.RecordState" zPosition="1">
+    <convert type="ConditionalShowHide">Blink</convert>
+  </widget>
+  <eLabel text="You're watching..." position="1390,700" size="365,40" transparent="1" valign="top" zPosition="1" halign="center" font="Regular; 30" foregroundColor="ltbluette" backgroundColor="header" />
+  <widget halign="center" font="Regular; 40" noWrap="1" foregroundColor="yellow" backgroundColor="transpBlack" options="movetype=running,direction=left,startpoint=0,startdelay=6000,wrap=1,always=0,repeat=5,oneshot=1" position="1280,230" render="iRunningText" size="575,50" source="Event" transparent="1" zPosition="1">
+    <convert type="EventName">Name</convert>
+  </widget>
+  <ePixmap alphatest="blend" pixmap="icons/art/ico_hbbtv_off.png" position="1408,650" size="64,25" zPosition="1" />
+  <widget alphatest="blend" pixmap="icons/art/ico_hbbtv_on.png" position="1408,650" render="Pixmap" size="64,25" source="session.CurrentService" zPosition="1">
+    <convert type="ServiceInfo">HasHBBTV</convert>
+    <convert type="ConditionalShowHide" />
+  </widget>
+  <ePixmap alphatest="blend" pixmap="icons/art/ico_txt_off.png" position="1543,650" size="32,25" zPosition="1" />
+  <widget alphatest="blend" pixmap="icons/art/ico_txt_on.png" position="1543,650" render="Pixmap" size="32,25" source="session.CurrentService" zPosition="1">
+    <convert type="ServiceInfo">HasTelext</convert>
+    <convert type="ConditionalShowHide" />
+  </widget>
+  <ePixmap alphatest="blend" pixmap="icons/art/ico_dolby_off.png" position="1490,650" size="36,25" zPosition="1" />
+  <widget alphatest="blend" pixmap="icons/art/ico_dolby_on.png" position="1489,650" render="Pixmap" size="36,25" source="session.CurrentService" zPosition="1">
+    <convert type="ServiceInfo">IsMultichannel</convert>
+    <convert type="ConditionalShowHide" />
+  </widget>
+  <widget alphatest="blend" pixmap="icons/art/ico_sd_off.png" position="1655,650" render="Pixmap" size="49,25" source="session.CurrentService" zPosition="1">
+    <convert type="ServiceInfo">VideoWidth</convert>
+    <convert type="ValueRange">0,720</convert>
+    <convert type="ConditionalShowHide" />
+  </widget>
+  <widget alphatest="blend" pixmap="icons/art/ico_hd_on.png" position="1655,650" render="Pixmap" size="49,25" source="session.CurrentService" zPosition="1">
+    <convert type="ServiceInfo">IsHD</convert>
+    <convert type="ConditionalShowHide" />
+  </widget>
+  <widget alphatest="blend" pixmap="icons/art/ico_uhd_on.png" position="1655,650" render="Pixmap" size="49,25" source="session.CurrentService" zPosition="1">
+    <convert type="ServiceInfo">Is4K</convert>
+    <convert type="ConditionalShowHide" />
+  </widget>
+  <ePixmap alphatest="blend" pixmap="icons/art/ico_format_off.png" position="1592,650" size="47,25" zPosition="1" />
+  <widget alphatest="blend" pixmap="icons/art/ico_format_on.png" position="1593,650" render="Pixmap" size="47,25" source="session.CurrentService" zPosition="1">
+    <convert type="ServiceInfo">IsWidescreen</convert>
+    <convert type="ConditionalShowHide" />
+  </widget>
+  <ePixmap alphatest="blend" pixmap="icons/art/ico_crypt_off.png" position="1720,650" size="37,25" zPosition="1" />
+  <widget alphatest="blend" pixmap="icons/art/ico_crypt_on.png" position="1720,650" render="Pixmap" size="37,25" source="session.CurrentService" zPosition="1">
+    <convert type="ServiceInfo">IsCrypted</convert>
+    <convert type="ConditionalShowHide" />
+  </widget>
+  <widget source="session.Event_Now" render="Progress" position="1365,625" size="425,10" backgroundColor="header" pixmap="buttons/bar_progress_big.png" borderWidth="2" borderColor="darkgrey" cornerRadius="10" zPosition="1" transparent="1">
+    <convert type="EventTime">Progress</convert>
+  </widget>
+  <eLabel backgroundColor="transpBlack" font="Regular; 30" foregroundColor="white" halign="right" position="1370,480" size="280,40" text="Program Duration:" transparent="1" zPosition="1" />
+  <widget backgroundColor="transpBlack" font="Regular; 32" foregroundColor="white" valign="center" halign="center" name="channel" position="1280,170" size="575,50" transparent="1" zPosition="1" />
+  <widget name="datetime" position="1335,425" size="467,40" backgroundColor="header" font="Regular; 30" foregroundColor="white" halign="center" transparent="1" zPosition="1" />
+  <widget backgroundColor="transpBlack" font="Regular; 30" foregroundColor="red" halign="left" name="duration" position="1654,480" size="190,40" transparent="1" zPosition="1" />
+  <ePixmap alphatest="blend" pixmap="icons/art/left.png" position="1295,427" size="36,36" transparent="1" zPosition="1" />
+  <ePixmap alphatest="blend" pixmap="icons/art/right.png" position="1804,427" size="36,36" transparent="1" zPosition="1" />
+  <widget foregroundColor="yellow" backgroundColor="transpBlack" font="Regular; 32" halign="center" noWrap="1" options="movetype=running,direction=left,startpoint=0,startdelay=6000,wrap=1,always=0,repeat=5,oneshot=1" position="1280,750" render="iRunningText" size="575,50" source="session.Event_Now" transparent="1" zPosition="1">
+    <convert type="EventName">Name</convert>
+  </widget>
+  <widget alphatest="blend" position="1451,55" render="Picon" size="200,100" source="Service" transparent="1" zPosition="1">
+    <convert type="ServiceName">Reference</convert>
+  </widget>
+
+  <widget source="Event" render="Label" text="GenreList" position="1280,530" size="580,80" halign="center" font="Regular; 34" transparent="1" backgroundColor="header" zPosition="1" foregroundColor="ltbluette">
+    <convert type="EventName">GenreList</convert>
+  </widget>
+  <widget font="Regular; 100" noWrap="1" foregroundColor="yellow" backgroundColor="header" position="15,50" size="1000,350" source="Event" render="Label" transparent="1" zPosition="1" valign="top">
+  <convert type="EventName">Name</convert>
+</widget>
+</screen>

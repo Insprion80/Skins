@@ -1,0 +1,45 @@
+<screen name="EPGSelectionMulti" title="EPG Selection" position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder">
+  <panel name="p800_Template" />
+  <panel name="p800_Ext" />
+  <panel name="s_RGYB" />
+  <panel name="p800_Date" />
+  <panel name="MI" />
+  <widget name="date" position="780,198" size="0,0" font="Regular;33" foregroundColor="white" backgroundColor="header" valign="center" halign="right" transparent="1" />
+  <widget name="list" position="105,270" size="0,0" itemHeight="45" EventFontMulti="Regular;30" backgroundColor="header" foregroundColor="white" scrollbarRadius="5" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="0" />
+  <widget name="lab1" position="150,450" size="0,0" font="Regular;36" halign="center" valign="center" zPosition="20" backgroundColor="header" foregroundColor="white" transparent="1" />
+  <widget name="bouquetlist" position="113,405" size="1050,53" zPosition="1" itemHeight="53" font="Regular;36" backgroundColor="header" foregroundColor="white" transparent="0" scrollbarMode="showNever" />
+  <widget name="now_button" pixmap="buttons/epg_off.png" position="80,150" size="200,40" alphatest="blend" zPosition="1" />
+  <widget name="now_button_sel" pixmap="buttons/epg_now_on.png" position="80,150" size="200,40" alphatest="blend" zPosition="1" />
+  <widget name="now_text" text="NOW" size="200,40" position="80,150" font="Regular;30" valign="center" halign="center" backgroundColor="bluette" zPosition="1" transparent="1" />
+  <widget name="next_button" pixmap="buttons/epg_off.png" position="520,150" size="200,40" alphatest="blend" zPosition="1" />
+  <widget name="next_button_sel" pixmap="buttons/epg_next_on.png" position="520,150" size="200,40" alphatest="blend" zPosition="1" />
+  <widget name="next_text" text="NEXT" size="200,40" position="520,150" font="Regular;30" valign="center" halign="center" backgroundColor="bluette" zPosition="1" transparent="1" />
+  <widget name="more_button" pixmap="buttons/epg_off.png" position="910,150" size="200,40" alphatest="blend" zPosition="1" />
+  <widget name="more_button_sel" pixmap="buttons/epg_next_on.png" position="910,150" size="200,40" alphatest="blend" zPosition="1" />
+  <widget name="more_text" text="MORE" size="200,40" position="910,150" font="Regular;30" valign="center" halign="center" backgroundColor="bluette" zPosition="1" transparent="1" />
+  <eLabel position="80,202" size="1150,1" backgroundColor="#10404040" zPosition="1" />
+  <widget name="list" position="80,208" size="1150,540" font="Regular; 25" backgroundColorSelected="bluette" itemCornerRadius="12" scrollbarForegroundColor="ltbluette" scrollbarBorderWidth="1" scrollbarBorderColor="ltbluette" scrollbarWidth="8" itemHeight="45" scrollbarRadius="5" scrollbarMode="showOnDemand" transparent="1" foregroundColorServiceNotAvail="NoColor" colorEventProgressbar="bluette" colorEventProgressbarSelected="yellow" colorServiceDescriptionSelected="NoColor" colorServiceDescription="NoColor" foregroundColorSelected="NoColor" colorEventProgressbarBorder="bluette" colorEventProgressbarBorderSelected="white" />
+  <!-- Event Name -->
+  <widget source="Event" render="iRunningText" font="Regular;34" foregroundColor="yellow" backgroundColor="header" position="1290,150" halign="center" options="movetype=running,startpoint=0,startdelay=2000,wrap=0,always=0,repeat=2,oneshot=1" size="550,60" transparent="1" noWrap="1">
+    <convert type="EventName">Name</convert>
+  </widget>
+  <!-- Time -->
+  <widget source="Event" render="Label" position="1290,240" size="160,40" font="Regular;32" halign="left" foregroundColor="ltbluette" backgroundColor="header" transparent="1" zPosition="1">
+    <convert type="EventTime">StartTime</convert>
+    <convert type="ClockToText">Format:%H:%M</convert>
+  </widget>
+  <widget source="Event" render="Label" position="1680,240" size="160,40" font="Regular;32" halign="right" foregroundColor="red" backgroundColor="header" transparent="1" zPosition="1">
+    <convert type="EventTime">EndTime</convert>
+    <convert type="ClockToText">Format:%H:%M</convert>
+  </widget>
+  <widget source="Event" render="Progress" position="1290,225" size="550,5" backgroundColor="NoColor" borderWidth="1" foregroundColor="NoColor" transparent="1" zPosition="1" cornerRadius="10" foregroundGradient="green,yellow,red,vertikal" borderColor="grey">
+    <convert type="EventTime">Progress</convert>
+  </widget>
+  <widget source="Event" render="iRunningText" position="80,780" size="1150,150" halign="center" foregroundColor="ltbluette" options="movetype=running,direction=top,startpoint=0,startdelay=5000,wrap=1,always=0,repeat=2,oneshot=1" zPosition="1" font="Regular; 25" backgroundColor="header" transparent="1">
+    <convert type="EventName">ExtendedDescription</convert>
+  </widget>
+  <widget name="number" position="990,500" size="0,0" font="Regular;34" halign="left" foregroundColor="ltbluette" backgroundColor="header" transparent="1" zPosition="1" />
+  <widget source="Event" render="iPosterX" position="1337,300" cornerRadius="15" size="447,601" zPosition="2" borderWidth="5" borderColor="ltbluette" transparent="0" />
+  <eLabel name="" text="XDREAMY" position="1400,590" size="330,47" font="Eurofighteroutital; 35" halign="center" foregroundColor="ltbluette" transparent="1" zPosition="1" />
+  <ePixmap name="" position="1415,331" size="300,250" scale="1" pixmap="imagelogo.png" alphatest="blend" zPosition="1" transparent="1" />
+</screen>

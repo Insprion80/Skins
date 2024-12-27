@@ -1,0 +1,44 @@
+<screen name="ChannelSelection" position="0,0" size="1920,1080" title="Channel Selection" backgroundColor="transparent" flags="wfNoBorder">
+  <panel name="CLB" />
+  <panel name="CLH_Template" />
+  <panel name="CLF_Template" />
+  <panel name="RS" />
+  <panel name="CLC" />
+  <!--  Event Name -->
+  <widget source="ServiceEvent" render="iRunningText" position="1325,110" size="575,40" font="Regular;34" foregroundColor="ltbluette" backgroundColor="black" transparent="1" zPosition="1" borderWidth="1" borderColor="black" options="movetype=swimming,direction=right,repeat=4,steptime=40,startdelay=2000,halign=block,startpoint=0,wrap=1,always=0,oneshot=0" halign="center">
+    <convert type="EventName">Name</convert>
+  </widget>
+  <!-- Channel MiniTV-->
+  <widget source="session.VideoPicture" render="Pig" position="1327,157" cornerRadius="15" size="571,331" transparent="0" backgroundColor="transparent" zPosition="1" />
+  <widget source="session.CurrentService" render="Label" position="1327,425" size="571,45" font="Regular; 30" zPosition="2" halign="center" valign="center" noWrap="1" transparent="0" borderWidth="0" borderColor="transpWhite" backgroundColor="transpBlack">
+    <convert type="ServiceName">Name</convert>
+  </widget>
+  <eLabel name="" position="1325,155" size="575,335" cornerRadius="15" backgroundColor="ltbluette" />
+  <!-- Progress bar */ -->
+  <widget source="ServiceEvent" render="Progress" position="1415,510" size="425,10" backgroundColor="header" pixmap="buttons/bar_progress_big.png" scale="1" borderWidth="2" borderColor="darkgrey" cornerRadius="10" zPosition="1" transparent="1">
+    <convert type="EventTime">Progress</convert>
+  </widget>
+  <widget source="ServiceEvent" render="Label" position="1334,500" size="80,30" font="Regular; 24" foregroundColor="white" backgroundColor="black" transparent="1" borderWidth="1" borderColor="black" zPosition="1" halign="right">
+    <convert type="EventTime">StartTime</convert>
+    <convert type="ClockToText">Format:%H:%M</convert>
+  </widget>
+  <widget source="ServiceEvent" render="Label" position="1840,500" size="80,30" backgroundColor="black" transparent="1" zPosition="1" foregroundColor="red" font="Regular; 24" halign="left" borderWidth="1" borderColor="black">
+    <convert type="EventTime">EndTime</convert>
+    <convert type="ClockToText">Format:%H:%M</convert>
+  </widget>
+  <!--  Stars Rating -->
+  <!-- iPosterX Posters -->
+  <widget source="ServiceEvent" render="iPosterX" nexts="0" position="1030,115" cornerRadius="15" size="275,380" zPosition="1" borderWidth="2" borderColor="grey" />
+  <widget source="ServiceEvent" render="iPosterX" nexts="1" position="1030,550" cornerRadius="15" size="130,190" zPosition="1" borderWidth="2" borderColor="grey" />
+  <widget source="ServiceEvent" render="iPosterX" nexts="2" position="1180,550" cornerRadius="15" size="130,190" zPosition="1" borderWidth="2" borderColor="grey" />
+  <widget source="ServiceEvent" render="iPosterX" nexts="3" position="1328,550" cornerRadius="15" size="130,190" zPosition="1" borderWidth="2" borderColor="grey" />
+  <widget source="ServiceEvent" render="iPosterX" nexts="4" position="1477,550" cornerRadius="15" size="130,190" zPosition="1" borderWidth="2" borderColor="grey" />
+  <widget source="ServiceEvent" render="iPosterX" nexts="5" position="1625,550" cornerRadius="15" size="130,190" zPosition="1" borderWidth="2" borderColor="grey" />
+  <widget source="ServiceEvent" render="iPosterX" nexts="6" position="1773,550" cornerRadius="15" size="130,190" zPosition="1" borderWidth="2" borderColor="grey" />
+  <widget source="ServiceEvent" render="iPosterX" nexts="7" position="1030,750" cornerRadius="15" size="130,190" zPosition="1" borderWidth="2" borderColor="grey" />
+  <widget source="ServiceEvent" render="iPosterX" nexts="8" position="1180,750" cornerRadius="15" size="130,190" zPosition="1" borderWidth="2" borderColor="grey" />
+  <widget source="ServiceEvent" render="iPosterX" nexts="9" position="1328,750" cornerRadius="15" size="130,190" zPosition="1" borderWidth="2" borderColor="grey" />
+  <widget source="ServiceEvent" render="iPosterX" nexts="10" position="1477,750" cornerRadius="15" size="130,190" zPosition="1" borderWidth="2" borderColor="grey" />
+  <widget source="ServiceEvent" render="iPosterX" nexts="11" position="1625,750" cornerRadius="15" size="130,190" zPosition="1" borderWidth="2" borderColor="grey" />
+  <widget source="ServiceEvent" render="iPosterX" nexts="12" position="1773,750" cornerRadius="15" size="130,190" zPosition="1" borderWidth="2" borderColor="grey" />
+</screen>

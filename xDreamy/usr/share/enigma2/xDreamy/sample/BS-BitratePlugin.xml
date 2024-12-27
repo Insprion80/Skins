@@ -1,0 +1,12 @@
+<screen name="Bitrate">
+
+    <eLabel text="Video Type:" position="550,137" size="160,26" font="Regular; 22" borderWidth="1" backgroundColor="header" transparent="1" zPosition="1" halign="right" foregroundColor="ltbluette" noWrap="1"/>
+
+    <eLabel text="Video Bitrate:" position="850,137" size="160,26" font="Regular; 22" borderWidth="1" backgroundColor="header" transparent="1" zPosition="1" halign="right" foregroundColor="ltbluette" noWrap="1"/>
+    
+    <eLabel text="Audio Bitrate:" position="1150,137" size="160,26" font="Regular; 22" borderWidth="1" backgroundColor="header" transparent="1" zPosition="1" halign="right" foregroundColor="ltbluette" noWrap="1"/>
+
+    <widget source="session.CurrentService" render="Label" position="715,137" size="130,26" font="Regular; 22" zPosition="1" backgroundColor="header" transparent="1" halign="left">
+        <convert type="iEcmInfo">vtype</convert>
+    </widget>
+</screen>

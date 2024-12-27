@@ -1,0 +1,38 @@
+<screen name="PluginBrowserGrid" position="0,0" size="1920,1080" flags="wfNoBorder" backgroundColor="#44000000">
+  <widget source="Title" render="Label" position="150,15" size="900,100" font="Regular;80" valign="center" foregroundColor="ltbluette" backgroundColor="header" transparent="1" zPosition="5" />
+  <widget source="global.CurrentTime" render="Label" position="1492,15" size="400,100" font="Regular; 75" halign="right" backgroundColor="header" transparent="1" foregroundColor="ltbluette">
+    <convert type="ClockToText" />
+  </widget>
+  <widget render="Label" source="global.CurrentTime" backgroundColor="header" position="1128,105" size="762,50" font="Regular;40" halign="right" transparent="1">
+    <convert type="ClockToText">FullDate</convert>
+  </widget>
+  <eLabel position="67,1065" size="300,8" backgroundColor="#ff2525" foregroundColor="#ff2525" cornerRadius="10" zPosition="4" />
+  <eLabel position="393,1065" size="300,8" backgroundColor="#389416" foregroundColor="#389416" cornerRadius="10" zPosition="4" />
+  <eLabel position="719,1065" size="300,8" backgroundColor="#ffff00" foregroundColor="#ffff00" cornerRadius="10" zPosition="4" />
+  <eLabel position="1045,1065" size="300,8" backgroundColor="#2b68ff" foregroundColor="#2b68ff" cornerRadius="10" zPosition="4" />
+  <widget source="key_red" render="Label" position="67,1013" size="300,50" font="Regular;32" zPosition="1" halign="center" valign="center" foregroundColor="white" backgroundColor="header" transparent="1" />
+  <widget source="key_green" render="Label" position="393,1013" size="300,50" font="Regular;32" zPosition="5" halign="center" valign="bottom" foregroundColor="white" backgroundColor="header" transparent="1" />
+  <widget source="key_yellow" render="Label" position="719,1013" size="300,50" font="Regular;32" zPosition="1" halign="center" valign="center" foregroundColor="white" backgroundColor="header" transparent="1" />
+  <widget source="key_blue" render="Label" position="1045,1013" size="300,50" font="Regular;32" zPosition="1" halign="center" valign="center" foregroundColor="white" backgroundColor="header" transparent="1" />
+  <widget source="key_menu" render="Label" position="1715,1028" cornerRadius="20" size="120,40" backgroundColor="bluette" font="Regular;22" foregroundColor="white" halign="center" valign="center">
+    <convert type="ConditionalShowHide" />
+  </widget>
+  <widget name="description" position="20,125" size="1500,100" font="Regular;40" transparent="1" zPosition="5" backgroundColor="header" foregroundColor="yellow" valign="center" />
+  <widget source="pluginGrid" render="Listbox" position="20,235" size="1895,720" backgroundColor="header" transparent="1" zPosition="5" itemSpacing="15,15" selectionZoom="3" scrollbarBorderColor="#000000" backgroundColorSelected="bluette" scrollbarRadius="5" scrollbarMode="showOnDemand" scrollbarForegroundColor="ltbluette" scrollbarWidth="5" itemCornerRadius="17" listOrientation="grid" moveBackgroundColor="bluette">
+    <convert type="TemplatedMultiContent">
+				{
+					"template": [
+						MultiContentEntryText(pos = (0, 0), size = (300, 165), font=0),
+						MultiContentEntryText(pos = (20, 100), size = (260, 60), font=0, color=0x00aaaaaa, color_sel=0x00ffc000, flags = RT_VALIGN_CENTER|RT_HALIGN_CENTER|RT_WRAP, text=1),
+						MultiContentEntryPixmapAlphaBlend(pos=(50, 15), size=(200, 70), png=3, flags=BT_SCALE)
+					],
+					"fonts": [gFont("Regular", 28),gFont("Regular", 22)],
+					"itemWidth": 300,
+					"itemHeight": 165
+				}
+			</convert>
+  </widget>
+  <widget name="quickselect" position="75,120" size="1140,788" backgroundColor="header" foregroundColor="white" font="Regular;150" halign="center" transparent="1" valign="center" zPosition="5" />
+  <widget name="background" position="0,0" size="1933,1080" zPosition="-2" alphatest="off" conditional="background" />
+  <ePixmap position="10,15" size="110,100" scale="1" pixmap="imagelogo.png" alphatest="blend" zPosition="2" />
+</screen>

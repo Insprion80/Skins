@@ -1,0 +1,24 @@
+<screen name="VirtualKeyBoard" position="0,0" size="1920,1080" zPosition="99" title="Virtual KeyBoard" flags="wfNoBorder" backgroundColor="transparent">
+  <panel name="s_RGYB" />
+  <panel name="p800_Template_notime_plugin" />
+  <widget source="global.CurrentTime" render="Label" position="1067,32" size="200,100" font="Regular;85" backgroundColor="#40000000" transparent="1">
+    <convert type="ClockToText">Default</convert>
+  </widget>
+  <widget source="global.CurrentTime" render="Label" position="840,40" size="220,40" font="Regular;30" halign="right" backgroundColor="#40000000" transparent="1" foregroundColor="#bbbbbb">
+    <convert type="ClockToText">Format: %A</convert>
+  </widget>
+  <widget source="global.CurrentTime" render="Label" position="841,80" size="220,40" font="Regular;30" halign="right" backgroundColor="#40000000" foregroundColor="#bbbbbb" transparent="1">
+    <convert type="ClockToText">Format: %e. %B</convert>
+  </widget>
+  <eLabel text="Virtual KeyBoard" position="501,813" size="800,100" font="Regular; 40" foregroundColor="white" backgroundColor="#40000000" transparent="1" />
+  <widget name="header" position="120,170" size="1050,60" font="Regular;42" foregroundColor="white" backgroundColor="#40000000" halign="center" transparent="1" noWrap="1" />
+  <eLabel position="120,245" size="970,90" zPosition="1" backgroundColor="white" />
+  <eLabel position="121,246" size="968,88" zPosition="2" backgroundColor="#40000000" />
+  <widget source="country" render="Pixmap" position="1096,262" size="86,63" alphatest="blend" borderWidth="2" borderColor="yellow">
+    <convert type="ValueToPixmap">LanguageCode</convert>
+  </widget>
+  <widget name="text" position="121,246" size="968,88" zPosition="3" font="Regular;60" foregroundColor="white" backgroundColor="#40000000" noWrap="1" halign="right" />
+  <widget name="list" position="123,340" size="970,375" foregroundColor="white" backgroundColor="black" selectionDisabled="1" transparent="1" scrollbarMode="showNever" />
+  <ePixmap position="1017,724" size="200,200" scale="1" zPosition="2" pixmap="icons/keyb.png" transparent="1" alphatest="blend" />
+  <eLabel text="XDREAMY" position="123,812" size="800,110" font="Eurofighteroutital; 50" backgroundColor="header" transparent="1" foregroundColor="ltbluette" borderWidth="2" borderColor="bluette" />
+</screen>

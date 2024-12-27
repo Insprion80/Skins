@@ -1,0 +1,18 @@
+  <screen name="VirtualKeyBoard" title="Virtual KeyBoard" position="480,200" size="1025,644" cornerredius="12" flags="wfNoBorder" backgroundColor="ltbluette" zPosition="99">
+    <eLabel position="25,130" size="971,81" backgroundColor="header" zPosition="1" borderWidth="2" borderColor="grey" />
+    <widget name="text" position="25,130" size="971,81" font="Regular; 30" transparent="1" noWrap="1" halign="right" foregroundColor="yellow" backgroundColor="header" zPosition="5" />
+    <widget name="prompt" conditional="prompt" position="25,15" size="975,100" font="Regular; 30" backgroundColor="header" foregroundColor="ltbluette" halign="left" transparent="1" noWrap="1" />
+    <widget name="header" conditional="header" position="25,15" size="975,100" font="Regular;34" backgroundColor="header" halign="left" transparent="1" noWrap="1" />
+    <widget name="list" position="40,225" size="950,350" font="Regular; 40" foregroundColor="ltbluette" backgroundColor="header" selection="1" transparent="1" itemHeight="70" itemcornerredius="10" />
+    <widget name="mode" conditional="mode" position="5,10" size="0,0" font="Regular;30" backgroundColor="header" foregroundColor="yellow" halign="left" transparent="1" noWrap="1" />
+    <ePixmap pixmap="buttons/redpanel.png" position="30,595" size="30,30" alphatest="blend" />
+    <ePixmap pixmap="buttons/greenpanel.png" position="218,595" size="30,30" alphatest="blend" />
+    <ePixmap pixmap="buttons/bluepanel.png" position="408,596" size="30,30" alphatest="blend" />
+    <widget name="locale" conditional="locale" position="1215,615" size="0,0" font="Regular;30" foregroundColor="ltbluette" halign="center" backgroundColor="header" valign="center" transparent="1" />
+    <widget name="language" conditional="language" position="0,0" size="0,0" font="Regular;30" backgroundColor="header" foregroundColor="ltbluette" transparent="1" noWrap="1" />
+    <eLabel text="Cancel" position="66,590" size="120,40" font="Regular;30" halign="left" foregroundColor="grey" backgroundColor="header" transparent="1" zPosition="2" />
+    <eLabel text="Save" position="254,590" size="120,40" font="Regular;30" halign="left" foregroundColor="grey" backgroundColor="header" transparent="1" zPosition="2" />
+    <eLabel text="Upper" position="444,590" size="120,40" cornerredius="12" font="Regular;30" halign="left" foregroundColor="grey" backgroundColor="header" transparent="1" zPosition="2" />
+    <eLabel name="" position="2,2" size="1021,640" cornerredius="12" zPosition="-10" />
+    <eLabel name="" text="XDREAMY" position="699,590" size="300,47" font="Eurofighteroutital; 46" foregroundColor="ltbluette" transparent="1" zPosition="10" />
+  </screen>

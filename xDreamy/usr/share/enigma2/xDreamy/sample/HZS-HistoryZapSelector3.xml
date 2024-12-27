@@ -1,0 +1,22 @@
+    <screen name="HistoryZapSelector" title="History Zap" position="fill" backgroundColor="transparent" flags="wfNoBorder" size="1920,1080">
+        <panel name="p8000_Template"/>
+        <panel name="p8001_Ext"/>
+        <panel name="p800_Date"/>
+        <panel name="s_RGYB"/>
+        <eLabel text="Exit" position="1390,940" size="200,95" font="Regular;30" halign="left" valign="center" foregroundColor="white" backgroundColor="header" transparent="1" zPosition="1"/>
+        <widget source="menu" render="Listbox" position="80,160" size="1760,770" zPosition="1" scrollbarRadius="5" scrollbarMode="showOnDemand" transparent="1" backgroundColor="header" backgroundColorSelected="bluette" itemCornerRadius="12" scrollbarForegroundColor="ltbluette" scrollbarBorderWidth="1" scrollbarBorderColor="ltbluette" scrollbarWidth="8">
+            <convert type="TemplatedMultiContent">
+				 {"template": [
+						 MultiContentEntryText(pos=(200,5), size=(10,40), font=1, flags = RT_HALIGN_CENTER | RT_VALIGN_CENTER, text = 1), #Play
+						 MultiContentEntryText(pos=(250,5), size=(500,40), font=1, flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text=2, color=0x00ffffff, color_sel=0x00ffffff), # Service Name
+						 MultiContentEntryText(pos=(650,5), size=(750,40), font=2, flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text=3, color=0x00073c6ff, color_sel=0x00ffc000), # Event Name
+						 MultiContentEntryText(pos=(1350,5), size=(400,40), font=2, flags = RT_HALIGN_RIGHT, text = 5, color=0x00ff4a3c, color_sel=0x00ffc000), # Event Time
+						 MultiContentEntryText(pos=(300,50), size=(1350,65), font=3, flags = RT_HALIGN_LEFT|RT_WRAP, text = 4, color=0x00555556, color_sel=0x00ffc000), # Event Description
+						 MultiContentEntryPixmapAlphaBlend(pos=(20,15), size=(140,90), png=6, flags=BT_SCALE) # Picon
+					 ],
+					"fonts": [gFont("Regular", 40), gFont("Regular", 34), gFont("Regular", 30), gFont("Regular", 22)],
+					"itemHeight": 120
+				 }
+			 </convert>
+        </widget>
+    </screen>

@@ -1,0 +1,25 @@
+<screen name="E2iPlayerWidget" position="fill" title="IPTV Player" backgroundColor="transparent" flags="wfNoBorder">
+  <panel name="p800_Template" />
+  <panel name="p800_Logo" />
+  <panel name="p800_Date" />
+  <panel name="s_RGYB1" />
+  <panel name="p800_Ext_BiN" />
+  <widget source="key_red" render="Label" position="125,955" size="210,95" zPosition="1" font="Regular;30" halign="left" valign="center" foregroundColor="#b0b0b0" backgroundColor="header" transparent="1" />
+  <widget name="key_green_ext" position="400,955" size="400,95" zPosition="1" font="Regular;30" halign="left" valign="center" foregroundColor="#b0b0b0" backgroundColor="header" transparent="1" />
+  <widget source="key_yellow" render="Label" position="680,955" size="210,95" zPosition="1" font="Regular;30" halign="left" valign="center" foregroundColor="#b0b0b0" backgroundColor="header" transparent="1" />
+  <widget source="key_blue" render="Label" position="955,955" size="250,95" zPosition="1" font="Regular;30" halign="left" valign="center" foregroundColor="#b0b0b0" backgroundColor="header" transparent="1" />
+  <panel name="MI" />
+  <!-- List Channel -->
+  <widget name="list" position="80,215" size="830,720" itemCornerRadius="10" font="Regular;30" itemHeight="40" backgroundColorSelected="bluette" scrollbarRadius="5" scrollbarMode="showOnDemand" scrollbarForegroundColor="ltbluette" scrollbarBackgroundColor="header" scrollbarBorderWidth="1" scrollbarBorderColor="ltbluette" scrollbarWidth="6" transparent="0" backgroundColor="header" zPosition="1" />
+  <!--<ePixmap position="1275,156" size="120,120" pixmap="icons/miniinfo.png" alphatest="blend" zPosition="1" />-->
+  <widget name="playerlogo" position="954,499" size="251,83" alphatest="blend" transparent="1" zPosition="1" />
+  <widget name="headertext" position="80,150" size="830,60" font="Regular; 26" foregroundColor="yellow" halign="left" backgroundColor="header" transparent="1" zPosition="1" valign="top" />
+  <widget name="console" position="1275,745" size="580,180" font="Regular; 26" foregroundColor="ltbluette" halign="center" backgroundColor="header" transparent="1" zPosition="1" />
+  <widget name="spinner" position="1310,100" size="15,15" transparent="1" alphatest="blend" zPosition="1" />
+  <widget name="spinner_1" position="1327,100" size="15,15" transparent="1" alphatest="blend" zPosition="1" />
+  <widget name="spinner_2" position="1344,100" size="15,15" transparent="1" alphatest="blend" zPosition="1" />
+  <widget name="spinner_3" position="1361,100" size="15,15" transparent="1" alphatest="blend" zPosition="1" />
+  <widget name="spinner_4" position="1378,100" size="15,15" transparent="1" alphatest="blend" zPosition="1" />
+  <widget name="cover" position="1358,150" size="420,575" cornerRadius="15" scale="1" alphatest="blend" backgroundColor="header" transparent="1" zPosition="2" />
+  <ePixmap position="960,640" size="256,256" pixmap="menu/ico_iptv.png" alphatest="blend" />
+</screen>

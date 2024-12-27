@@ -1,0 +1,22 @@
+<screen name="EventView" position="fill" transparent="0" backgroundColor="transparent" flags="wfNoBorder">
+  <panel name="p900_Template" />
+  <panel name="p900_Ext" />
+  <panel name="s_RGYB" />
+  <panel name="Ex" />
+  <panel name="p800_Date" />
+  <panel name="Event_Info" />
+  <widget name="epg_description" position="375,235" size="850,360" font="Regular;30" foregroundColor="white" backgroundColor="transpBlack" transparent="1" zPosition="1" />
+  <!-- PosterX Name -->
+  <widget source="Event" render="iPosterX" position="80,170" size="280,430" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="1" position="80,660" size="170,250" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="2" position="277,660" size="170,250" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="3" position="471,660" size="170,250" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="4" position="665,660" size="170,250" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="5" position="860,660" size="170,250" cornerRadius="20" zPosition="1" />
+  <widget source="Event" render="iPosterX" nexts="6" position="1060,660" size="170,250" cornerRadius="20" zPosition="1" />
+  <eLabel name="" position="80,640" size="1150,2" foregroundColor="ltbluette" transparent="0" backgroundColor="ltbluette" zPosition="1" />
+  <widget font="Regular; 40" noWrap="1" foregroundColor="yellow" backgroundColor="transpBlack" position="375,170" size="850,50" source="Event" render="Label" transparent="1" zPosition="1">
+  <convert type="EventName">Name</convert>
+</widget>
+  <eLabel name="" position="375,225" size="850,1" foregroundColor="ltbluette" transparent="0" backgroundColor="ltbluette" zPosition="1" />
+</screen>

@@ -1,0 +1,43 @@
+<screen name="ChannelSelection" position="0,0" size="1920,1080" title="Channel Selection" backgroundColor="transparent" flags="wfNoBorder">
+  <panel name="CLB" />
+  <panel name="CLH_Template" />
+  <panel name="CLF_Template" />
+  <panel name="CLC1" />
+  <!-- List Channel -->
+  <!--  Event Name -->
+  <widget source="ServiceEvent" render="iRunningText" position="1175,110" size="725,40" font="Regular;34" foregroundColor="ltbluette" backgroundColor="black" transparent="1" zPosition="1" borderWidth="1" borderColor="black" options="movetype=swimming,direction=right,repeat=4,steptime=40,startdelay=2000,halign=block,startpoint=0,wrap=1,always=0,oneshot=0" halign="center">
+    <convert type="EventName">Name</convert>
+  </widget>
+  <!-- Channel MiniTV-->
+  <widget source="session.VideoPicture" render="Pig" position="1177,162" cornerRadius="15" size="721,331" transparent="0" backgroundColor="transparent" zPosition="1" />
+  <widget source="session.CurrentService" render="Label" position="1177,425" size="721,45" font="Regular; 30" zPosition="2" halign="center" valign="center" noWrap="1" transparent="0" borderWidth="0" borderColor="transpWhite" backgroundColor="transpBlack">
+    <convert type="ServiceName">Name</convert>
+  </widget>
+  <eLabel name="" position="1175,160" size="725,335" cornerRadius="15" backgroundColor="ltbluette" />
+  <!-- Rating Stars -->
+  <ePixmap pixmap="xDreamy/menu/stargrey.png" position="1375,535" size="316,27" alphatest="blend" zPosition="1" transparent="1" />
+  <widget source="ServiceEvent" render="iStarX" pixmap="xDreamy/menu/staryellow.png" position="1375,535" size="316,27" alphatest="blend" transparent="1" zPosition="1" />
+  <widget render="iParental" source="ServiceEvent" position="1179,423" size="50,50" scale="1" zPosition="1" transparent="1" alphatest="blend" />
+  <!-- List Channel -->
+  <!-- Progress bar */ -->
+  <widget source="ServiceEvent" render="Progress" position="1320,509" size="425,10" backgroundColor="header" pixmap="buttons/bar_progress_big.png" scale="1" borderWidth="2" borderColor="darkgrey" cornerRadius="10" zPosition="1" transparent="1">
+    <convert type="EventTime">Progress</convert>
+  </widget>
+  <widget source="ServiceEvent" render="Label" position="1224,500" size="80,30" font="Regular; 24" foregroundColor="white" backgroundColor="black" transparent="1" borderWidth="1" borderColor="black" zPosition="1" halign="right">
+    <convert type="EventTime">StartTime</convert>
+    <convert type="ClockToText">Format:%H:%M</convert>
+  </widget>
+  <widget source="ServiceEvent" render="Label" position="1765,500" size="80,30" backgroundColor="black" transparent="1" zPosition="1" foregroundColor="red" font="Regular; 24" halign="left" borderWidth="1" borderColor="black">
+    <convert type="EventTime">EndTime</convert>
+    <convert type="ClockToText">Format:%H:%M</convert>
+  </widget>
+  <!-- iPosterX Events */ -->
+  <widget source="ServiceEvent" render="iNxtEvnt" nxtEvents="" snglEvent="2" font="Regular;26" position="1260,750" size="650,30" halign="left" zPosition="1" foregroundColor="#eeeeee" backgroundColor="black" transparent="1" />
+  <widget source="ServiceEvent" render="iRunningText" options="movetype=running,startpoint=0,direction=top,steptime=80,repeat=0,always=0,oneshot=0,startdelay=6000,wrap=1" position="1175,575" size="725,150" font="Regular; 24" backgroundColor="transparent" valign="top" halign="left" transparent="1" zPosition="1">
+    <convert type="EventName">FullDescription</convert>
+  </widget>
+  <widget source="session.Event_Next" render="iRunningText" options="movetype=running,startpoint=0,direction=top,steptime=80,repeat=0,always=0,oneshot=0,startdelay=6000,wrap=1" position="1175,785" size="725,150" font="Regular; 24" backgroundColor="transparent" valign="top" halign="left" transparent="1" zPosition="1">
+    <convert type="EventName">FullDescription</convert>
+  </widget>
+  <eLabel name="" position="1175,750" size="80,30" font="Regular; 20" text="N E X T" backgroundColor="bluette" cornerRadius="5" halign="center" transparent="1" />
+</screen>

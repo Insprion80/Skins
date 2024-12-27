@@ -1,0 +1,17 @@
+<screen name="HistoryZapSelector" position="0,0" size="1920,1080" itemCornerRadius="12" title="History Zapping" flags="wfNoBorder" backgroundColor="transparent">
+<panel name="p500_Template" />
+  <widget source="menu" render="Listbox" position="75,160" size="650,770" itemCornerRadius="12" scrollbarRadius="5" transparent="1" scrollbarMode="showOnDemand" scrollbarForegroundColor="ltbluette" scrollbarBackgroundColor="header" scrollbarBorderWidth="1" scrollbarBorderColor="ltbluette" scrollbarWidth="6" backgroundColorSelected="bluette" zPosition="10" itemHeight="101" foregroundColorServiceNotAvail="NoColor" colorServiceDescriptionSelected="NoColor" colorServiceDescription="NoColor" foregroundColorSelected="NoColor" colorEventProgressbar="NoColor" colorEventProgressbarSelected="NoColor" colorEventProgressbarBorder="NoColor" colorEventProgressbarBorderSelected="NoColor">
+    <convert type="TemplatedMultiContent">
+				{"template": [
+						MultiContentEntryText(pos = (10, 10), size = (30, 30), font = 1, flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 1),
+						MultiContentEntryText(pos = (40, 8), size = (600, 40), font = 0, flags = RT_HALIGN_LEFT | RT_VALIGN_TOP, text = 2, color = 0x000e6583, color_sel = 0x00ffffff), #Naslov Kanala
+						MultiContentEntryText(pos = (40, 63), size = (620, 37), font = 1, flags = RT_HALIGN_LEFT | RT_VALIGN_CENTER, text = 3, color = 0x00e5b243, color_sel = 0x00e5b243), #Event Naslov
+						MultiContentEntryText(pos = (40, 39), size = (520, 32), font = 2, flags = RT_HALIGN_LEFT, text = 5, color = 0x00999999, color_sel = 0x00999999), #Vrijeme Eventa
+						MultiContentEntryPixmapAlphaBlend(pos=(580, 8), size=(100, 60), png=6, flags = BT_SCALE) # picon
+					],
+				 "fonts": [gFont("Regular", 28), gFont("Regular", 27), gFont("Regular", 25), gFont("Regular", 21)],
+				 "itemHeight": 112
+				}
+			</convert>
+  </widget>
+</screen>

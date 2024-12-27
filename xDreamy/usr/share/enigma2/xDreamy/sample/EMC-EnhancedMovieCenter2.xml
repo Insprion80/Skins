@@ -1,0 +1,50 @@
+<screen name="EMCSelectionOwn" position="fill" title="Enhanced Movie Center" backgroundColor="transparent" flags="wfNoBorder">
+  <panel name="s_RGYB" />
+  <panel name="p900_Template" />
+  <panel name="p900_Ext_BiN" />
+  <panel name="p900_Date" />
+  <!-- Cover -->
+  <!-- Logo -->
+  <ePixmap name="" position="85,200" size="230,200" scale="1" pixmap="imagelogo.png" alphatest="blend" zPosition="1" transparent="1" />
+  <widget name="Cover" position="80,160" size="240,310" cornerRadius="10" backgroundColor="unff0000" alphatest="on" zPosition="2" transparent="1" borderWidth="3" borderColor="ltbluette" />
+  <ePixmap position="350,240" size="100,100" scale="1" pixmap="icons/daytime.png" alphatest="blend" transparent="0" zPosition="1" />
+  <widget source="Service" render="Label" position="350,160" size="1500,60" font="Regular; 24" backgroundColor="header" transparent="1" valign="top">
+    <convert type="EventName">Name</convert>
+  </widget>
+  <widget source="Service" render="Label" position="453,240" size="1200,50" font="Regular; 30" halign="left" backgroundColor="header" foregroundColor="yellow" transparent="1">
+    <convert type="MovieInfo">RecordServiceName</convert>
+  </widget>
+  <widget source="Service" render="Label" position="455,300" size="120,40" font="Regular; 25" halign="left" backgroundColor="header" foregroundColor="white" transparent="1">
+    <convert type="ServiceTime">StartTime</convert>
+    <convert type="EMCClockToText">Format:%H:%M </convert>
+  </widget>
+  <widget source="Service" render="Label" position="551,300" size="120,40" font="Regular; 25" backgroundColor="header" foregroundColor="white" transparent="1">
+    <convert type="ServiceTime">EndTime</convert>
+    <convert type="EMCClockToText">Format:-  %H:%M </convert>
+  </widget>
+  <widget source="Service" render="Label" position="694,300" size="120,40" font="Regular; 25" halign="right" backgroundColor="header" foregroundColor="red" transparent="1">
+    <convert type="ServiceTime">Duration</convert>
+    <convert type="EMCClockToText">InMinutes</convert>
+  </widget>
+  <widget source="Service" render="iRunningText" position="350,350" options="movetype=running,direction=top,startpoint=0,startdelay=2000,wrap=1,always=0,repeat=3,oneshot=1" size="1500,130" font="Regular; 24" halign="left" foregroundColor="ltbluette" backgroundColor="header" transparent="1" zPosition="1">
+    <convert type="EMCEventName">FullDescription</convert>
+  </widget>
+  <widget name="list" position="80,490" size="1760,440" scrollbarRadius="5" zPosition="1" scrollbarMode="showOnDemand" scrollbarForegroundColor="ltbluette" scrollbarBackgroundColor="header" scrollbarBorderWidth="1" scrollbarBorderColor="ltbluette" scrollbarWidth="6" enableWrapAround="0" transparent="1" itemHeight="44" CoolCSPos="780" CoolBarHPos="15" CoolBarPos="840" CoolBarSizeSa="70,10" CoolDateColor="1" CoolDateFont="Regular;24" CoolDateHPos="7" CoolDatePos="930" CoolDateWidth="240" CoolDirInfoWidth="300" CoolFolderSize="1000" CoolFont="Regular;24" CoolHighlightColor="1" CoolIconPos="5" CoolIconSize="50,40" CoolMovieHPos="6" CoolMoviePiconPos="140" CoolMoviePiconSize="600" CoolMoviePos="65" CoolMovieSize="780" CoolPiconHPos="5" CoolPiconHeight="35" CoolPiconPos="40" CoolProgressPos="1040" CoolSelNumTxtWidth="50" CoolSelectFont="Regular;24" CoolTitleColor="1" DefaultColor="foreground" FinishedColor="#38FF48" RecordingColor="red" UnwatchedColor="foreground" FrontColorSel="#bababa" WatchingColor="yellow" backgroundColor="header" backgroundColorSelected="bluette" itemCornerRadius="12" />
+  <widget name="CoverBg" backgroundColor="background" position="15,655" size="0,0" zPosition="1" />
+  <widget name="wait" backgroundColor="background" position="15,655" size="0,0" zPosition="1" />
+  <widget name="Video" backgroundColor="background" position="15,655" size="0,0" zPosition="1" />
+  <widget name="CoverBgLbl" backgroundColor="background" position="15,655" size="0,0" zPosition="1" />
+  <widget name="name" position="1200,160" size="200,40" valign="center" halign="center" font="Regular;20" backgroundColor="header" foregroundColor="white" transparent="1" />
+  <widget name="artistAT" position="1200,210" size="200,40" font="Regular;19" backgroundColor="header" foregroundColor="white" transparent="1" noWrap="1" />
+  <widget name="albumAT" position="1200,260" size="200,40" font="Regular;19" backgroundColor="header" foregroundColor="white" transparent="1" noWrap="1" />
+  <widget name="genreAT" position="1200,300" size="200,40" font="Regular;19" backgroundColor="header" foregroundColor="white" transparent="1" noWrap="1" />
+  <widget name="runtimeAT" position="1200,360" size="200,40" font="Regular;19" backgroundColor="header" foregroundColor="white" transparent="1" noWrap="1" />
+  <widget name="artistATtxt" position="1400,210" size="200,40" font="Regular;18" halign="right" backgroundColor="header" foregroundColor="white" transparent="1" />
+  <widget name="albumATtxt" position="1400,260" size="200,40" font="Regular;18" halign="right" backgroundColor="header" foregroundColor="white" transparent="1" />
+  <widget name="genreATtxt" position="1400,300" size="200,40" font="Regular;18" halign="right" backgroundColor="header" foregroundColor="white" transparent="1" />
+  <widget name="runtimeATtxt" position="1400,360" size="200,40" font="Regular;18" halign="right" backgroundColor="header" foregroundColor="white" transparent="1" />
+  <widget name="date" position="1200,440" size="200,40" font="Regular;16" halign="left" backgroundColor="header" foregroundColor="white" transparent="1" />
+  <widget name="size" position="1200,400" size="200,40" font="Regular;16" halign="right" backgroundColor="header" foregroundColor="white" transparent="1" />
+  <widget source="Service" render="iPosterXEMC" position="80,160" size="240,310" cornerRadius="10" backgroundColor="white" alphatest="on" zPosition="2" />
+  <eLabel name="" text="XDREAMY" position="85,405" size="230,47" font="Eurofighteroutital; 35" halign="center" foregroundColor="ltbluette" transparent="1" zPosition="1" />
+</screen>

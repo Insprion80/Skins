@@ -1,0 +1,5 @@
+<screen name="SubtitleDisplay" position="fill" zPosition="-1" backgroundColor="transparent" flags="wfNoBorder">
+  <widget source="global.CurrentTime" render="Label" position="0,0" size="150,70" font="LCD; 60" halign="center" foregroundColor="ltbluette" backgroundColor="#101010" transparent="1" zPosition="5">
+  <convert type="ClockToText">Format:%H:%M</convert>
+</widget>
+</screen>

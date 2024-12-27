@@ -1,0 +1,4 @@
+    <!-- INSPIRON MODIFIED SCREENS -->
+  <include filename="skin_templates5.xml" />
+    <include filename="skin_base.xml" />
+</skin>

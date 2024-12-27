@@ -1,0 +1,47 @@
+<screen name="EPGSelectionMulti" title="EPG Selection" position="0,0" size="1920,1080" backgroundColor="transparent" flags="wfNoBorder">
+  <panel name="s_RGYB" />
+  <panel name="p900_Template" />
+  <panel name="p900_Date" />
+  <panel name="M" />
+  <eLabel text="Info" position="1370,1000" size="200,43" font="Regular;30" valign="center" foregroundColor="#b0b0b0" backgroundColor="#101010" transparent="1" zPosition="1" />
+  <eLabel text="Exit" position="1435,975" size="200,95" font="Regular;30" valign="center" foregroundColor="#b0b0b0" backgroundColor="#101010" transparent="1" zPosition="1" />
+  <widget backgroundColor="black" font="Regular; 35" foregroundColor="yellow" zPosition="11" halign="center" options="movetype=running,direction=left,startpoint=0,steptime=50,repeat=5,startdelay=3000,always=0,oneshot=1" position="1310,309" render="iRunningText" size="540,50" source="Event" transparent="1" valign="bottom">
+    <convert type="EventName">Name</convert>
+  </widget>
+  <widget backgroundColor="black" font="Regular; 25" foregroundColor="ltbluette" zPosition="11" options="movetype=running,direction=top,startpoint=0,steptime=50,repeat=5,startdelay=6000,wrap=1,always=0,oneshot=1" position="995,600" render="iRunningText" size="850,325" source="Event" transparent="1">
+    <convert type="EventName">ExtendedDescription</convert>
+  </widget>
+  <widget source="Event" render="iPosterX" nextEvent="0" renderType="poster" alphatest="blend" position="997,165" size="300,400" cornerRadius="25" zPosition="2" />
+  <widget source="ServiceEvent" render="xtraNextEvents" nextEvent="0" usedImage="poster" delayPic="0" position="997,165" size="300,400" cornerRadius="25" zPosition="9" borderWidth="1" borderColor="white" backgroundColor="red" />
+  <panel name="button_rgyb_path_poster" />
+  <widget setEventItemFont="Regular;25" backgroundColor="header" backgroundColorSelected="bluette" zPosition="1" foregroundColor="white" name="list" position="80,210" scrollbarMode="showNever" size="900,720" itemCornerRadius="10" transparent="1" itemHeight="40" font="Regular; 24" />
+  <!-- Clock %d.%m.%Y - %H:%M:%S -->
+  <widget source="session.Event_Now" render="Progress" position="1340,445" size="500,12" backgroundColor="header" foregroundGradient="green,yellow,red,horizontal" borderWidth="1" borderColor="#404040" cornerRadius="20" zPosition="15" transparent="1">
+    <convert type="EventTime">Progress</convert>
+  </widget>
+  <eLabel backgroundColor="transpBlack" font="Regular; 30" foregroundColor="white" halign="right" position="1359,525" size="280,40" text="Program Duration:" transparent="1" />
+  <widget source="session.Event_Now" render="Label" position="1310,380" size="540,50" font="Regular; 30" zPosition="1" halign="center" valign="center" noWrap="1" transparent="1" borderWidth="0" borderColor="transpWhite" backgroundColor="transpBlack">
+    <convert type="EventName">Name</convert>
+  </widget>
+  <widget backgroundColor="transpBlack" font="Regular; 30" foregroundColor="white" halign="center" name="datetime" position="1380,475" size="420,40" transparent="1" />
+  <widget source="Event" backgroundColor="header" font="Regular; 30" foregroundColor="red" halign="left" name="duration" position="1637,525" size="190,40" transparent="1">
+    <convert type="EventTime">Remaining</convert>
+    <convert type="RemainingToText">InMinutes</convert>
+  </widget>
+  <ePixmap alphatest="blend" pixmap="icons/art/left.png" position="1340,475" size="36,36" transparent="1" zPosition="1" />
+  <ePixmap alphatest="blend" pixmap="icons/art/right.png" position="1804,475" size="36,36" transparent="1" zPosition="1" />
+  <widget alphatest="blend" position="1396,153" render="Picon" size="250,120" source="Service" transparent="1" zPosition="1">
+    <convert type="ServiceName">Reference</convert>
+  </widget>
+  <widget name="now_button" pixmap="buttons/epg_off.png" position="80,150" size="200,40" alphatest="blend" zPosition="1" />
+  <widget name="now_button_sel" pixmap="buttons/epg_now_on.png" position="80,150" size="200,40" alphatest="blend" zPosition="1" />
+  <widget name="now_text" text="NOW" size="200,40" position="80,150" font="Regular;30" valign="center" halign="center" backgroundColor="bluette" zPosition="1" transparent="1" />
+  <widget name="next_button" pixmap="buttons/epg_off.png" position="375,150" size="200,40" alphatest="blend" zPosition="1" />
+  <widget name="next_button_sel" pixmap="buttons/epg_next_on.png" position="375,150" size="200,40" alphatest="blend" zPosition="1" />
+  <widget name="next_text" text="NEXT" size="200,40" position="375,150" font="Regular;30" valign="center" halign="center" backgroundColor="bluette" zPosition="1" transparent="1" />
+  <widget name="more_button" pixmap="buttons/epg_off.png" position="655,150" size="200,40" alphatest="blend" zPosition="1" />
+  <widget name="more_button_sel" pixmap="buttons/epg_next_on.png" position="655,150" size="200,40" alphatest="blend" zPosition="1" />
+  <widget name="more_text" text="MORE" size="200,40" position="655,150" font="Regular;30" valign="center" halign="center" backgroundColor="bluette" zPosition="1" transparent="1" />
+  <eLabel name="" position="1070,585" size="700,1" backgroundColor="ltbluette" />
+  <eLabel name="" position="80,200" size="900,1" backgroundColor="ltbluette" />
+</screen>

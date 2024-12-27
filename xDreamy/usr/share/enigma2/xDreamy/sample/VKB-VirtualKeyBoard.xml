@@ -1,0 +1,45 @@
+<screen name="VirtualKeyboard" position="center,center" size="1000,630" cornerRadius="15" zPosition="99" title="Virtual Keyboard" flags="wfNoBorder" backgroundColor="ltbluette">
+        <!-- Button Red -->
+        <ePixmap position="25,575" pixmap="buttons/redpanel.png" size="30,30" alphatest="blend" objectTypes="key_red,Button,Label" transparent="1" />
+        <widget source="key_red" render="Pixmap" pixmap="buttons/redpanel.png" position="25,575" size="30,30" alphatest="blend" objectTypes="key_red,StaticText" transparent="1">
+            <convert type="ConditionalShowHide" />
+        </widget>
+        <widget name="key_red" position="60,550" size="215,75" zPosition="+1" halign="left" valign="center" font="Regular;30" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_red,Button,Label" transparent="1" />
+        <widget source="key_red" render="Label" position="60,550" size="215,75" zPosition="+1" halign="left" valign="center" font="Regular;30" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_red,StaticText" transparent="1" />
+        <!-- Button Green -->
+        <ePixmap position="235,575" pixmap="buttons/greenpanel.png" size="30,30" alphatest="blend" objectTypes="key_green,Button,Label" transparent="1" />
+        <widget source="key_green" render="Pixmap" pixmap="buttons/greenpanel.png" position="235,575" size="30,30" alphatest="blend" objectTypes="key_green,StaticText" transparent="1">
+            <convert type="ConditionalShowHide" />
+        </widget>
+        <widget name="key_green" position="280,550" size="210,75" zPosition="+1" halign="left" valign="center" font="Regular;30" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_green,Button,Label" transparent="1" />
+        <widget source="key_green" render="Label" position="280,550" size="210,75" zPosition="+1" halign="left" valign="center" font="Regular;30" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_green,StaticText" transparent="1" />
+        <!-- Button Yellow -->
+        <ePixmap position="460,575" pixmap="buttons/yellowpanel.png" size="30,30" alphatest="blend" objectTypes="key_yellow,Button,Label" transparent="1" />
+        <widget source="key_yellow" render="Pixmap" pixmap="buttons/yellowpanel.png" position="460,575" size="30,30" alphatest="blend" objectTypes="key_yellow,StaticText" transparent="1">
+            <convert type="ConditionalShowHide" />
+        </widget>
+        <widget name="key_yellow" position="495,550" size="210,75" zPosition="+1" halign="left" valign="center" font="Regular;30" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_yellow,Button,Label" transparent="1" />
+        <widget source="key_yellow" render="Label" position="495,550" size="210,75" font="Regular;30" halign="left" valign="center" foregroundColor="#b0b0b0" backgroundColor="header" zPosition="+1" objectTypes="key_yellow,StaticText" transparent="1" />
+        <!-- Button Blue -->
+        <ePixmap position="675,575" pixmap="buttons/bluepanel.png" size="30,30" alphatest="blend" objectTypes="key_blue,Button,Label" transparent="1" />
+        <widget source="key_blue" render="Pixmap" pixmap="buttons/bluepanel.png" position="675,575" size="30,30" alphatest="blend" objectTypes="key_blue,StaticText" transparent="1">
+            <convert type="ConditionalShowHide" />
+        </widget>
+        <widget name="key_blue" position="710,550" size="250,75" zPosition="+1" halign="left" valign="center" font="Regular;30" backgroundColor="header" foregroundColor="#b0b0b0" objectTypes="key_blue,Button,Label" transparent="1" />
+        <widget source="key_blue" position="710,550" size="250,75" zPosition="+1" render="Label" font="Regular;30" halign="left" valign="center" foregroundColor="#b0b0b0" backgroundColor="header" objectTypes="key_blue,StaticText" transparent="1" />
+        <widget name="header" conditional="header" position="205,10" size="550,40" font="Regular; 26" backgroundColor="header" halign="left" transparent="1" noWrap="1" valign="top" />
+        <widget font="Bold; 30" halign="right" position="670,10" render="Label" size="300,40" source="global.CurrentTime" transparent="1">
+            <convert type="ClockToText">Format:%a %d.%m | %H:%M</convert>
+        </widget>
+        <eLabel backgroundColor="header" position="2,2" size="996,626" cornerRadius="15" zPosition="-99" />
+        <widget name="prompt" conditional="prompt" position="25,55" size="950,50" font="Regular; 24" backgroundColor="background" halign="left" transparent="1" valign="center" />
+        <widget name="text" position="25,110" size="950,50" backgroundColor="black" cornerRadius="12" zPosition="3" font="Regular; 24" halign="right" textOffset="15,9" foregroundColor="yellow" transparent="1" />
+        <widget name="list" position="25,170" size="950,350" selectionDisabled="1" transparent="1" itemHeight="70" scrollbarMode="showNever" backgroundColorSelected="bluette" cornerRadius="10" />
+        <widget name="mode" conditional="mode" position="650,525" size="100,34" font="Regular; 28" backgroundColor="background" foregroundColor="white" halign="left" transparent="1" noWrap="1" />
+        <widget name="language" conditional="language" position="0,34" size="0,0" font="Regular; 28" backgroundColor="background" foregroundColor="foreground" transparent="1" noWrap="1" />
+        <widget name="locale" conditional="locale" position="25,525" size="700,34" font="Regular; 28" foregroundColor="white" halign="left" backgroundColor="background" valign="center" transparent="1" />
+        <eLabel name="" position="826,530" size="70,24" backgroundGradient="ltbluette,bluette,vertical" halign="center" valign="center" transparent="0" cornerRadius="10" font="Regular; 20" zPosition="1" text="TXT" backgroundColor="bluette" />
+        <eLabel name="" position="751,530" size="70,24" backgroundGradient="ltbluette,bluette,vertical" halign="center" valign="center" transparent="0" cornerRadius="10" font="Regular; 20" zPosition="1" text="INFO" backgroundColor="bluette" />
+        <eLabel name="" position="902,530" size="70,24" backgroundGradient="ltbluette,bluette,vertical" halign="center" valign="center" transparent="0" cornerRadius="10" font="Regular; 20" zPosition="1" text="EXIT" backgroundColor="bluette" />
+        <eLabel name="" text="xDreamy " position="10,10" size="280,40" foregroundColor="ltbluette" font="Eurofighteroutital; 40" transparent="1" zPosition="20" halign="center" />
+    </screen>

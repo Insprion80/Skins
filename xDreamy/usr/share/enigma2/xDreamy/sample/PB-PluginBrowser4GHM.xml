@@ -1,0 +1,18 @@
+<screen name="PluginBrowserGrid" position="0,0" size="1920,1080" Title="EGAMI Plugins" backgroundColor="#ff000000" flags="wfNoBorder">
+  <widget name="quickselect" position="22,442" size="1876,125" backgroundColor="header" font="Regular;15" halign="center" transparent="1" valign="center" zPosition="1" />
+  <widget source="pluginGrid" render="Listbox" position="22,442" size="1876,125" backgroundColor="header" transparent="1" zPosition="1" itemSpacing="10,15" selectionZoom="3" scrollbarBorderColor="#000000" backgroundColorSelected="bluette" scrollbarRadius="5" scrollbarMode="showOnDemand" scrollbarForegroundColor="ltbluette" scrollbarWidth="5" itemCornerRadius="15" listOrientation="grid" moveBackgroundColor="bluette">
+  <convert type="TemplatedMultiContent">
+			{
+			"template": [
+			<!-- MultiContentEntryText(pos = (47, 83), size = (160, 30), font=0, backcolor = 0x505050), -->
+			MultiContentEntryText(pos = (15, 85), size = (150, 25), font=0, color=0xffff00, flags = RT_VALIGN_CENTER|RT_HALIGN_CENTER|RT_WRAP, text=1),
+			MultiContentEntryPixmapAlphaBlend(pos=(15, 15), size=(150, 60), png=3, flags=BT_SCALE)
+			],
+			"fonts": [gFont("Regular", 22),gFont("Regular", 20)],
+			"itemWidth" : 180,
+			"itemHeight" : 120
+			}
+		</convert>
+</widget>
+  <eLabel position="20,440" size="1880,125" backgroundColor="transpBlack" foregroundColor="#2b68ff" cornerRadius="10" zPosition="1" />
+</screen>

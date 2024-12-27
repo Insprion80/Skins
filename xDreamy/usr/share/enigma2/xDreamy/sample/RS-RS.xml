@@ -1,0 +1,47 @@
+<screen name="RSE">
+  <!-- Rating Stars -->
+  <ePixmap pixmap="xDreamy/menu/stargrey.png" position="1415,390" size="316,27" alphatest="blend" zPosition="1" transparent="1" />
+  <widget source="Event" render="iStarX" pixmap="xDreamy/menu/staryellow.png" position="1415,390" size="316,27" alphatest="blend" transparent="1" zPosition="2" />
+  <widget render="iParental" source="Event" position="1536,432" size="75,75" scale="1" zPosition="5" transparent="1" alphatest="blend" />
+</screen>
+<screen name="RSE1">
+  <!-- Rating Stars -->
+  <ePixmap pixmap="xDreamy/menu/stargrey.png" position="1415,290" size="316,27" alphatest="blend" zPosition="1" transparent="1" />
+  <widget source="Event" render="iStarX" pixmap="xDreamy/menu/staryellow.png" position="1415,290" size="316,27" alphatest="blend" transparent="1" zPosition="2" />
+  <widget render="iParental" source="Event" position="1536,332" size="75,75" scale="1" zPosition="5" transparent="1" alphatest="blend" />
+</screen>
+<screen name="RS">
+  <!-- Stars -->
+  <ePixmap pixmap="xDreamy/menu/stargrey.png" position="1015,501" size="316,27" alphatest="blend" zPosition="1" transparent="1" />
+  <widget source="ServiceEvent" render="iStarX" pixmap="xDreamy/menu/staryellow.png" position="1015,501" size="316,27" alphatest="blend" transparent="1" zPosition="2" />
+  <widget render="iParental" source="ServiceEvent" position="1030,445" size="50,50" scale="1" zPosition="5" transparent="1" alphatest="blend" />
+</screen>
+<screen name="RS1">
+  <!-- Rating Stars -->
+  <ePixmap pixmap="xDreamy/menu/stargrey.png" position="1375,535" size="316,27" alphatest="blend" zPosition="1" transparent="1" />
+  <widget source="ServiceEvent" render="iStarX" pixmap="xDreamy/menu/staryellow.png" position="1375,535" size="316,27" alphatest="blend" transparent="1" zPosition="2" />
+  <widget render="iParental" source="ServiceEvent" position="1179,423" size="50,50" scale="1" zPosition="5" transparent="1" alphatest="blend" />
+</screen>
+<screen name="RS2">
+  <!-- Rating Stars -->
+  <ePixmap pixmap="xDreamy/menu/stargrey.png" position="1515,200" size="316,27" alphatest="blend" zPosition="1" transparent="1" />
+  <widget source="Event" render="iStarX" pixmap="xDreamy/menu/staryellow.png" position="1515,200" size="316,27" alphatest="blend" transparent="1" zPosition="2" />
+</screen>
+<screen name="RS3">
+  <!-- Rating Stars -->
+  <ePixmap pixmap="xDreamy/menu/stargrey.png" position="1400,550" size="316,27" alphatest="blend" zPosition="1" transparent="1" />
+  <widget source="Event" render="iStarX" pixmap="xDreamy/menu/staryellow.png" position="1400,550" size="316,27" alphatest="blend" transparent="1" zPosition="2" />
+  <widget render="iParental" source="ServiceEvent" position="1191,534" size="75,75" scale="1" zPosition="5" transparent="1" alphatest="blend" />
+</screen>
+<screen name="RS4">
+  <!-- Rating Stars -->
+  <ePixmap pixmap="xDreamy/menu/stargrey.png" position="1405,140" size="316,27" alphatest="blend" zPosition="5" transparent="1" />
+  <widget source="ServiceEvent" render="iStarX" pixmap="xDreamy/menu/staryellow.png" position="1405,140" size="316,27" alphatest="blend" transparent="1" zPosition="10" />
+  <widget render="iParental" source="ServiceEvent" position="1772,120" size="75,75" scale="1" zPosition="5" transparent="1" alphatest="blend" />
+</screen>
+<screen name="RS5">
+  <!-- Rating Stars -->
+  <ePixmap pixmap="xDreamy/menu/stargrey.png" position="1420,450" size="316,27" alphatest="blend" zPosition="5" transparent="1" />
+  <widget source="ServiceEvent" render="iStarX" pixmap="xDreamy/menu/staryellow.png" position="1420,450" size="316,27" alphatest="blend" transparent="1" zPosition="10" />
+  <widget render="iParental" source="ServiceEvent" position="1015,475" size="50,50" scale="1" zPosition="5" transparent="1" alphatest="blend" />
+</screen>

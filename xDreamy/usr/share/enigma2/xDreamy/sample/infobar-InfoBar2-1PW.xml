@@ -1,0 +1,8 @@
+<screen name="InfoBar" position="0,0" size="1920,1080" title="InfoBar" backgroundColor="transparent" flags="wfNoBorder">
+  <panel name="InfoBarTemplateN" />
+  <panel name="Weather_infobar3days2" />
+  <widget source="session.CurrentService" render="Label" position="351,745" size="1100,90" font="Regular; 80" noWrap="1" foregroundColor="white" backgroundColor="header" borderColor="black" borderWidth="1" transparent="1">
+    <convert type="ServiceName">Name</convert>
+  </widget>
+  <widget source="session.Event_Now" render="iPosterX" position="11,382" cornerRadius="15" size="330,450" alphatest="blend" transparent="1" zPosition="-5" />
+</screen>
