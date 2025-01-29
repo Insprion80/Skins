@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # mod by Lululla
+
 import os
 import random
 import sys
@@ -8,7 +9,6 @@ import shutil
 import glob
 import requests
 from urllib.request import Request, urlopen
-
 from . import _
 from Components.ActionMap import ActionMap
 from Components.ConfigList import ConfigListScreen
@@ -42,29 +42,29 @@ from Tools.Directories import fileExists
 from Tools.Directories import SCOPE_PLUGINS
 from Tools.Directories import resolveFilename
 from Tools.Downloader import downloadWithProgress
-         
-             
-          
-           
-             
-           
-                                           
 
+# Check if running on Python 3
 PY3 = sys.version_info.major >= 3
 
+# Plugin version
 version = "5.3.2"
 my_cur_skin = False
 cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
+
+# Paths for weather plugins and boot logos
 OAWeather = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('OAWeather'))
 weatherz = resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format('WeatherPlugin'))
 mvi = '/usr/share/'
 bootlog = '/usr/lib/enigma2/python/Plugins/Extensions/xDreamy/bootlogos/'
 logopath = '/etc/enigma2/'
+
+# Paths for API keys
 tmdb_skin = "%senigma2/%s/apikey" % (mvi, cur_skin)
 tmdb_api = "3c3efcf47c3577558812bb9d64019d65"
 omdb_skin = "%senigma2/%s/omdbkey" % (mvi, cur_skin)
 omdb_api = "cb1d9f55"
 
+# Load API keys from skin paths if available
 try:
     if my_cur_skin is False:
         skin_paths = {
@@ -85,6 +85,9 @@ except Exception as e:
     my_cur_skin = False
 
 def isMountedInRW(path):
+    """
+    Check if the given path is mounted in read-write mode.
+    """
     testfile = path + '/tmp-rw-test'
     os.system('touch ' + testfile)
     if os.path.exists(testfile):
@@ -92,6 +95,7 @@ def isMountedInRW(path):
         return True
     return False
 
+# Paths for poster and backdrop images
 path_poster = "/tmp/poster"
 patch_backdrop = "/tmp/backdrop"
 if os.path.exists("/media/hdd") and isMountedInRW("/media/hdd"):
@@ -105,6 +109,9 @@ elif os.path.exists("/media/mmc") and isMountedInRW("/media/mmc"):
     patch_backdrop = "/media/mmc/backdrop"
 
 def removePng():
+    """
+    Remove all PNG and JPG files from the poster and backdrop directories.
+    """
     print('Rimuovo file PNG e JPG...')
     if os.path.exists(path_poster):
         png_files = glob.glob(os.path.join(path_poster, "*.png"))
@@ -137,6 +144,7 @@ def removePng():
     else:
         print("La cartella " + patch_backdrop + " non esiste.")
 
+# Configuration settings for the plugin
 config.plugins.xDreamy = ConfigSubsection()
 config.plugins.xDreamy.png = NoSave(ConfigYesNo(default=False))
 config.plugins.xDreamy.header = NoSave(ConfigNothing())
@@ -433,26 +441,27 @@ config.plugins.xDreamy.crypt = ConfigSelection(default='Cryptoname', choices=[
     ('Cryptobar', _('Crypt-Bar'))])
 
 def autostart(reason, **kwargs):
-    if cur_skin == 'xDreamy':
-        if config.plugins.xDreamy.bootlogos.value is True:
-            if not fileExists(mvi + 'bootlogoBack.mvi'):
-                shutil.copy(mvi + 'bootlogo.mvi', mvi + 'bootlogoBack.mvi')
-            if fileExists(logopath + 'bootlogo.mvi'):
-                os.remove(logopath + 'bootlogo.mvi')
-            if fileExists(logopath + 'backdrop.mvi'):
-                os.remove(logopath + 'backdrop.mvi')
-            if fileExists(logopath + 'bootlogo_wait.mvi'):
-                os.remove(logopath + 'bootlogo_wait.mvi')
+    if reason == 0:  # Only run on startup
+        if cur_skin == 'xDreamy':
+            if config.plugins.xDreamy.bootlogos.value is True:
+                if not fileExists(mvi + 'bootlogoBack.mvi'):
+                    shutil.copy(mvi + 'bootlogo.mvi', mvi + 'bootlogoBack.mvi')
+                if fileExists(logopath + 'bootlogo.mvi'):
+                    os.remove(logopath + 'bootlogo.mvi')
+                if fileExists(logopath + 'backdrop.mvi'):
+                    os.remove(logopath + 'backdrop.mvi')
+                if fileExists(logopath + 'bootlogo_wait.mvi'):
+                    os.remove(logopath + 'bootlogo_wait.mvi')
 
-            if fileExists(bootlog + 'bootlogo1.mvi'):
-                newscreen = random.choice(os.listdir(bootlog))
-                final = bootlog + newscreen
-                shutil.copy(final, mvi + 'bootlogo.mvi')
-                shutil.copy(final, mvi + 'backdrop.mvi')
-    else:
-        if fileExists(mvi + 'bootlogoBack.mvi'):
-            shutil.copy(mvi + 'bootlogoBack.mvi', mvi + 'bootlogo.mvi')
-            os.remove(mvi + 'bootlogoBack.mvi')
+                if fileExists(bootlog + 'bootlogo1.mvi'):
+                    newscreen = random.choice(os.listdir(bootlog))
+                    final = bootlog + newscreen
+                    shutil.copy(final, mvi + 'bootlogo.mvi')
+                    shutil.copy(final, mvi + 'backdrop.mvi')
+        else:
+            if fileExists(mvi + 'bootlogoBack.mvi'):
+                shutil.copy(mvi + 'bootlogoBack.mvi', mvi + 'bootlogo.mvi')
+                os.remove(mvi + 'bootlogoBack.mvi')
 
 def Plugins(**kwargs):
     return [PluginDescriptor(
@@ -526,15 +535,12 @@ class xDreamySetup(ConfigListScreen, Screen):
         self['city'] = Label('')
         self['helpText'] = Label('')  # Initialize the helpText label
         self.setup_title = f"XDREAMY Setup v {version}"
+        self.activeComponents = []  # Initialize activeComponents attribute
         list = []
-        section = '--------------------------( SKIN GENERAL SETUP )-----------------------'
-        list.append(getConfigListEntry(section))
-        section = '--------------------------( SKIN APIKEY SETUP )-----------------------'
-        list.append(getConfigListEntry(section))
         ConfigListScreen.__init__(self, list, session=self.session, on_change=self.changedEntry)
         self.onChangedEntry = []
         self.editListEntry = None
-        self.createSetup()
+        self.createSetup()  # Ensure createSetup is called here
         self.onLayoutFinish.append(self.createSetup)
         self["actions"] = ActionMap(["SetupActions"], {
             "cancel": self.keyCancel,
@@ -558,6 +564,7 @@ class xDreamySetup(ConfigListScreen, Screen):
                                                        'yellow': self.checkforUpdate,
                                                        'info': self.mesInfo,
                                                        'blue': self.info,
+                                                       'cancel': self.keyExit,
                                                        'ok': self.keyRun}, -1)
 
         self.timerx = eTimer()
@@ -571,55 +578,6 @@ class xDreamySetup(ConfigListScreen, Screen):
 
         # Add notifier to InfobarStyle to update the list when the selection changes
         config.plugins.xDreamy.InfobarStyle.addNotifier(self.onInfobarStyleChange)
-
-    def keyExit(self):
-        self.close()               
-
-    def info(self):
-        aboutbox = self.session.open(MessageBox, _('Setup xDreamy for xDreamy v.%s') % version, MessageBox.TYPE_INFO)
-        aboutbox.setTitle(_('Info...'))
-
-    def keyLeft(self):
-        ConfigListScreen.keyLeft(self)
-        self.createSetup()
-        sel = self["config"].getCurrent()[1]
-        if sel and sel == config.plugins.xDreamy.png:
-            config.plugins.xDreamy.png.setValue(0)
-            config.plugins.xDreamy.png.save()
-            self.removPng()
-        if sel and sel == config.plugins.xDreamy.api:
-            config.plugins.xDreamy.api.setValue(0)
-            config.plugins.xDreamy.api.save()
-            self.keyApi()
-        if sel and sel == config.plugins.xDreamy.api2:
-            config.plugins.xDreamy.api2.setValue(0)
-            config.plugins.xDreamy.api2.save()
-            self.keyApi2()
-
-    def keyRight(self):
-        ConfigListScreen.keyRight(self)
-        self.createSetup()
-        sel = self["config"].getCurrent()[1]
-        if sel and sel == config.plugins.xDreamy.png:
-            config.plugins.xDreamy.png.setValue(0)
-            config.plugins.xDreamy.png.save()
-            self.removPng()
-        if sel and sel == config.plugins.xDreamy.api:
-            config.plugins.xDreamy.api.setValue(0)
-            config.plugins.xDreamy.api.save()
-            self.keyApi()
-        if sel and sel == config.plugins.xDreamy.api2:
-            config.plugins.xDreamy.api2.setValue(0)
-            config.plugins.xDreamy.api2.save()
-            self.keyApi2()
-
-    def keyDown(self):
-        self['config'].instance.moveSelection(self['config'].instance.moveDown)
-        self.createSetup()
-
-    def keyUp(self):
-        self['config'].instance.moveSelection(self['config'].instance.moveUp)
-        self.createSetup()
 
     def __layoutFinished(self):
         self['city'].setText("%s" % str(config.plugins.xDreamy.city.value))
@@ -653,7 +611,6 @@ class xDreamySetup(ConfigListScreen, Screen):
             "OpenPLi, OpenVIX, OpenHDF, OpenTR, Satlodge, NonSoloSat, Foxbob & PLi Base Images.\n\n"
             "Forum support: Linuxsat-support.com\n"
             "Mahmoud Hussein")
-         
         self.session.open(MessageBox, _(message), MessageBox.TYPE_INFO, timeout=10)
 
     def getImagePath(self, item_name):
@@ -667,130 +624,95 @@ class xDreamySetup(ConfigListScreen, Screen):
             if size.isNull():
                 size.setWidth(498)
                 size.setHeight(280)
-            current_item = self["config"].getCurrent()[0]
-            
-            if self.isInstallPlugin(current_item):
-                image_path = self.getImagePath(current_item.lower().replace("install_", ""))
-            else:
-                image_path = self.getImagePath(current_item)
-            
-            # Debug output
-            print(f"Current item: {current_item}")
-            print(f"Image path: {image_path}")
-            
-            if fileExists(image_path):
-                print(f"Loading image from: {image_path}")
-                png = loadPic(image_path, size.width(), size.height(), 0, 0, 0, 1)
-                self["Preview"].instance.setPixmap(png)
-                print("Image loaded successfully.")
-            else:
-                default_image_path = "/usr/share/enigma2/xDreamy/screens/default.png"
-                print(f"Image not found: {image_path}, loading default image: {default_image_path}")
-                if fileExists(default_image_path):
-                    png = loadPic(default_image_path, size.width(), size.height(), 0, 0, 0, 1)
-                    self["Preview"].instance.setPixmap(png)
-                    print("Default image loaded successfully.")
+            current_item = self["config"].getCurrent()
+            if current_item and len(current_item) > 0:
+                current_item = current_item[0]
+                if self.isInstallPlugin(current_item):
+                    image_path = self.getImagePath(current_item.lower().replace("install_", ""))
                 else:
-                    print(f"Default image not found: {default_image_path}")
-                    
-    def checkforUpdate(self):
-        try:
-            fp = ''
-            destr = '/tmp/xDreamyv.txt'
-            req = Request('https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/xDreamyv.txt')
-            req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
-            fp = urlopen(req)
-            fp = fp.read().decode('utf-8')
-            print('fp read:', fp)
-            with open(destr, 'w') as f:
-                f.write(str(fp))
-                f.seek(0)
-            if fileExists(destr):
-                with open(destr, 'r') as cc:
-                    s1 = cc.readline()
-                    vers = s1.split('#')[0]
-                    url = s1.split('#')[1]
-                    version_server = vers.strip()
-                    self.updateurl = url.strip()
-                    cc.close()
-                    if str(version_server) == str(version):
-                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
-                                                          version_server,
-                                                          _('Version installed:'),
-                                                          version,
-                                                          _('Congratulation, You have the last version of XDREAMY!'))
-                    elif version_server > version:
-                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
-                                                          version_server,
-                                                          _('Version installed:'),
-                                                          version,
-                                                          _('The update is available!\n\nDo you want to run the update now?'))
-                        self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
+                    image_path = self.getImagePath(current_item)
+                
+                # Debug output
+                print(f"Current item: {current_item}")
+                print(f"Image path: {image_path}")
+                
+                if fileExists(image_path):
+                    print(f"Loading image from: {image_path}")
+                    png = loadPic(image_path, size.width(), size.height(), 0, 0, 0, 1)
+                    self["Preview"].instance.setPixmap(png)
+                    print("Image loaded successfully.")
+                else:
+                    default_image_path = "/usr/share/enigma2/xDreamy/screens/default.png"
+                    print(f"Image not found: {image_path}, loading default image: {default_image_path}")
+                    if fileExists(default_image_path):
+                        png = loadPic(default_image_path, size.width(), size.height(), 0, 0, 0, 1)
+                        self["Preview"].instance.setPixmap(png)
+                        print("Default image loaded successfully.")
                     else:
-                        self.session.open(MessageBox, _('You have version %s!!!') % version, MessageBox.TYPE_INFO, timeout=10)
-        except Exception as e:
-            print('error: ', str(e))
+                        print(f"Default image not found: {default_image_path}")
 
     def keyRun(self):
-        sel = self["config"].getCurrent()[1]
-        if sel and sel == config.plugins.xDreamy.png:
-            config.plugins.xDreamy.png.setValue(0)
-            config.plugins.xDreamy.png.save()
-            self.removPng()
-        if sel and sel == config.plugins.xDreamy.weather:
-            self.KeyMenu()
-        if sel and sel == config.plugins.xDreamy.oaweather:
-            self.KeyMenu2()
-        if sel and sel == config.plugins.xDreamy.city:
-            self.KeyText()
-        if sel and sel == config.plugins.xDreamy.api:
-            self.keyApi()
-        if sel and sel == config.plugins.xDreamy.txtapi:
-            self.KeyText()
-        if sel and sel == config.plugins.xDreamy.api2:
-            self.keyApi2()
-        if sel and sel == config.plugins.xDreamy.txtapi2:
-            self.KeyText()
-        if sel and sel == config.plugins.xDreamy.install_ajpanel:
-            self.installPlugin("AJPanel", "https://raw.githubusercontent.com/AMAJamry/AJPanel/main/installer.sh")
-        if sel and sel == config.plugins.xDreamy.install_smartpanel:
-            self.installPlugin("SmartPanel", "https://raw.githubusercontent.com/emilnabil/download-plugins/refs/heads/main/SmartAddonspanel/smart-Panel.sh")
-        if sel and sel == config.plugins.xDreamy.install_elisatpanel:
-            self.installPlugin("EliSatPanel", "https://raw.githubusercontent.com/eliesat/eliesatpanel/main/installer.sh")
-        if sel and sel == config.plugins.xDreamy.install_magicpanel:
-            self.installPlugin("MagicPanel", "https://gitlab.com/h-ahmed/Panel/-/raw/main/MagicPanel-install.sh")
-        if sel and sel == config.plugins.xDreamy.install_msnweather:
-            self.installPlugin("MSNWeather", "https://raw.githubusercontent.com/fairbird/WeatherPlugin/master/installer.sh")
-        if sel and sel == config.plugins.xDreamy.install_oaweather:
-            self.installPlugin("OAWeather", "https://gitlab.com/hmeng80/extensions/-/raw/main/oaweather/oaweather.sh")
-        if sel and sel == config.plugins.xDreamy.install_multicammanager:
-            self.installPlugin("MultiCamManager", "https://raw.githubusercontent.com/levi-45/Manager/main/installer.sh")
-        if sel and sel == config.plugins.xDreamy.install_NCam:
-            self.installPlugin("NCam", "https://raw.githubusercontent.com/biko-73/Ncam_EMU/main/installer.sh")
-        if sel and sel == config.plugins.xDreamy.install_keyadder:
-            self.installPlugin("KeyAdder", "https://raw.githubusercontent.com/fairbird/KeyAdder/main/installer.sh")
-        if sel and sel == config.plugins.xDreamy.install_xklass:
-            self.installPlugin("XKlass", "https://gitlab.com/MOHAMED_OS/dz_store/-/raw/main/XKlass/online-setup")
-        if sel and sel == config.plugins.xDreamy.install_youtube:
-            self.installPlugin("YouTube", "https://raw.githubusercontent.com/fairbird/Youtube-Opensource-DreamOS/master/installer.sh")
-        if sel and sel == config.plugins.xDreamy.install_e2iplayer:
-            self.installPlugin("E2iPlayer", "https://mohamed_os.gitlab.io/e2iplayer/online-setup")
-        if sel and sel == config.plugins.xDreamy.install_transmission:
-            self.installPlugin("Transmission", "http://dreambox4u.com/dreamarabia/Transmission_e2/Transmission_e2.sh")
-        if sel and sel == config.plugins.xDreamy.install_multistalkerpro:
-            self.installPlugin("MutliStalkerPro", "https://raw.githubusercontent.com/biko-73/Multi-Stalker/main/pro/installer.sh")
-        if sel and sel == config.plugins.xDreamy.install_ipaudiopro:
-            self.installPlugin("IPAudioPro", "https://raw.githubusercontent.com/biko-73/ipaudio/main/ipaudio_pro.sh")
-        if sel and sel == config.plugins.xDreamy.install_EPGGrabber:
-            self.installPlugin("EPGGrabber", "https://raw.githubusercontent.com/ziko-ZR1/Epg-plugin/master/Download/installer.sh")
-        if sel and sel == config.plugins.xDreamy.install_subssupport:
-            self.installPlugin("SubsSupport", "https://github.com/popking159/ssupport/raw/main/subssupport-install.sh")
-        if sel and sel == config.plugins.xDreamy.install_historyzapselector:
-            self.installPlugin("HistoryZapSelector", "https://raw.githubusercontent.com/biko-73/History_Zap_Selector/main/installer.sh")
-        if sel and sel == config.plugins.xDreamy.install_newvirtualkeyboard:
-            self.installPlugin("NewVirtualKeyBoard", "https://raw.githubusercontent.com/fairbird/NewVirtualKeyBoard/main/installer.sh")
-        if sel and sel == config.plugins.xDreamy.install_raedquicksignal:
-            self.installPlugin("RaedQuickSignal", "https://raw.githubusercontent.com/fairbird/RaedQuickSignal/main/installer.sh")
+        current = self["config"].getCurrent()
+        if current and len(current) > 1:
+            sel = current[1]
+            if sel == config.plugins.xDreamy.png:
+                config.plugins.xDreamy.png.setValue(0)
+                config.plugins.xDreamy.png.save()
+                self.removPng()
+            elif sel == config.plugins.xDreamy.weather:
+                self.KeyMenu()
+            elif sel == config.plugins.xDreamy.oaweather:
+                self.KeyMenu2()
+            elif sel == config.plugins.xDreamy.city:
+                self.KeyText()
+            elif sel == config.plugins.xDreamy.api:
+                self.keyApi()
+            elif sel == config.plugins.xDreamy.txtapi:
+                self.KeyText()
+            elif sel == config.plugins.xDreamy.api2:
+                self.keyApi2()
+            elif sel == config.plugins.xDreamy.txtapi2:
+                self.KeyText()
+            elif sel == config.plugins.xDreamy.install_ajpanel:
+                self.installPlugin("AJPanel", "https://raw.githubusercontent.com/AMAJamry/AJPanel/main/installer.sh")
+            elif sel == config.plugins.xDreamy.install_smartpanel:
+                self.installPlugin("SmartPanel", "https://raw.githubusercontent.com/emilnabil/download-plugins/refs/heads/main/SmartAddonspanel/smart-Panel.sh")
+            elif sel == config.plugins.xDreamy.install_elisatpanel:
+                self.installPlugin("EliSatPanel", "https://raw.githubusercontent.com/eliesat/eliesatpanel/main/installer.sh")
+            elif sel == config.plugins.xDreamy.install_magicpanel:
+                self.installPlugin("MagicPanel", "https://gitlab.com/h-ahmed/Panel/-/raw/main/MagicPanel-install.sh")
+            elif sel == config.plugins.xDreamy.install_msnweather:
+                self.installPlugin("MSNWeather", "https://raw.githubusercontent.com/fairbird/WeatherPlugin/master/installer.sh")
+            elif sel == config.plugins.xDreamy.install_oaweather:
+                self.installPlugin("OAWeather", "https://gitlab.com/hmeng80/extensions/-/raw/main/oaweather/oaweather.sh")
+            elif sel == config.plugins.xDreamy.install_multicammanager:
+                self.installPlugin("MultiCamManager", "https://raw.githubusercontent.com/levi-45/Manager/main/installer.sh")
+            elif sel == config.plugins.xDreamy.install_NCam:
+                self.installPlugin("NCam", "https://raw.githubusercontent.com/biko-73/Ncam_EMU/main/installer.sh")
+            elif sel == config.plugins.xDreamy.install_keyadder:
+                self.installPlugin("KeyAdder", "https://raw.githubusercontent.com/fairbird/KeyAdder/main/installer.sh")
+            elif sel == config.plugins.xDreamy.install_xklass:
+                self.installPlugin("XKlass", "https://gitlab.com/MOHAMED_OS/dz_store/-/raw/main/XKlass/online-setup")
+            elif sel == config.plugins.xDreamy.install_youtube:
+                self.installPlugin("YouTube", "https://raw.githubusercontent.com/fairbird/Youtube-Opensource-DreamOS/master/installer.sh")
+            elif sel == config.plugins.xDreamy.install_e2iplayer:
+                self.installPlugin("E2iPlayer", "https://mohamed_os.gitlab.io/e2iplayer/online-setup")
+            elif sel == config.plugins.xDreamy.install_transmission:
+                self.installPlugin("Transmission", "http://dreambox4u.com/dreamarabia/Transmission_e2/Transmission_e2.sh")
+            elif sel == config.plugins.xDreamy.install_multistalkerpro:
+                self.installPlugin("MutliStalkerPro", "https://raw.githubusercontent.com/biko-73/Multi-Stalker/main/pro/installer.sh")
+            elif sel == config.plugins.xDreamy.install_ipaudiopro:
+                self.installPlugin("IPAudioPro", "https://raw.githubusercontent.com/biko-73/ipaudio/main/ipaudio_pro.sh")
+            elif sel == config.plugins.xDreamy.install_EPGGrabber:
+                self.installPlugin("EPGGrabber", "https://raw.githubusercontent.com/ziko-ZR1/Epg-plugin/master/Download/installer.sh")
+            elif sel == config.plugins.xDreamy.install_subssupport:
+                self.installPlugin("SubsSupport", "https://github.com/popking159/ssupport/raw/main/subssupport-install.sh")
+            elif sel == config.plugins.xDreamy.install_historyzapselector:
+                self.installPlugin("HistoryZapSelector", "https://raw.githubusercontent.com/biko-73/History_Zap_Selector/main/installer.sh")
+            elif sel == config.plugins.xDreamy.install_newvirtualkeyboard:
+                self.installPlugin("NewVirtualKeyBoard", "https://raw.githubusercontent.com/fairbird/NewVirtualKeyBoard/main/installer.sh")
+            elif sel == config.plugins.xDreamy.install_raedquicksignal:
+                self.installPlugin("RaedQuickSignal", "https://raw.githubusercontent.com/fairbird/RaedQuickSignal/main/installer.sh")
             
     def installPlugin(self, plugin_name, url):
         if os.path.isdir(resolveFilename(SCOPE_PLUGINS, "Extensions/{}".format(plugin_name))):
@@ -854,8 +776,8 @@ class xDreamySetup(ConfigListScreen, Screen):
     def KeyText(self):
         from Screens.VirtualKeyBoard import VirtualKeyBoard
         sel = self["config"].getCurrent()
-        if sel:
-            self.session.openWithCallback(self.VirtualKeyBoardCallback, VirtualKeyBoard, title=self["config"].getCurrent()[0], text=self["config"].getCurrent()[1].value)
+        if sel and len(sel) > 1:
+            self.session.openWithCallback(self.VirtualKeyBoardCallback, VirtualKeyBoard, title=sel[0], text=sel[1].value)
 
     def VirtualKeyBoardCallback(self, callback=None):
         if callback is not None and len(callback):
@@ -917,7 +839,6 @@ class xDreamySetup(ConfigListScreen, Screen):
             list.append(getConfigListEntry(section))
             list.append(getConfigListEntry(_('E2Player Style:'), config.plugins.xDreamy.E2Player, _('Select the style for the E2Player Plugin')))
             list.append(getConfigListEntry(_('New Virtual Keyboard Style:'), config.plugins.xDreamy.NewVirtualKeyboard, _('Choose the style for the New Virtual Keyboard plugin.')))
-                                                                                                  
             list.append(getConfigListEntry(_('Enhanced Movie Center Style:'), config.plugins.xDreamy.EnhancedMovieCenter, _('Select the style for the Enhanced Movie Center "EMC"')))
             section = '\\c00289496' + _('---------------------------------( USER BACKGROUND )---------------------------')
             list.append(getConfigListEntry(section))
@@ -1055,36 +976,29 @@ class xDreamySetup(ConfigListScreen, Screen):
         if fileExists(user_log):
             self.session.open(File_Commander, user_log)
 
-                             
-                                                      
-                                                          
-                                                                      
-                                            
-                                     
-                                                
-                                                                                     
-                                                                
-                              
+    def GetPicturePath(self):
+        currentConfig = self["config"].getCurrent()
+        if currentConfig and len(currentConfig) > 1:
+            returnValue = currentConfig[1].value
+        else:
+            returnValue = '/usr/share/enigma2/xDreamy/screens/default.png'
+        PicturePath = '/usr/share/enigma2/xDreamy/screens/default.png'
+        if not isinstance(returnValue, str):
+            returnValue = PicturePath
+        PicturePath = convert_image(PicturePath)
+        c = ['setup', 'autoupdate', 'theweather', 'user', 'basic', 'weather source:']
+        if currentConfig and currentConfig[0].lower().strip() in c:
+            return PicturePath
 
-def GetPicturePath(self):
-    currentConfig = self["config"].getCurrent()[0] 
-    returnValue = self['config'].getCurrent()[1].value  # Correctly access the value
-    PicturePath = '/usr/share/enigma2/xDreamy/screens/default.png' 
-    if not isinstance(returnValue, str):
-        returnValue = PicturePath
-    PicturePath = convert_image(PicturePath) 
-    c = ['setup', 'autoupdate', 'theweather', 'user', 'basic', 'weather source:'] 
-    if currentConfig and currentConfig.lower().strip() in c:
-        return PicturePath
-    if 'oaweather' in currentConfig.lower().strip():
-        return PicturePath
-    if 'msnweather' in currentConfig.lower().strip():
-        return PicturePath
-    path = '/usr/share/enigma2/xDreamy/screens/' + returnValue + '.png'
-    if fileExists(path):
-        return convert_image(path)
-    else:
-        return PicturePath
+        if currentConfig and 'oaweather' in currentConfig[0].lower().strip():
+            return PicturePath
+        if currentConfig and 'msnweather' in currentConfig[0].lower().strip():
+            return PicturePath
+        path = '/usr/share/enigma2/xDreamy/screens/' + returnValue + '.png'
+        if fileExists(path):
+            return convert_image(path)
+        else:
+            return PicturePath
 
     def UpdatePicture(self):
         self.onLayoutFinish.append(self.ShowPicture)
@@ -1120,51 +1034,51 @@ def GetPicturePath(self):
         else:
             print("Dati dell'immagine non disponibili. Controlla l'immagine.")
 
-                   
-                                                                                                                     
-                                       
+    def info(self):
+        aboutbox = self.session.open(MessageBox, _('Setup xDreamy for xDreamy v.%s') % version, MessageBox.TYPE_INFO)
+        aboutbox.setTitle(_('Info...'))
 
-                      
-                                      
-                          
-                                            
-                                                     
-                                                  
-                                             
-                           
-                                                     
-                                                  
-                                             
-                         
-                                                      
-                                                   
-                                              
-                          
+    def keyLeft(self):
+        ConfigListScreen.keyLeft(self)
+        self.createSetup()
+        sel = self["config"].getCurrent()[1]
+        if sel and sel == config.plugins.xDreamy.png:
+            config.plugins.xDreamy.png.setValue(0)
+            config.plugins.xDreamy.png.save()
+            self.removPng()
+        if sel and sel == config.plugins.xDreamy.api:
+            config.plugins.xDreamy.api.setValue(0)
+            config.plugins.xDreamy.api.save()
+            self.keyApi()
+        if sel and sel == config.plugins.xDreamy.api2:
+            config.plugins.xDreamy.api2.setValue(0)
+            config.plugins.xDreamy.api2.save()
+            self.keyApi2()
 
-                       
-                                       
-                          
-                                            
-                                                     
-                                                  
-                                             
-                           
-                                                     
-                                                  
-                                             
-                         
-                                                      
-                                                   
-                                              
-                          
+    def keyRight(self):
+        ConfigListScreen.keyRight(self)
+        self.createSetup()
+        sel = self["config"].getCurrent()[1]
+        if sel and sel == config.plugins.xDreamy.png:
+            config.plugins.xDreamy.png.setValue(0)
+            config.plugins.xDreamy.png.save()
+            self.removPng()
+        if sel and sel == config.plugins.xDreamy.api:
+            config.plugins.xDreamy.api.setValue(0)
+            config.plugins.xDreamy.api.save()
+            self.keyApi()
+        if sel and sel == config.plugins.xDreamy.api2:
+            config.plugins.xDreamy.api2.setValue(0)
+            config.plugins.xDreamy.api2.save()
+            self.keyApi2()
 
-                      
-                                                                               
-                          
+    def keyDown(self):
+        self['config'].instance.moveSelection(self['config'].instance.moveDown)
+        self.createSetup()
 
-                    
-                                                                             
-                          
+    def keyUp(self):
+        self['config'].instance.moveSelection(self['config'].instance.moveUp)
+        self.createSetup()
 
     def changedEntry(self):
         self.item = self["config"].getCurrent()
@@ -1177,12 +1091,16 @@ def GetPicturePath(self):
             print("Error in changedEntry:", e)
 
     def getCurrentValue(self):
-        if self["config"].getCurrent() and len(self["config"].getCurrent()) > 0:
-            return str(self["config"].getCurrent()[1].getText())
+        current = self["config"].getCurrent()
+        if current and len(current) > 1:
+            return str(current[1].getText())
         return ""
 
     def getCurrentEntry(self):
-        return self["config"].getCurrent() and self["config"].getCurrent()[0] or ""
+        current = self["config"].getCurrent()
+        if current:
+            return current[0]
+        return ""
 
     def createSummary(self):
         from Screens.Setup import SetupSummary
@@ -1277,43 +1195,43 @@ def GetPicturePath(self):
         else:
             self.close()
 
-                             
-            
-                   
-                                       
-                                                                                                                                                                                          
-                                                                                                                                                           
-                             
-                                          
-                                 
-                                       
-                                
-                         
-                                 
-                                            
-                                      
-                                           
-                                          
-                                                 
-                                                
-                              
-                                                           
-                                                                               
-                                                                         
-                                                                                  
-                                                                  
-                                                                                                                                                                                                                
-                                                  
-                                                                               
-                                                                         
-                                                                                  
-                                                                  
-                                                                                                                                                                                                                                
-                                                                                                              
-                         
-                                                                                                                              
-                              
-                                    
+    def checkforUpdate(self):
+        try:
+            fp = ''
+            destr = '/tmp/xDreamyv.txt'
+            req = Request('https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/xDreamyv.txt')
+            req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
+            fp = urlopen(req)
+            fp = fp.read().decode('utf-8')
+            print('fp read:', fp)
+            with open(destr, 'w') as f:
+                f.write(str(fp))  # .decode("utf-8"))
+                f.seek(0)
+            if fileExists(destr):
+                with open(destr, 'r') as cc:
+                    s1 = cc.readline()  # .decode("utf-8")
+                    vers = s1.split('#')[0]
+                    url = s1.split('#')[1]
+                    version_server = vers.strip()
+                    self.updateurl = url.strip()
+                    cc.close()
+                    if str(version_server) == str(version):
+                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
+                                                          version_server,
+                                                          _('Version installed:'),
+                                                          version,
+                                                          _('Congratulation, You have the last version of XDREAMY!'))
+                    elif version_server > version:
+                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
+                                                          version_server,
+                                                          _('Version installed:'),
+                                                          version,
+                                                          _('The update is available!\n\nDo you want to run the update now?'))
+                        self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
+                    else:
+                        self.session.open(MessageBox, _('You have version %s!!!') % version, MessageBox.TYPE_INFO, timeout=10)
+        except Exception as e:
+            print('error: ', str(e))
 
     def update(self, answer):
         if answer is True:
@@ -1435,8 +1353,8 @@ class xDreamyUpdater(Screen):
     <widget name="status" position="20,10" size="800,70" transparent="1" font="Regular; 40" foregroundColor="foreground" backgroundColor="background" valign="center" halign="left" noWrap="1"/>
     <widget source="progress" render="Progress" position="20,120" size="800,20" transparent="1" borderWidth="0" foregroundColor="white" backgroundColor="background"/>
     <widget source="progresstext" render="Label" position="209,164" zPosition="2" font="Regular; 28" halign="center" transparent="1" size="400,70" foregroundColor="foreground" backgroundColor="background"/>
-</screen>
-                '''
+</screen>'''
+
         self.skin = skin
         Screen.__init__(self, session)
         self.updateurl = updateurl
