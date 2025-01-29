@@ -42,6 +42,13 @@ from Tools.Directories import fileExists
 from Tools.Directories import SCOPE_PLUGINS
 from Tools.Directories import resolveFilename
 from Tools.Downloader import downloadWithProgress
+         
+             
+          
+           
+             
+           
+                                           
 
 PY3 = sys.version_info.major >= 3
 
@@ -551,7 +558,6 @@ class xDreamySetup(ConfigListScreen, Screen):
                                                        'yellow': self.checkforUpdate,
                                                        'info': self.mesInfo,
                                                        'blue': self.info,
-                                                       #'cancel': self.keyExit,
                                                        'ok': self.keyRun}, -1)
 
         self.timerx = eTimer()
@@ -565,9 +571,55 @@ class xDreamySetup(ConfigListScreen, Screen):
 
         # Add notifier to InfobarStyle to update the list when the selection changes
         config.plugins.xDreamy.InfobarStyle.addNotifier(self.onInfobarStyleChange)
-        
+
     def keyExit(self):
-        self.close()
+        self.close()               
+
+    def info(self):
+        aboutbox = self.session.open(MessageBox, _('Setup xDreamy for xDreamy v.%s') % version, MessageBox.TYPE_INFO)
+        aboutbox.setTitle(_('Info...'))
+
+    def keyLeft(self):
+        ConfigListScreen.keyLeft(self)
+        self.createSetup()
+        sel = self["config"].getCurrent()[1]
+        if sel and sel == config.plugins.xDreamy.png:
+            config.plugins.xDreamy.png.setValue(0)
+            config.plugins.xDreamy.png.save()
+            self.removPng()
+        if sel and sel == config.plugins.xDreamy.api:
+            config.plugins.xDreamy.api.setValue(0)
+            config.plugins.xDreamy.api.save()
+            self.keyApi()
+        if sel and sel == config.plugins.xDreamy.api2:
+            config.plugins.xDreamy.api2.setValue(0)
+            config.plugins.xDreamy.api2.save()
+            self.keyApi2()
+
+    def keyRight(self):
+        ConfigListScreen.keyRight(self)
+        self.createSetup()
+        sel = self["config"].getCurrent()[1]
+        if sel and sel == config.plugins.xDreamy.png:
+            config.plugins.xDreamy.png.setValue(0)
+            config.plugins.xDreamy.png.save()
+            self.removPng()
+        if sel and sel == config.plugins.xDreamy.api:
+            config.plugins.xDreamy.api.setValue(0)
+            config.plugins.xDreamy.api.save()
+            self.keyApi()
+        if sel and sel == config.plugins.xDreamy.api2:
+            config.plugins.xDreamy.api2.setValue(0)
+            config.plugins.xDreamy.api2.save()
+            self.keyApi2()
+
+    def keyDown(self):
+        self['config'].instance.moveSelection(self['config'].instance.moveDown)
+        self.createSetup()
+
+    def keyUp(self):
+        self['config'].instance.moveSelection(self['config'].instance.moveUp)
+        self.createSetup()
 
     def __layoutFinished(self):
         self['city'].setText("%s" % str(config.plugins.xDreamy.city.value))
@@ -601,6 +653,7 @@ class xDreamySetup(ConfigListScreen, Screen):
             "OpenPLi, OpenVIX, OpenHDF, OpenTR, Satlodge, NonSoloSat, Foxbob & PLi Base Images.\n\n"
             "Forum support: Linuxsat-support.com\n"
             "Mahmoud Hussein")
+         
         self.session.open(MessageBox, _(message), MessageBox.TYPE_INFO, timeout=10)
 
     def getImagePath(self, item_name):
@@ -639,6 +692,44 @@ class xDreamySetup(ConfigListScreen, Screen):
                     print("Default image loaded successfully.")
                 else:
                     print(f"Default image not found: {default_image_path}")
+                    
+    def checkforUpdate(self):
+        try:
+            fp = ''
+            destr = '/tmp/xDreamyv.txt'
+            req = Request('https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/xDreamyv.txt')
+            req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
+            fp = urlopen(req)
+            fp = fp.read().decode('utf-8')
+            print('fp read:', fp)
+            with open(destr, 'w') as f:
+                f.write(str(fp))
+                f.seek(0)
+            if fileExists(destr):
+                with open(destr, 'r') as cc:
+                    s1 = cc.readline()
+                    vers = s1.split('#')[0]
+                    url = s1.split('#')[1]
+                    version_server = vers.strip()
+                    self.updateurl = url.strip()
+                    cc.close()
+                    if str(version_server) == str(version):
+                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
+                                                          version_server,
+                                                          _('Version installed:'),
+                                                          version,
+                                                          _('Congratulation, You have the last version of XDREAMY!'))
+                    elif version_server > version:
+                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
+                                                          version_server,
+                                                          _('Version installed:'),
+                                                          version,
+                                                          _('The update is available!\n\nDo you want to run the update now?'))
+                        self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
+                    else:
+                        self.session.open(MessageBox, _('You have version %s!!!') % version, MessageBox.TYPE_INFO, timeout=10)
+        except Exception as e:
+            print('error: ', str(e))
 
     def keyRun(self):
         sel = self["config"].getCurrent()[1]
@@ -826,6 +917,7 @@ class xDreamySetup(ConfigListScreen, Screen):
             list.append(getConfigListEntry(section))
             list.append(getConfigListEntry(_('E2Player Style:'), config.plugins.xDreamy.E2Player, _('Select the style for the E2Player Plugin')))
             list.append(getConfigListEntry(_('New Virtual Keyboard Style:'), config.plugins.xDreamy.NewVirtualKeyboard, _('Choose the style for the New Virtual Keyboard plugin.')))
+                                                                                                  
             list.append(getConfigListEntry(_('Enhanced Movie Center Style:'), config.plugins.xDreamy.EnhancedMovieCenter, _('Select the style for the Enhanced Movie Center "EMC"')))
             section = '\\c00289496' + _('---------------------------------( USER BACKGROUND )---------------------------')
             list.append(getConfigListEntry(section))
@@ -963,6 +1055,17 @@ class xDreamySetup(ConfigListScreen, Screen):
         if fileExists(user_log):
             self.session.open(File_Commander, user_log)
 
+                             
+                                                      
+                                                          
+                                                                      
+                                            
+                                     
+                                                
+                                                                                     
+                                                                
+                              
+
 def GetPicturePath(self):
     currentConfig = self["config"].getCurrent()[0] 
     returnValue = self['config'].getCurrent()[1].value  # Correctly access the value
@@ -1017,51 +1120,51 @@ def GetPicturePath(self):
         else:
             print("Dati dell'immagine non disponibili. Controlla l'immagine.")
 
-    def info(self):
-        aboutbox = self.session.open(MessageBox, _('Setup xDreamy for xDreamy v.%s') % version, MessageBox.TYPE_INFO)
-        aboutbox.setTitle(_('Info...'))
+                   
+                                                                                                                     
+                                       
 
-    def keyLeft(self):
-        ConfigListScreen.keyLeft(self)
-        self.createSetup()
-        sel = self["config"].getCurrent()[1]
-        if sel and sel == config.plugins.xDreamy.png:
-            config.plugins.xDreamy.png.setValue(0)
-            config.plugins.xDreamy.png.save()
-            self.removPng()
-        if sel and sel == config.plugins.xDreamy.api:
-            config.plugins.xDreamy.api.setValue(0)
-            config.plugins.xDreamy.api.save()
-            self.keyApi()
-        if sel and sel == config.plugins.xDreamy.api2:
-            config.plugins.xDreamy.api2.setValue(0)
-            config.plugins.xDreamy.api2.save()
-            self.keyApi2()
+                      
+                                      
+                          
+                                            
+                                                     
+                                                  
+                                             
+                           
+                                                     
+                                                  
+                                             
+                         
+                                                      
+                                                   
+                                              
+                          
 
-    def keyRight(self):
-        ConfigListScreen.keyRight(self)
-        self.createSetup()
-        sel = self["config"].getCurrent()[1]
-        if sel and sel == config.plugins.xDreamy.png:
-            config.plugins.xDreamy.png.setValue(0)
-            config.plugins.xDreamy.png.save()
-            self.removPng()
-        if sel and sel == config.plugins.xDreamy.api:
-            config.plugins.xDreamy.api.setValue(0)
-            config.plugins.xDreamy.api.save()
-            self.keyApi()
-        if sel and sel == config.plugins.xDreamy.api2:
-            config.plugins.xDreamy.api2.setValue(0)
-            config.plugins.xDreamy.api2.save()
-            self.keyApi2()
+                       
+                                       
+                          
+                                            
+                                                     
+                                                  
+                                             
+                           
+                                                     
+                                                  
+                                             
+                         
+                                                      
+                                                   
+                                              
+                          
 
-    def keyDown(self):
-        self['config'].instance.moveSelection(self['config'].instance.moveDown)
-        self.createSetup()
+                      
+                                                                               
+                          
 
-    def keyUp(self):
-        self['config'].instance.moveSelection(self['config'].instance.moveUp)
-        self.createSetup()
+                    
+                                                                             
+                          
 
     def changedEntry(self):
         self.item = self["config"].getCurrent()
@@ -1174,43 +1277,43 @@ def GetPicturePath(self):
         else:
             self.close()
 
-    def checkforUpdate(self):
-        try:
-            fp = ''
-            destr = '/tmp/xDreamyv.txt'
-            req = Request('https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/xDreamyv.txt')
-            req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
-            fp = urlopen(req)
-            fp = fp.read().decode('utf-8')
-            print('fp read:', fp)
-            with open(destr, 'w') as f:
-                f.write(str(fp))  # .decode("utf-8"))
-                f.seek(0)
-            if fileExists(destr):
-                with open(destr, 'r') as cc:
-                    s1 = cc.readline()  # .decode("utf-8")
-                    vers = s1.split('#')[0]
-                    url = s1.split('#')[1]
-                    version_server = vers.strip()
-                    self.updateurl = url.strip()
-                    cc.close()
-                    if str(version_server) == str(version):
-                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
-                                                          version_server,
-                                                          _('Version installed:'),
-                                                          version,
-                                                          _('Congratulation, You have the last version of XDREAMY!'))
-                    elif version_server > version:
-                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
-                                                          version_server,
-                                                          _('Version installed:'),
-                                                          version,
-                                                          _('The update is available!\n\nDo you want to run the update now?'))
-                        self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
-                    else:
-                        self.session.open(MessageBox, _('You have version %s!!!') % version, MessageBox.TYPE_INFO, timeout=10)
-        except Exception as e:
-            print('error: ', str(e))
+                             
+            
+                   
+                                       
+                                                                                                                                                                                          
+                                                                                                                                                           
+                             
+                                          
+                                 
+                                       
+                                
+                         
+                                 
+                                            
+                                      
+                                           
+                                          
+                                                 
+                                                
+                              
+                                                           
+                                                                               
+                                                                         
+                                                                                  
+                                                                  
+                                                                                                                                                                                                                
+                                                  
+                                                                               
+                                                                         
+                                                                                  
+                                                                  
+                                                                                                                                                                                                                                
+                                                                                                              
+                         
+                                                                                                                              
+                              
+                                    
 
     def update(self, answer):
         if answer is True:
