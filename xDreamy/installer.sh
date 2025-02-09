@@ -61,6 +61,6 @@ sleep 2
 echo "Please wait to restart your GUI "
 echo "   "
 sleep 2
-killall -9 enigma2
+init 4 && init 3
 echo "   "
 exit 0
