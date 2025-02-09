@@ -1,64 +1,65 @@
 #!/bin/bash
-#
+
 echo "------------------------------------------------------------------------"
-echo "                            Welcome To XDREAMY                          "
-echo "                         XDREAMY Skin By Inspiron                       "
-echo "                       Don't Remove this Disclaimer                     "
+echo "                          Welcome To XDREAMY                             "
+echo "                       XDREAMY Skin By Inspiron                          "
+echo "                    Don't Remove this Disclaimer                         "
 echo "------------------------------------------------------------------------"
-echo "         Experience Enigma2 skin like never before with XDREAMY         "
+echo "         Experience Enigma2 skin like never before with XDREAMY          "
 echo "------------------------------------------------------------------------"
 sleep 2
 
-# Check for existing installation
-if opkg list-installed | grep enigma2-plugin-skins-xDreamy &> /dev/null; then
+# التحقق مما إذا كان XDREAMY مثبتًا مسبقًا
+if opkg list-installed | grep -q "enigma2-plugin-skins-xDreamy"; then
     echo "Removing the previous version of XDREAMY Skin..."
-    sleep 2;
+    sleep 2
     opkg remove enigma2-plugin-skins-xDreamy
-    rm -rf /usr/share/enigma2/xDreamy > /dev/null 2>&1
-    echo 'Package removed.'
+    rm -rf /usr/share/enigma2/xDreamy
+    echo "✔ Previous version removed."
 else
-    echo "You do not have the previous version"
+    echo "✔ No previous version found."
 fi
 echo ""
 
-# Install curl if not already installed
-opkg install curl
+# التحقق مما إذا كان `curl` مثبتًا
+if ! command -v curl &> /dev/null; then
+    echo "Installing curl..."
+    opkg install curl
+    if [ $? -ne 0 ]; then
+        echo "❌ Error installing curl. Please install it manually."
+        exit 1
+    fi
+fi
 
-# Download the XDREAMY skin package
+# تنزيل حزمة XDREAMY
 cd /tmp
 echo "Downloading XDREAMY skin package..."
-curl -s -k -L "https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/xDreamy.ipk" -o /tmp/xDreamy.ipk --progress-bar
-if [ $? -ne 0 ]; then
-    echo "Error downloading the XDREAMY skin package."
+curl -s -k -L "https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/xDreamy.ipk" -o xDreamy.ipk --progress-bar
+if [ $? -ne 0 ] || [ ! -f "xDreamy.ipk" ]; then
+    echo "❌ Error downloading the XDREAMY skin package."
     exit 1
 fi
+echo "✔ Download completed."
 
-# Install the package
-echo "Installing ...."
+# تثبيت الحزمة
+echo "Installing XDREAMY Skin..."
 opkg install --force-overwrite /tmp/xDreamy.ipk
 if [ $? -ne 0 ]; then
-    echo "Error installing the XDREAMY skin."
+    echo "❌ Error installing the XDREAMY skin."
     exit 1
 fi
+echo "✔ XDREAMY Installed Successfully."
 
-# Clean up
-echo ""
-echo ""
-echo ""
-sleep 1
-if [ -f /tmp/xDreamy.ipk ]; then
-    rm -f /tmp/xDreamy.ipk
-fi
+# تنظيف الملفات المؤقتة
+rm -f /tmp/xDreamy.ipk
 
 echo "------------------------------------------------------------------------"
-echo "                            CONGRATULATIONS                             "
-echo "                  XDREAMY Skin Installed Successfully                   "
+echo "                         🎉 CONGRATULATIONS 🎉                           "
+echo "                   XDREAMY Skin Installed Successfully                   "
 echo "------------------------------------------------------------------------"
-echo "   "
+echo ""
 sleep 2
-echo "Please wait to restart your GUI "
-echo "   "
-sleep 2
-init 4 && init 3
-echo "   "
+echo "Restarting GUI in 3 seconds..."
+sleep 3
+init 4 && sleep 2 && init 3
 exit 0
