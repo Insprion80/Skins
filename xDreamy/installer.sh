@@ -89,7 +89,6 @@ display_progress_bar $((CURRENT_STEP * 100 / TOTAL_STEPS))
 
 # Step 5: Install the XDREAMY skin
 log_event "Installing XDREAMY skin..." true
-opkg update
 opkg install --force-overwrite /tmp/xDreamy.ipk
 if [ $? -ne 0 ]; then
     log_event "❌ Error installing XDREAMY. Try manual installation." true
