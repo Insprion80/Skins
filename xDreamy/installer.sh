@@ -7,18 +7,6 @@ set -e
 TOTAL_STEPS=7
 CURRENT_STEP=0
 
-# Get terminal dimensions
-TERM_WIDTH=$(tput cols)
-TERM_HEIGHT=$(tput lines)
-
-# Progress bar position
-PROGRESS_BAR_ROW=2
-PROGRESS_BAR_COL=$(( (TERM_WIDTH - 50) / 2 ))
-
-# Event log position
-EVENT_LOG_ROW=$((PROGRESS_BAR_ROW + 2))
-EVENT_LOG_COL=$(( (TERM_WIDTH - 50) / 2 ))
-
 # Function to display progress bar
 display_progress_bar() {
     local percentage=$1
@@ -27,10 +15,7 @@ display_progress_bar() {
     for ((i = 0; i < filled; i++)); do progress_bar+="="; done
     for ((i = filled; i < 50; i++)); do progress_bar+=" "; done
     progress_bar+="] ${percentage}%"
-
-    # Move cursor to progress bar position
-    tput cup $PROGRESS_BAR_ROW $PROGRESS_BAR_COL
-    echo -ne "$progress_bar"
+    echo -ne "\r$progress_bar"
 }
 
 # Function to log events
@@ -38,12 +23,10 @@ log_event() {
     local event="$1"
     local blink="$2"
 
-    # Move cursor to event log position
-    tput cup $EVENT_LOG_ROW $EVENT_LOG_COL
     if [ "$blink" = "true" ]; then
-        echo -ne "\e[5m$event\e[0m"  # Blinking effect
+        echo -ne "\e[5m$event\e[0m\n"  # Blinking effect
     else
-        echo -ne "$event"
+        echo -ne "$event\n"
     fi
 }
 
@@ -130,12 +113,11 @@ CURRENT_STEP=$((CURRENT_STEP + 1))
 display_progress_bar $((CURRENT_STEP * 100 / TOTAL_STEPS))
 
 # Restore cursor and finalize UI
-tput cup $TERM_HEIGHT 0
 echo -ne "\e[?25h"  # Show cursor
 echo -ne "\e[0m"    # Reset text formatting
 
 echo "------------------------------------------------------------------------"
-echo "                         🎉 CONGRATULATIONS 🎉                         "
+echo "                         � CONGRATULATIONS 🎉                         "
 echo "                  XDREAMY Skin Installed Successfully                   "
 echo "------------------------------------------------------------------------"
 exit 0
