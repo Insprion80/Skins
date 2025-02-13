@@ -39,7 +39,7 @@ display_progress_bar 0
 log_event "Checking for existing XDREAMY installation..." true
 if opkg list-installed | grep -q "enigma2-plugin-skins-xDreamy"; then
     log_event "Removing old version..." true
-    opkg remove enigma2-plugin-skins-xDreamy
+    opkg remove --force-depends enigma2-plugin-skins-xDreamy
     rm -rf /usr/share/enigma2/xDreamy
     log_event "✔ Previous version removed." false
 else
@@ -89,6 +89,7 @@ display_progress_bar $((CURRENT_STEP * 100 / TOTAL_STEPS))
 
 # Step 5: Install the XDREAMY skin
 log_event "Installing XDREAMY skin..." true
+opkg update
 opkg install --force-overwrite /tmp/xDreamy.ipk
 if [ $? -ne 0 ]; then
     log_event "❌ Error installing XDREAMY. Try manual installation." true
@@ -117,7 +118,7 @@ echo -ne "\e[?25h"  # Show cursor
 echo -ne "\e[0m"    # Reset text formatting
 
 echo "------------------------------------------------------------------------"
-echo "                         � CONGRATULATIONS 🎉                         "
+echo "                         🎉 CONGRATULATIONS 🎉                         "
 echo "                  XDREAMY Skin Installed Successfully                   "
 echo "------------------------------------------------------------------------"
 exit 0
