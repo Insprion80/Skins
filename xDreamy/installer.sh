@@ -15,5 +15,5 @@ opkg install --force-reinstall --force-overwrite /tmp/xDreamy_new.ipk
 
 # Cleanup
 rm -f /tmp/xDreamy_new.ipk
-echo "Restarting GUI..."
-init 4 && init 3
+echo "Please Restart GUI..."
+exit
