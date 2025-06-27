@@ -118,9 +118,7 @@ enigma2-plugin-extensions-atilehd
 enigma2-plugin-extensions-dvdplayer
 enigma2-plugin-extensions-mediaplayer
 enigma2-plugin-extensions-pictureplayer
-enigma2-plugin-systemplugins-cablescan
 enigma2-plugin-systemplugins-hotplug
-enigma2-plugin-systemplugins-positionersetup
 enigma2-plugin-systemplugins-multitranscodingsetup
 "
 for pkg in $BLOAT_PACKAGES; do
