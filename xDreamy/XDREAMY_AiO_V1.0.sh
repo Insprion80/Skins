@@ -152,9 +152,6 @@ log "==> Installing 3rd-party plugins"
 log_action "xDreamy Skin"
 wget -q --no-check-certificate https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/installer.sh -O - | /bin/sh >/dev/null 2>&1 && log_done || log_fail
 
-log_action "MoviesManager"
-wget -q --no-check-certificate http://dreambox4u.com/dreamarabia/Transmission_e2/MoviesManager.sh -O - | /bin/sh >/dev/null 2>&1 && log_done || log_fail
-
 log_action "Transmission_e2"
 wget -q --no-check-certificate http://dreambox4u.com/dreamarabia/Transmission_e2/Transmission_e2.sh -O - | /bin/sh >/dev/null 2>&1 && log_done || log_fail
 
