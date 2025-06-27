@@ -26,10 +26,10 @@ log_fail() {
 trap 'log "[ERROR] Line $LINENO failed. Continuing..."' ERR
 
 printf "\n\n"
-log "============================================"
+log "=============================================="
 log "         XDREAMY AiO Setup Wizard"
 log "     All-in-One Enigma2 Configuration Tool"
-log "============================================"
+log "=============================================="
 log "This script will:"
 log " "
 log " • Set static IP (192.168.1.10)"
