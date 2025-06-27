@@ -45,8 +45,6 @@ log " • Update feeds + install key extensions"
 log " • Install xDreamy, AJPanel, Transmission..."
 log " • Set xDreamy as default skin + restart GUI"
 log ""
-
-
 echo "Press any key to skip script start (5s timeout)..."
 trap '' ERR
 read -t 5 -n 1 key
