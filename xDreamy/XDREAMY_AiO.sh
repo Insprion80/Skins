@@ -65,11 +65,11 @@ while [ $COUNTDOWN -gt 0 ]; do
   read -t 1 -n 1 key && break
   COUNTDOWN=$((COUNTDOWN - 1))
 done
-
 trap 'log "[ERROR] Line $LINENO failed. Continuing..."' ERR
 
 if [ -n "$key" ]; then
-  log "\n⏩ Skipped by user input"
+log ""
+log "⏩ Skipped by user input"
   exit 0
 else
   log "\n⏱ No User Action. Starting script execution..."
