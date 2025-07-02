@@ -65,6 +65,7 @@ while [ $COUNTDOWN -gt 0 ]; do
   read -t 1 -n 1 key && break
   COUNTDOWN=$((COUNTDOWN - 1))
 done
+
 trap 'log "[ERROR] Line $LINENO failed. Continuing..."' ERR
 
 if [ -n "$key" ]; then
