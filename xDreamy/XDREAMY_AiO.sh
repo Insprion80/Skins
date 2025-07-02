@@ -164,6 +164,7 @@ enigma2-plugin-extensions-atilehd
 enigma2-plugin-extensions-dvdplayer
 enigma2-plugin-extensions-mediaplayer
 enigma2-plugin-extensions-pictureplayer
+enigma2-plugin-extensions-mediascanner
 enigma2-plugin-systemplugins-cablescan
 enigma2-plugin-systemplugins-hotplug
 enigma2-plugin-systemplugins-moviecut
@@ -176,7 +177,9 @@ enigma2-plugin-systemplugins-frontprocessorupgrade
 enigma2-plugin-systemplugins-networkwizard
 enigma2-plugin-systemplugins-satipclient
 enigma2-plugin-systemplugins-videomode
-enigma2-plugin-systemplugins-videotune"
+enigma2-plugin-systemplugins-videotune
+enigma2-plugin-systemplugins-mphelp
+enigma2-plugin-systemplugins-videoenhancement"
 
 for pkg in $BLOAT_PACKAGES; do
   log_action "$pkg"
@@ -184,7 +187,6 @@ for pkg in $BLOAT_PACKAGES; do
   sleep 0.2
 # Optional: remove sleep if you want faster execution
   done
-
 
 # === Feed Update ===
 log ""
