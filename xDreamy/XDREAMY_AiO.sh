@@ -3,7 +3,7 @@
 # Version: 1.3 by M.Hussein
 LOGFILE="/tmp/XDREAMY_AiO.log"
 
-# Logging Functions
+# === Logging Functions ===
 log() { printf "%s\n" "$*" | tee -a "$LOGFILE"; }
 log_action() { printf "    • %-45s" "$1" | tee -a "$LOGFILE"; }
 log_done() { echo " [ ✔ ]" | tee -a "$LOGFILE"; }
@@ -13,7 +13,6 @@ trap 'log "[ERROR] Line $LINENO failed. Continuing..."' ERR
 
 # === Header ===
 clear
-printf "\n\n"
 log "==========================================================="
 log "      ★ XDREAMY AiO - Enigma2 Universal Setup Wizard ★"
 log "           Version 1.3 - Developed by M.Hussein"
@@ -41,7 +40,7 @@ log "    • Update feeds and install dependencies"
 log "    • Install xDreamy, AJPanel, Transmission, etc."
 log "    • Apply xDreamy skin"
 log ""
-log "🗂 Log saved to: /tmp/XDREAMY_AiO.log"
+log "🗂 Log saved to: $LOGFILE"
 log ""
 
 # === Countdown ===
@@ -74,7 +73,7 @@ log "✔ Python           : $PYTHON_VERSION"
 log "✔ Network Interface: $NET_IFACE"
 log "✔ Local Language   : $LANG_CODE"
 
-# === Network Configuration ===
+# === Network Setup ===
 log ""
 log "==> Setting Network IP and Account Password..."
 IP_PREFIX=$(ip addr | grep 'inet 192.168' | awk '{print $2}' | cut -d. -f1-3 | head -n1)
@@ -92,13 +91,13 @@ iface $NET_IFACE inet static
     gateway $IP_PREFIX.1
     dns-nameservers 8.8.8.8 9.9.9.9
 EOF
-  /etc/init.d/networking restart >/dev/null 2>&1 && log_done || log_fail
+  /etc/init.d/networking restart >/dev/null 2>&1 && log_action "Setting static IP ($IP_PREFIX.10)" && log_done || log_fail
 fi
 
 echo -e "root\nroot" | passwd root >/dev/null 2>&1 && \
 log_action "Setting root password to 'root'" && log_done || log_fail
 
-# === Localization ===
+# === Locale Setup ===
 log ""
 log "==> Locale Configuration..."
 SETTINGS_FILE="/etc/enigma2/settings"
@@ -150,8 +149,10 @@ enigma2-plugin-systemplugins-audiosync
 enigma2-plugin-systemplugins-multitranscodingsetup
 enigma2-plugin-systemplugins-satfinder
 enigma2-plugin-systemplugins-crashlogautosubmit
+enigma2-plugin-systemplugins-diseqctuner
 enigma2-plugin-systemplugins-frontprocessorupgrade
 enigma2-plugin-systemplugins-networkwizard
+enigma2-plugin-systemplugins-satipclient
 enigma2-plugin-systemplugins-videomode
 enigma2-plugin-systemplugins-videotune
 enigma2-plugin-systemplugins-mphelp
@@ -161,7 +162,7 @@ for pkg in $BLOAT_PACKAGES; do
   opkg remove --force-depends "$pkg" >/dev/null 2>&1 && log_done || log_skip
 done
 
-# === Feed Update and Extensions ===
+# === Feed Update & Install Core Plugins ===
 log ""
 log "==> Updating Feeds and Installing Extensions...."
 opkg update >/dev/null 2>&1 && log_action "Feed update" && log_done
