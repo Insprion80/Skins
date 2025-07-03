@@ -1,112 +1,90 @@
 #!/bin/sh
-# XDREAMY AiO - One-click Enigma2 Setup Script
+# ★ XDREAMY AiO - Enigma2 One-Click Setup Script ★
 # Version: 1.3 by M.Hussein
 LOGFILE="/tmp/XDREAMY_AiO.log"
 
-log() {
-  printf "%s\n" "$*" | tee -a "$LOGFILE"
-}
-
-log_action() {
-  printf "    • %-45s" "$1" | tee -a "$LOGFILE"
-}
-
-log_done() {
-  echo " [ ✔ ]" | tee -a "$LOGFILE"
-}
-
-log_skip() {
-  echo " [ skipped ]" | tee -a "$LOGFILE"
-}
-
-log_fail() {
-  echo " [ ✖ ]" | tee -a "$LOGFILE"
-}
-
+# Logging Functions
+log() { printf "%s\n" "$*" | tee -a "$LOGFILE"; }
+log_action() { printf "    • %-45s" "$1" | tee -a "$LOGFILE"; }
+log_done() { echo " [ ✔ ]" | tee -a "$LOGFILE"; }
+log_skip() { echo " [ skipped ]" | tee -a "$LOGFILE"; }
+log_fail() { echo " [ ✖ ]" | tee -a "$LOGFILE"; }
 trap 'log "[ERROR] Line $LINENO failed. Continuing..."' ERR
 
+# === Header ===
+clear
 printf "\n\n"
 log "==========================================================="
 log "      ★ XDREAMY AiO - Enigma2 Universal Setup Wizard ★"
-log "           Version 1.2 - Developed by M.Hussein"
+log "           Version 1.3 - Developed by M.Hussein"
 log "==========================================================="
 log "Started at: $(date)"
 log ""
 log "What this script does:"
 log ""
 log " 🔌 Network Configuration:"
-log "    • Automatically detect LAN subnet (192.168.X.10)"
-log "    • Set static IP and dual DNS (8.8.8.8, 9.9.9.9)"
-log "    • Set root user password to 'root'"
+log "    • Auto-detect LAN subnet and set static IP"
+log "    • Set DNS (8.8.8.8, 9.9.9.9)"
+log "    • Set root password to 'root'"
 log ""
 log " 🌍 System Localization:"
-log "    • Detect your city & timezone via IP lookup"
-log "    • Sync accurate time via NTP"
-log "    • Force OSD language to English (en_EN)"
-log "    • Keep local language + Arabic + English only"
+log "    • Detect city and timezone via IP"
+log "    • Sync time using NTP"
+log "    • Force language to en_EN (English)"
+log "    • Keep only local + ar + en locales"
 log ""
 log " 🔧 System Optimization:"
-log "    • Remove unnecessary pre-installed plugins"
-log "    • Clean up unused locale files"
+log "    • Remove unnecessary bloatware"
 log ""
 log " 📦 Plugin & Skin Installer:"
-log "    • Update feed and install important tools"
-log "    • Install xDreamy skin, AJPanel, Transmission, etc."
-log "    • Apply xDreamy as default Enigma2 skin"
+log "    • Update feeds and install dependencies"
+log "    • Install xDreamy, AJPanel, Transmission, etc."
+log "    • Apply xDreamy skin"
 log ""
 log "🗂 Log saved to: /tmp/XDREAMY_AiO.log"
 log ""
 
+# === Countdown ===
 COUNTDOWN=10
 echo "You have $COUNTDOWN seconds to cancel (press any key)..."
-trap '' ERR
 while [ $COUNTDOWN -gt 0 ]; do
   printf "\rStarting in %2d seconds... Press any key to abort." $COUNTDOWN
   read -t 1 -n 1 key && break
   COUNTDOWN=$((COUNTDOWN - 1))
 done
-trap 'log "[ERROR] Line $LINENO failed. Continuing..."' ERR
-
 if [ -n "$key" ]; then
-log ""
-log "⏩ Skipped by user input"
+  log "\n⏩ Skipped by user input"
   exit 0
 else
   log "\n⏱ No User Action. Starting script execution..."
 fi
 
-# === Basic Info ===
+# === System Info ===
 log ""
 log "==> Detecting Basic System Info..."
-IMAGE_NAME="Unknown"
-[ -f /etc/image-version ] && IMAGE_NAME=$(grep -i 'distro' /etc/image-version | cut -d= -f2 | tr -d '
-')
-[ "$IMAGE_NAME" = "Unknown" ] && [ -f /etc/issue ] && IMAGE_NAME=$(head -n 1 /etc/issue | tr -d '
-')
-BOX_MODEL="Unknown"
-[ -f /etc/hostname ] && BOX_MODEL=$(cat /etc/hostname)
+IMAGE_NAME=$(grep -i 'distro' /etc/image-version 2>/dev/null | cut -d= -f2)
+BOX_MODEL=$(cat /etc/hostname)
 PYTHON_VERSION=$(python3 --version 2>/dev/null | awk '{print $2}')
 NET_IFACE=$(ip -o -4 route show to default | awk '{print $5}')
-[ -z "$NET_IFACE" ] && NET_IFACE="eth0"
+LANG_CODE=$(curl -s https://ipapi.co/languages/ | cut -d',' -f1 | cut -c1-2)
+[ -z "$LANG_CODE" ] && LANG_CODE="en"
 log "✔ Image            : $IMAGE_NAME"
 log "✔ Box Model        : $BOX_MODEL"
 log "✔ Python           : $PYTHON_VERSION"
-log "✔ Network          : $NET_IFACE"
+log "✔ Network Interface: $NET_IFACE"
+log "✔ Local Language   : $LANG_CODE"
 
-COUNTRY_LANG=$(curl -s https://ipapi.co/languages/ | cut -d, -f1 | cut -c1-2)
-[ -z "$COUNTRY_LANG" ] && COUNTRY_LANG="en"
-log "✔ Local language   : $COUNTRY_LANG"
-
-# === Network and Password ===
+# === Network Configuration ===
 log ""
 log "==> Setting Network IP and Account Password..."
 IP_PREFIX=$(ip addr | grep 'inet 192.168' | awk '{print $2}' | cut -d. -f1-3 | head -n1)
 [ -z "$IP_PREFIX" ] && IP_PREFIX="192.168.1"
-cp /etc/network/interfaces /etc/network/interfaces.bak 2>/dev/null
-cat > /etc/network/interfaces <<EOF
+if grep -q "$IP_PREFIX.10" /etc/network/interfaces 2>/dev/null; then
+  log_action "Setting static IP ($IP_PREFIX.10)"; log_skip
+else
+  cat > /etc/network/interfaces <<EOF
 auto lo
 iface lo inet loopback
-
 auto $NET_IFACE
 iface $NET_IFACE inet static
     address $IP_PREFIX.10
@@ -114,49 +92,48 @@ iface $NET_IFACE inet static
     gateway $IP_PREFIX.1
     dns-nameservers 8.8.8.8 9.9.9.9
 EOF
-log_action "Setting static IP ($IP_PREFIX.10)"; /etc/init.d/networking restart >/dev/null 2>&1 && log_done || log_fail
-log_action "Setting root password to 'root'"; echo -e "root
-root" | passwd root >/dev/null 2>&1 && log_done || log_fail
+  /etc/init.d/networking restart >/dev/null 2>&1 && log_done || log_fail
+fi
 
-# === Locale & Language ===
+echo -e "root\nroot" | passwd root >/dev/null 2>&1 && \
+log_action "Setting root password to 'root'" && log_done || log_fail
+
+# === Localization ===
 log ""
-log "==> Cleaning locale files (only keep en, ar, $COUNTRY_LANG)..."
+log "==> Locale Configuration..."
+SETTINGS_FILE="/etc/enigma2/settings"
+[ -f "$SETTINGS_FILE" ] && cp "$SETTINGS_FILE" "$SETTINGS_FILE.bak"
+sed -i '/^config.osd.language=/d' "$SETTINGS_FILE"
+echo "config.osd.language=en_EN" >> "$SETTINGS_FILE"
+log_action "Set default language to English"; log_done
+
 cd /usr/share/enigma2/po 2>/dev/null || true
 for lang in *; do
-  [ "$lang" = "en" ] || [ "$lang" = "ar" ] || [ "$lang" = "$COUNTRY_LANG" ] && continue
-  rm -rf "$lang" && log "      Removed from po/: $lang"
+  [ "$lang" = "en" ] || [ "$lang" = "ar" ] || [ "$lang" = "$LANG_CODE" ] || rm -rf "$lang"
 done
-
-for folder in /usr/share/locale/*; do
-  base=$(basename "$folder")
-  case "$base" in
-    en|en_*|ar|ar_*|$COUNTRY_LANG|${COUNTRY_LANG}_*) ;;
-    *) rm -rf "$folder" && log "      Removed from locale/: $base" ;;
+cd /usr/share/locale 2>/dev/null || true
+for folder in *; do
+  case "$folder" in
+    en|en_*|ar|ar_*|$LANG_CODE|${LANG_CODE}_*) ;; 
+    *) rm -rf "$folder" ;;
   esac
 done
+log "   Removed locale/: *"
+log_action "Clean unused languages"; log_done
 
-[ -d /usr/share/locale-langpack ] && find /usr/share/locale-langpack -mindepth 1 -maxdepth 1 ! -name 'en*' ! -name 'ar*' ! -name "$COUNTRY_LANG" -exec rm -rf {} \;
-log "✔ Locale cleanup done"
-log_action "Set default language to English"
-sed -i '/^config.osd.language=/d' /etc/enigma2/settings
-echo "config.osd.language=en_EN" >> /etc/enigma2/settings && log_done || log_fail
-
-# === Timezone & NTP ===
+# === Timezone / NTP ===
 log ""
 log "==> Detect Geolocation and Timezone..."
 CITY=$(curl -s https://ipapi.co/city/)
-TIMEZONE=$(curl -s https://ipapi.co/timezone/)
-log "✔ Location  : $CITY"
-log "✔ Timezone  : $TIMEZONE"
-if [ -n "$TIMEZONE" ]; then
-  echo "$TIMEZONE" > /etc/timezone
-  log "✔ Timezone saved to /etc/timezone"
-  log_action "Stopping any NTP service"; /etc/init.d/ntpd stop >/dev/null 2>&1 && log_done || log_skip
-  log_action "Syncing time via pool.ntp.org"; ntpd -q -p pool.ntp.org >/dev/null 2>&1 && log_done || log_skip
-  log_action "Restarting NTP service"; /etc/init.d/ntpd start >/dev/null 2>&1 && log_done || log_skip
-fi
+TZ=$(curl -s https://ipapi.co/timezone/)
+log "✔ Location         : $CITY"
+log "✔ Timezone         : $TZ"
+echo "$TZ" > /etc/timezone 2>/dev/null && log "✔ Timezone saved to /etc/timezone"
+log_action "Stopping any NTP service"; /etc/init.d/ntpd stop >/dev/null 2>&1 && log_done || log_skip
+log_action "Syncing time via pool.ntp.org"; ntpd -q -p pool.ntp.org >/dev/null 2>&1 && log_done || log_skip
+log_action "Restarting NTP service"; /etc/init.d/ntpd start >/dev/null 2>&1 && log_done || log_skip
 
-# === Bloatware ===
+# === Remove Bloatware ===
 log ""
 log "==> Removing bloatware...."
 BLOAT_PACKAGES="
@@ -175,82 +152,55 @@ enigma2-plugin-systemplugins-satfinder
 enigma2-plugin-systemplugins-crashlogautosubmit
 enigma2-plugin-systemplugins-frontprocessorupgrade
 enigma2-plugin-systemplugins-networkwizard
-enigma2-plugin-systemplugins-satipclient
 enigma2-plugin-systemplugins-videomode
 enigma2-plugin-systemplugins-videotune
 enigma2-plugin-systemplugins-mphelp
 enigma2-plugin-systemplugins-videoenhancement"
-
 for pkg in $BLOAT_PACKAGES; do
   log_action "$pkg"
   opkg remove --force-depends "$pkg" >/dev/null 2>&1 && log_done || log_skip
-  sleep 0.2
-# Optional: remove sleep if you want faster execution
-  done
+done
 
-# === Feed Update ===
+# === Feed Update and Extensions ===
 log ""
-log "==> Updating Feeds and Upgrade...."
-opkg update >/dev/null 2>&1 && log_action "Feeds Update" && log_done || log_fail
-opkg upgrade >/dev/null 2>&1 && log_action "Feeds Upgrade" && log_done || log_fail
-
-# === Install Extensions ===
-log ""
-log "==> Installing  Dependencies and Extensions...."
+log "==> Updating Feeds and Installing Extensions...."
+opkg update >/dev/null 2>&1 && log_action "Feed update" && log_done
+opkg upgrade >/dev/null 2>&1 && log_action "Feed upgrade" && log_done
 EXT_PACKAGES="
-xz
-curl
-wget
-ntpd
-transmission
-transmission-client
-python3-transmission-rpc
-python3-beautifulsoup4
+xz curl wget ntpd
+transmission transmission-client
+python3-transmission-rpc python3-beautifulsoup4
 enigma2-plugin-extensions-tmdb
 enigma2-plugin-extensions-cacheflush
 enigma2-plugin-extensions-epgtranslator
-enigma2-plugin-systemplugins-serviceapp
-"
+enigma2-plugin-systemplugins-serviceapp"
 for pkg in $EXT_PACKAGES; do
   log_action "$pkg"
   opkg install "$pkg" >/dev/null 2>&1 && log_done || log_skip
 done
 
-# === 3rd-Party Plugins ===
+# === Install 3rd-Party Plugins ===
 log ""
 log "==> Installing 3rd-party plugins"
-log_action "xDreamy Skin"
-wget -q --no-check-certificate https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/installer.sh -O - | /bin/sh >/dev/null 2>&1 && log_done || log_fail
-log_action "Transmission_e2"
-wget -q --no-check-certificate http://dreambox4u.com/dreamarabia/Transmission_e2/Transmission_e2.sh -O - | /bin/sh >/dev/null 2>&1 && log_done || log_fail
-log_action "AJPanel"
-wget -q --no-check-certificate https://raw.githubusercontent.com/AMAJamry/AJPanel/main/installer.sh -O - | /bin/sh >/dev/null 2>&1 && log_done || log_fail
-log_action "SubSSupport"
-wget -q --no-check-certificate https://github.com/popking159/ssupport/raw/main/subssupport-install.sh -O - | /bin/sh >/dev/null 2>&1 && log_done || log_fail
-log_action "Levi Manager"
-wget -q --no-check-certificate https://raw.githubusercontent.com/levi-45/Manager/main/installer.sh -O - | /bin/sh >/dev/null 2>&1 && log_done || log_fail
-log_action "Eliesatpanel"
-wget -q "--no-check-certificate" https://raw.githubusercontent.com/eliesat/eliesatpanel/main/installer.sh -O - | /bin/sh >/dev/null 2>&1 && log_done || log_fail
+wget -q https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/installer.sh -O - | /bin/sh >/dev/null 2>&1 && log_action "XDREAMY Skin" && log_done
+wget -q http://dreambox4u.com/dreamarabia/Transmission_e2/Transmission_e2.sh -O - | /bin/sh >/dev/null 2>&1 && log_action "Transmission" && log_done
+wget -q https://raw.githubusercontent.com/AMAJamry/AJPanel/main/installer.sh -O - | /bin/sh >/dev/null 2>&1 && log_action "AJPanel" && log_done
+wget -q https://github.com/popking159/ssupport/raw/main/subssupport-install.sh -O - | /bin/sh >/dev/null 2>&1 && log_action "SubSSupport" && log_done
+wget -q https://raw.githubusercontent.com/levi-45/Manager/main/installer.sh -O - | /bin/sh >/dev/null 2>&1 && log_action "Levi Multicam Manager" && log_done
 
-# === Skin Setup ===
+# === Apply Skin ===
 log ""
 log "==> Applying xDreamy as default skin"
-SKIN_CFG="/etc/enigma2/settings"
-SKIN_PATH="xDreamy/skin.xml"
-log_action "Stopping Enigma2"
-init 4 && sleep 4 && log_done || log_fail
-cp "$SKIN_CFG" "${SKIN_CFG}.bak"
-sed -i '/^config.skin.primary_skin=/d' "$SKIN_CFG"
-echo "config.skin.primary_skin=$SKIN_PATH" >> "$SKIN_CFG"
-log_action "Skin set to $SKIN_PATH"
-log_done
-log_action "Starting Enigma2"
-init 3 && log_done || log_fail
+init 4 && sleep 4 && log_action "Stopping Enigma2" && log_done
+sed -i '/^config.skin.primary_skin=/d' "$SETTINGS_FILE"
+echo "config.skin.primary_skin=xDreamy/skin.xml" >> "$SETTINGS_FILE"
+log_action "XDREAMY Skin set to default"; log_done
+init 3 && log_action "Starting Enigma2"; log_done
 
 # === Done ===
 log ""
 log "✔ All tasks complete."
 log "✔ Full log: $LOGFILE"
-log "🎉 XDREAMY AiO setup finished!"
+log "🎉 Congratulations, XDREAMY AiO setup finished!"
 
 exit 0
