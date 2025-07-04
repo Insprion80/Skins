@@ -1,6 +1,6 @@
 #!/bin/sh
 # ★ XDREAMY AiO - Enigma2 One-Click Setup Script ★
-# Version: 1.3 by M.Hussein
+# Version: 1.4 by M.Hussein
 LOGFILE="/tmp/XDREAMY_AiO.log"
 
 # === Logging Functions ===
@@ -15,7 +15,7 @@ trap 'log "[ERROR] Line $LINENO failed. Continuing..."' ERR
 clear
 log "==========================================================="
 log "      ★ XDREAMY AiO - Enigma2 Universal Setup Wizard ★"
-log "           Version 1.3 - Developed by M.Hussein"
+log "           Version 1.4 - Developed by M.Hussein"
 log "==========================================================="
 log "Started at: $(date)"
 log ""
@@ -44,19 +44,7 @@ log "🗂 Log saved to: $LOGFILE"
 log ""
 
 # === Countdown ===
-COUNTDOWN=10
-echo "You have $COUNTDOWN seconds to cancel (press any key)..."
-while [ $COUNTDOWN -gt 0 ]; do
-  printf "\rStarting in %2d seconds... Press any key to abort." $COUNTDOWN
-  read -t 1 -n 1 key && break
-  COUNTDOWN=$((COUNTDOWN - 1))
-done
-if [ -n "$key" ]; then
-  log "\n⏩ Skipped by user input"
-  exit 0
-else
-  log "\n⏱ No User Action. Starting script execution..."
-fi
+log "⏱ Starting script execution... Please wait while XDREAMY_AiO prepares your image (this may take 1–2 minutes)..."
 
 # === System Info ===
 log ""
@@ -76,24 +64,38 @@ log "✔ Local Language   : $LANG_CODE"
 # === Network Setup ===
 log ""
 log "==> Setting Network IP and Account Password..."
+
 IP_PREFIX=$(ip addr | grep 'inet 192.168' | awk '{print $2}' | cut -d. -f1-3 | head -n1)
 [ -z "$IP_PREFIX" ] && IP_PREFIX="192.168.1"
-if grep -q "$IP_PREFIX.10" /etc/network/interfaces 2>/dev/null; then
-  log_action "Setting static IP ($IP_PREFIX.10)"; log_skip
-else
-  cat > /etc/network/interfaces <<EOF
+STATIC_IP="${IP_PREFIX}.10"
+GATEWAY="${IP_PREFIX}.1"
+DNS1="8.8.8.8"
+DNS2="9.9.9.9"
+
+# Backup existing interface config if exists
+[ -f /etc/network/interfaces ] && cp /etc/network/interfaces /etc/network/interfaces.bak
+
+# Apply new interface config
+cat > /etc/network/interfaces <<EOF
 auto lo
 iface lo inet loopback
+
 auto $NET_IFACE
 iface $NET_IFACE inet static
-    address $IP_PREFIX.10
+    address $STATIC_IP
     netmask 255.255.255.0
-    gateway $IP_PREFIX.1
-    dns-nameservers 8.8.8.8 9.9.9.9
+    gateway $GATEWAY
+    dns-nameservers $DNS1 $DNS2
 EOF
-  /etc/init.d/networking restart >/dev/null 2>&1 && log_action "Setting static IP ($IP_PREFIX.10)" && log_done || log_fail
-fi
 
+# Restart networking
+/etc/init.d/networking restart >/dev/null 2>&1 && log_action "Restarting networking service" && log_done || log_fail
+
+# Logging details
+log_action "Setting static IP address to $STATIC_IP" && log_done
+log_action "Setting DNS servers: Primary $DNS1, Secondary $DNS2" && log_done
+
+# Set root password
 echo -e "root\nroot" | passwd root >/dev/null 2>&1 && \
 log_action "Setting root password to 'root'" && log_done || log_fail
 
@@ -149,10 +151,8 @@ enigma2-plugin-systemplugins-audiosync
 enigma2-plugin-systemplugins-multitranscodingsetup
 enigma2-plugin-systemplugins-satfinder
 enigma2-plugin-systemplugins-crashlogautosubmit
-enigma2-plugin-systemplugins-diseqctuner
 enigma2-plugin-systemplugins-frontprocessorupgrade
 enigma2-plugin-systemplugins-networkwizard
-enigma2-plugin-systemplugins-satipclient
 enigma2-plugin-systemplugins-videomode
 enigma2-plugin-systemplugins-videotune
 enigma2-plugin-systemplugins-mphelp
@@ -164,9 +164,13 @@ done
 
 # === Feed Update & Install Core Plugins ===
 log ""
-log "==> Updating Feeds and Installing Extensions...."
+log "==> Updating and Upgrading Image Feeds...."
 opkg update >/dev/null 2>&1 && log_action "Feed update" && log_done
 opkg upgrade >/dev/null 2>&1 && log_action "Feed upgrade" && log_done
+
+# === Install Core Plugins ===
+log ""
+log "==> Installing Extensions...."
 EXT_PACKAGES="
 xz curl wget ntpd
 transmission transmission-client
@@ -188,6 +192,8 @@ wget -q http://dreambox4u.com/dreamarabia/Transmission_e2/Transmission_e2.sh -O 
 wget -q https://raw.githubusercontent.com/AMAJamry/AJPanel/main/installer.sh -O - | /bin/sh >/dev/null 2>&1 && log_action "AJPanel" && log_done
 wget -q https://github.com/popking159/ssupport/raw/main/subssupport-install.sh -O - | /bin/sh >/dev/null 2>&1 && log_action "SubSSupport" && log_done
 wget -q https://raw.githubusercontent.com/levi-45/Manager/main/installer.sh -O - | /bin/sh >/dev/null 2>&1 && log_action "Levi Multicam Manager" && log_done
+wget -q https://raw.githubusercontent.com/biko-73/Ncam_EMU/main/installer.sh -O - | /bin/sh >/dev/null 2>&1 && log_action "NCAM Emulator" && log_done
+wget -q https://raw.githubusercontent.com/eliesat/eliesatpanel/main/installer.sh -O - | /bin/sh >/dev/null 2>&1 && log_action "EliSat Panel" && log_done
 
 # === Apply Skin ===
 log ""
