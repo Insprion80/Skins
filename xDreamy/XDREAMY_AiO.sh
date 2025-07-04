@@ -13,10 +13,10 @@ trap 'log "[ERROR] Line $LINENO failed. Continuing..."' ERR
 
 # === Header ===
 clear
-log "==========================================================="
+log "============================================================="
 log "      ★ XDREAMY AiO - Enigma2 Universal Setup Wizard ★"
 log "           Version 1.4 - Developed by M.Hussein"
-log "==========================================================="
+log "============================================================="
 log "Started at: $(date)"
 log ""
 log "What this script does:"
