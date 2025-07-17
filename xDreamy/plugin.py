@@ -8,7 +8,11 @@ import sys
 import time
 import shutil
 import glob
+import re
+import gettext
+import locale
 import requests
+import xml.etree.ElementTree as ET
 from urllib.request import Request, urlopen
 from . import _
 from Components.ActionMap import ActionMap
@@ -41,12 +45,36 @@ from Screens.Screen import Screen
 from Screens.Standby import TryQuitMainloop
 from Tools.Directories import fileExists, SCOPE_PLUGINS, resolveFilename
 from Tools.Downloader import downloadWithProgress
+from Screens.ChoiceBox import ChoiceBox
+from Screens.LocationBox import LocationBox
+from enigma import gFont
+import logging
+from logging.handlers import RotatingFileHandler
+
+# Set up logging
+log_file = '/tmp/XDREAMY_Plugin.log'
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        RotatingFileHandler(log_file, maxBytes=1024*1024, backupCount=5),  # 1MB per file, max 5 files
+        logging.StreamHandler()  # Also log to console
+    ]
+)
+logger = logging.getLogger(__name__)                                   
+
+# Update the localization setup
+plugin_name = "xDreamy"
+locale_path = resolveFilename(SCOPE_PLUGINS, f"Extensions/{plugin_name}/locale")
+gettext.bindtextdomain(plugin_name, locale_path)
+gettext.textdomain(plugin_name)
+_ = gettext.gettext
 
 # Check if running on Python 3
 PY3 = sys.version_info.major >= 3
 
 # Plugin version
-version = "5.5.0"
+version = "5.9.9" # New Merge
 my_cur_skin = False
 cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
 
@@ -94,7 +122,7 @@ try:
                         config.plugins.xDreamy.api4.setValue(True)
                 my_cur_skin = True
 except Exception as e:
-    print(f"Error loading API keys: {e}")
+    logger.error(_("Error loading API keys: {error}").format(error=e))
     my_cur_skin = False
 
 def isMountedInRW(path):
@@ -105,7 +133,8 @@ def isMountedInRW(path):
             f.write('test')
         os.remove(testfile)
         return True
-    except:
+    except Exception as e:
+        logger.error(_("Error checking RW mount for {path}: {error}").format(path=path, error=e))
         return False
 
 # Paths for poster and backdrop images
@@ -123,7 +152,7 @@ elif os.path.exists("/media/mmc") and isMountedInRW("/media/mmc"):
 
 def removePng():
     """Remove all PNG and JPG files from the poster and backdrop directories."""
-    print('Removing PNG and JPG files...')
+    logger.info(_('Removing PNG and JPG files...'))
     for folder in [path_poster, patch_backdrop]:
         if os.path.exists(folder):
             for ext in ["*.png", "*.jpg"]:
@@ -131,14 +160,15 @@ def removePng():
                 for file in files:
                     try:
                         os.remove(file)
-                        print(f"Removed: {file}")
+                        logger.info(_("Removed: {file}").format(file=file))
                     except Exception as e:
-                        print(f"Error removing {file}: {e}")
+                        logger.error(_("Error removing {file}: {error}").format(file=file, error=e))
         else:
-            print(f"Folder {folder} does not exist.")
+            logger.warning(_("Folder {folder} does not exist.").format(folder=folder))
 
 # Configuration settings for the plugin
 config.plugins.xDreamy = ConfigSubsection()
+config.plugins.xDreamy.ShowInExtensions = ConfigYesNo(default=False)
 config.plugins.xDreamy.png = NoSave(ConfigYesNo(default=False))
 config.plugins.xDreamy.header = NoSave(ConfigNothing())
 config.plugins.xDreamy.weather = NoSave(ConfigSelection(['-> Ok']))
@@ -158,241 +188,944 @@ config.plugins.xDreamy.data4 = NoSave(ConfigOnOff(default=False))
 config.plugins.xDreamy.api4 = ConfigYesNo(default=False)
 config.plugins.xDreamy.txtapi4 = ConfigText(default=fanart_api, visible_width=50, fixed_size=False)
 config.plugins.xDreamy.bootlogos = ConfigOnOff(default=False)
+config.plugins.xDreamy.enablePosterX = ConfigYesNo(default=True)
+#config.plugins.xDreamy.posterLocation = ConfigText(default="/tmp", visible_width=50, fixed_size=False)
 
 # Add new config entries for plugin installations
-config.plugins.xDreamy.install_linuxsatpanel = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_ajpanel = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_smartpanel = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_elisatpanel = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_magicpanel = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_msnweather = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_oaweather = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_multicammanager = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_NCam = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_keyadder = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_xklass = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_youtube = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_e2iplayer = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_ipaudiopro = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_transmission = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_multistalkerpro = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_EPGGrabber = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_subssupport = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_historyzapselector = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_newvirtualkeyboard = NoSave(ConfigYesNo(default=False))
-config.plugins.xDreamy.install_raedquicksignal = NoSave(ConfigYesNo(default=False))
+plugin_names = [
+    "ajpanel", "linuxsatpanel", "CiefpPlugins", "smartpanel", "elisatpanel", "magicpanel",
+    "msnweather", "oaweather", "multicammanager", "NCam", "keyadder",
+    "xklass", "youtube", "e2iplayer", "ipaudiopro", "transmission",
+    "multistalkerpro", "EPGGrabber", "subssupport", "historyzapselector",
+    "newvirtualkeyboard", "raedquicksignal"
+]
+for plugin in plugin_names:
+    setattr(config.plugins.xDreamy, f"install_{plugin}", NoSave(ConfigYesNo(default=False)))
+
+# LTBLUETTE, BLUETTE, HEADER
+TEMPLATES = {
+    'Sky Blue':       ('#64b5f6', '#1e88e5', '#000d47a1'),
+    'Earth Brown':    ('#d7ccc8', '#8d6e63', '#004e342e'),
+    'Aqua Cyan':      ('#80deea', '#00acc1', '#00006064'),
+    'Pyramids Gold':  ('#ffecb3', '#ffc107', '#00ffa000'),
+    'Mint Green':     ('#a5d6a7', '#43a047', '#001b5e20'),
+    'Silver Grey':    ('#e0e0e0', '#9e9e9e', '#00424242'),
+    'Nile Maroon':    ('#ef9a9a', '#d32f2f', '#00880e4f'),
+    'Rose Magenta':   ('#f48fb1', '#e91e63', '#00880e4f'),
+    'Deep Navy':      ('#90caf9', '#1565c0', '#000d47a1'),
+    'Desert Orange':  ('#ffcc80', '#fb8c00', '#00e65100'),
+    'Olive Branch':   ('#e6ee9c', '#afb42b', '#00827717'),
+    'Fire Red':       ('#ef9a9a', '#f44336', '#00b71c1c'),
+    'Peach Pink':     ('#f8bbd0', '#ec407a', '#00880e4f'),
+    'Royal Purple':   ('#ce93d8', '#8e24aa', '#004a148c'),
+    'Cyber Teal':     ('#80cbc4', '#009688', '#00004d40'),
+    'Violet Dream':   ('#b39ddb', '#7e57c2', '#004527a0'),
+    'Lime Juice':     ('#dce775', '#cddc39', '#00827717'),
+    'Salmon Skin':    ('#ffab91', '#ff7043', '#00bf360c'),
+    'Turquoise Sea':  ('#a7ffeb', '#1de9b6', '#00426a5a'),
+    'Crimson Flame':  ('#ffcdd2', '#e53935', '#00c62828'),
+    'Egyptian Sand':  ('#fff8e1', '#fbc02d', '#00f57f17'),
+    'Midnight Blue':  ('#82b1ff', '#2962ff', '#001a237e'),
+    'Kemet Earth':    ('#e0f2f1', '#004d40', '#002e7d32'),
+    'Ruby Rose':      ('#fce4ec', '#d81b60', '#009c0033'),
+    'Steel Grey':     ('#cfd8dc', '#607d8b', '#00374141'),
+    'Egypt Blue':     ('#49bbff', '#1b3c85', '#20000000'),
+    'Egypt Sunset':   ('#FF8C00', '#A0522D', '#104E3B31'),
+    'Egypt Dunes':    ('#D6CDAF', '#A67C3D', '#107A5B2A'),
+    'Egypt Classic':  ('#BFBFBF', '#4B4B4B', '#101C1C1C'),
+    'Egypt Jungle':   ('#A3C9A8', '#6B8E23', '#101B3A1A'),
+    'Egypt Forest':   ('#D9CBA0', '#A67C2D', '#104E3B31'),
+    'Egypt Pyramids': ('#ffb703', '#fb8500', '#10023047'),
+    'Egypt Kemet':    ('#fff3b0', '#e09f3e', '#109e2a2b'),
+    'Egypt Sand':     ('#fb8b24', '#e09f3e', '#10335c67'),
+    'Egypt Sun':      ('#c9cba3', '#c9cba3', '#10e26d5c'),
+    'Blue-Black':     ('#03a0ff', '#2f00ff', '#20000000'),
+    'Brown-Black':    ('#F0CA6D', '#3F2305', '#20000000'),
+    'Green-Black':    ('#64E33E', '#275918', '#20000000'),
+    'Grey-Black':     ('#9f9f9f', '#424242', '#20000000'),
+    'Maroon-Black':   ('#bc7a80', '#800000', '#20000000'),
+    'Orange-Black':   ('#ff9200', '#ff5a00', '#20000000'),
+    'Pink-Black':     ('#F56EB3', '#F72798', '#20000000'),
+    'Purple-Black':   ('#836FFF', '#7F27FF', '#20000000'),
+    'Teal-Black':     ('#66b2b2', '#006666', '#20000000'),
+    'Gold-Black':     ('#ffee00', '#aa7700', '#20000000'),
+    'Red-Black':      ('#ff7b7b', '#ff0000', '#20000000'),
+    'Cold Blue':      ('#89c2d9', '#013C66', '#05011D33'),
+    'Cold Brown':     ('#CDC7BE', '#593E3E', '#05332323'),
+    'Cold Green':     ('#C4DFAA', '#1E5951', '#0511332E'),
+    'Cold Grey':      ('#9BABB3', '#43494D', '#05212526'),
+    'Cold Maroon':    ('#CC18A8', '#4D093F', '#0526051F'),
+    'Cold Pink':      ('#D960AE', '#592848', '#05331729'),
+    'Cold Purple':    ('#7520F2', '#310E66', '#05190733'),
+    'Cold Teal':      ('#3F85BF', '#224766', '#05112333'),
+    'Transparent':    ('#ced4da', '#343a40', '#50000000'),
+}
 
 # SKIN GENERAL SETUP
 config.plugins.xDreamy.head = ConfigSelection(default='head', choices=[('head', _('Default'))])
-config.plugins.xDreamy.colorSelector = ConfigSelection(default='color_Bluette', choices=[
-    ('color_Bluette', _('Default')), ('color1_Blue', _('Blue')), ('color2_Brown', _('Brown')),
-    ('color3_Green', _('Green')), ('color4_Grey', _('Grey')), ('color5_Maroon', _('Maroon')),
-    ('color6_Orange', _('Orange')), ('color7_Pink', _('Pink')), ('color8_Purple', _('Purple')),
-    ('color9_Teal', _('Teal')), ('color10_Gold', _('Gold')), ('color11_Red', _('Red')),
-    ('color12_Cold Blue', _('Cold Blue')), ('color13_Cold Brown', _('Cold Brown')),
-    ('color14_Cold Green', _('Cold Green')), ('color15_Cold Grey', _('Cold Grey')),
-    ('color16_Cold Maroon', _('Cold Maroon')), ('color17_Cold Pink', _('Cold Pink')),
-    ('color18_Cold Purpel', _('Cold Purpel')), ('color19_Cold Teal', _('Cold Teal')),
-    ('color20_Sepia', _('Sepia')), ('color21_Transparent', _('Transparent')), ('color22_Black', _('Black')), ('color23_Custom', _('Custom'))
-])
-config.plugins.xDreamy.FontStyle = ConfigSelection(default='basic', choices=[
-    ('basic', _('Default')), ('font1', _('Andalus')), ('font2', _('Beiruti')),
-    ('font3', _('BonaNovaSC')), ('font4', _('Dubai')), ('font5', _('ElMessiri')),
-    ('font6', _('Fustat')), ('font7', _('Lucida')), ('font8', _('Majalla')),
-    ('font9', _('MV Boli')), ('font10', _('Nask')), ('font11', _('PlexSans')),
-    ('font12', _('ReadexPro')), ('font13', _('Rubik')), ('font14', _('Tajawal')),
-    ('font15', _('Zain')), ('font16', _('Nmsbd'))
-])
-config.plugins.xDreamy.skinSelector = ConfigSelection(default='base', choices=[
-    ('base', _('Default')), ('base1', _('Style2')), ('base2', _('Style3')),
-    ('base3', _('Style4')), ('base4', _('Style5'))
-])
+config.plugins.xDreamy.skinSelector = ConfigSelection(default='base', choices=[('base', _('Default'))])
+config.plugins.xDreamy.skinTemplate = ConfigSelection(default='templates', choices=[
+    ('templates', _('Default')),
+    ('templates1', _('Style1')),
+    ('templates2', _('Style2')),
+    ('templates3', _('Style3')),
+    ('templates4', _('Style4')),
+    ('templates5', _('Style5')),
+    ('templates6', _('Style6')),
+    ('templates7', _('Style7')),
+    ('templates8', _('Style8'))])
+
 config.plugins.xDreamy.KeysStyle = ConfigSelection(default='keys', choices=[
-    ('keys', _('Default')), ('keys1', _('Keys1')), ('keys2', _('Keys2')),
-    ('keys3', _('Keys3')), ('keys4', _('Keys4')), ('keys5', _('Keys5')),
-    ('keys6', _('Keys6'))
+    ('keys', _('Default')),
+    ('keys1', _('Keys1')),
+    ('keys2', _('Keys2')),
+    ('keys3', _('Keys3')),
+    ('keys4', _('Keys4')),
+    ('keys5', _('Keys5')),
+    ('keys6', _('Keys6'))])
+
+config.plugins.xDreamy.clockFormat = ConfigSelection(default="DigitalClock", choices=[
+    ('DigitalClock', _('23:59 (24 hrs)')),
+    ('DigitalClock1', _('23:59:33 (24 hrs)')),
+    ('DigitalClock2', _('12:59 (12 hrs)')),
+    ('DigitalClock3', _('12:59 AM (12 hrs)')),
+    ('DigitalClock4', _('12:59 AM (12 hrs- MultiSize)')),
+    ('DigitalClock5', _('12:59:33 (12 hrs- MultiSize)'))])
+
+config.plugins.xDreamy.dateFormat = ConfigSelection(default="%d %B %Y", choices=[
+    ("%d %B %Y", "01 January 2025"),
+    ("%d %B %y", "01 January 25"),
+    ("%d %b %Y", "01 Jan 2025"),
+    ("%d %b %y", "01 Jan 25"),
+    ("%d-%m-%Y", "01-01-2025"),
+    ("%d-%m-%y", "01-01-25"),
+    ("%Y-%m-%d", "2025-01-01"),
+    ("%y-%m-%d", "25-01-01"),  
+    ("%m/%d/%Y", "01/01/2025"),
+    ("%m/%d/%y", "01/01/25"),
+    ("%d/%m/%Y", "01/01/2025"),
+    ("%d/%m/%y", "01/01/25"),
+    ("%Y/%m/%d %A", "2025/01/01 Monday"),
+    ("%Y/%m/%d %a", "2025/01/01 Mon"),
+    ("%Y.%m.%d", "2025.01.01"),
+    ("%y.%m.%d", "25.01.01"),
+    ("%A, %d %B %Y", "Monday, 01 January 2025"),
+    ("%a, %d %b %Y", "Mon, 01 Jan 2025"),
+    ("%A %d %B %Y", "Monday 01 January 2025"),
+    ("%a %d %b %Y", "Mon 01 Jan 2025"),
+    ("%d %B, %Y", "01 January, 2025"),
+    ("%d %b, %Y", "01 Jan, 2025"),
+    ("%B %d, %Y", "January 01, 2025"), 
+    ("%b %d, %Y", "Jan 01, 2025"), 
+    ("%Y %B %d", "2025 January 01"),
+    ("%Y %b %d", "2025 Jan 01"),
+    ("%y %B %d", "25 January 01"),
+    ("%y %b %d", "25 Jan 01"),
+    ("%d.%m.%Y", "01.01.2025"),
+    ("%d.%m.%y", "01.01.25"),
+    ("%d %m %Y", "01 01 2025"),
+    ("%A, %d %m %Y", "Monday, 01 01 2025"),
+    ("%a, %d %m %Y", "Mon, 01 01 2025"),
+    ("%d %m %y", "01 01 25")])
+
+#=============================== SKIN COLORS =============================
+# Skin Color Selection
+config.plugins.xDreamy.colorSelector = ConfigSelection(default='default-color', choices=[
+    ('default-color', _('Default')),
+    ('color23_Custom', _('Custom'))])
+
+# Skin Color Templates
+config.plugins.xDreamy.BasicColorTemplates = ConfigSelection(default='Light Blue',
+    choices=[(key, _(key)) for key in TEMPLATES.keys()])
+
+# BasicColor → ltbluette (Light/Text Color)
+config.plugins.xDreamy.BasicColor = ConfigSelection(default='#ffffff', choices=[
+    ('#ffffff', _('Default')),
+    ('#64b5f6', _('Sky L.Blue')),
+    ('#d7ccc8', _('Earth L.Brown')),
+    ('#80deea', _('Aqua L.Cyan')),
+    ('#ffecb3', _('Pyramids L.Gold')),
+    ('#a5d6a7', _('Mint L.Green')),
+    ('#e0e0e0', _('Silver L.Grey')),
+    ('#ef9a9a', _('Nile L.Maroon')),
+    ('#f48fb1', _('Rose L.Magenta')),
+    ('#90caf9', _('Deep L.Navy')),
+    ('#ffcc80', _('Desert L.Orange')),
+    ('#e6ee9c', _('Olive L.Branch')),
+    ('#f8bbd0', _('Peach L.Pink')),
+    ('#ce93d8', _('Royal L.Purple')),
+    ('#80cbc4', _('Cyber L.Teal')),
+    ('#b39ddb', _('Violet L.Dream')),
+    ('#dce775', _('Lime L.Juice')),
+    ('#ffab91', _('Salmon L.Skin')),
+    ('#a7ffeb', _('Turquoise L.Sea')),
+    ('#ffcdd2', _('Crimson L.Flame')),
+    ('#fff8e1', _('Egyptian L.Sand')),
+    ('#82b1ff', _('Midnight L.Blue')),
+    ('#e0f2f1', _('Kemet L.Earth')),
+    ('#fce4ec', _('Ruby L.Rose')),
+    ('#cfd8dc', _('Steel L.Grey')),
+    ('#0049bbff', _('Egypt L.Blue')),
+    ('#FF8C00', _('Egypt L.Sunset')),
+    ('#D6CDAF', _('Egypt L.Dunes')),
+    ('#BFBFBF', _('Egypt L.Classic')),
+    ('#A3C9A8', _('Egypt L.Jungle')),
+    ('#D9CBA0', _('Egypt L.Forest')),
+    ('#ffb703', _('Egypt L.Pyramids')),
+    ('#fff3b0', _('Egypt L.Kemet')),
+    ('#fb8b24', _('Egypt L.Sand')),
+    ('#c9cba3', _('Egypt L.Sun')),
+    ('#03a0ff', _('L.Blue')),
+    ('#F0CA6D', _('L.Brown')),
+    ('#64E33E', _('L.Green')),
+    ('#9f9f9f', _('L.Grey')),
+    ('#bc7a80', _('L.Maroon')),
+    ('#ff9200', _('L.Orange')),
+    ('#F56EB3', _('L.Pink')),
+    ('#836FFF', _('L.Purple')),
+    ('#66b2b2', _('L.Teal')),
+    ('#ffee00', _('L.Gold')),
+    ('#ff7b7b', _('L.Red')),
+    ('#89c2d9', _('L.Cold Blue')),
+    ('#CDC7BE', _('L.Cold Brown')),
+    ('#C4DFAA', _('L.Cold Green')),
+    ('#9BABB3', _('L.Cold Grey')),
+    ('#CC18A8', _('L.Cold Maroon')),
+    ('#D960AE', _('L.Cold Pink')),
+    ('#7520F2', _('L.Cold Purple')),
+    ('#3F85BF', _('L.Cold Teal'))
 ])
 
-# INFOBAR
+# Skin White Text Color  ltbluette (Light/Text Color)
+config.plugins.xDreamy.WhiteColor = ConfigSelection(default='#ffffff', choices=[
+    ('#ffffff', _('Default')),
+    ('#64b5f6', _('Sky L.Blue')),
+    ('#d7ccc8', _('Earth L.Brown')),
+    ('#80deea', _('Aqua L.Cyan')),
+    ('#ffecb3', _('Pyramids L.Gold')),
+    ('#a5d6a7', _('Mint L.Green')),
+    ('#e0e0e0', _('Silver L.Grey')),
+    ('#ef9a9a', _('Nile L.Maroon')),
+    ('#f48fb1', _('Rose L.Magenta')),
+    ('#90caf9', _('Deep L.Navy')),
+    ('#ffcc80', _('Desert L.Orange')),
+    ('#e6ee9c', _('Olive L.Branch')),
+    ('#f8bbd0', _('Peach L.Pink')),
+    ('#ce93d8', _('Royal L.Purple')),
+    ('#80cbc4', _('Cyber L.Teal')),
+    ('#b39ddb', _('Violet L.Dream')),
+    ('#dce775', _('Lime L.Juice')),
+    ('#ffab91', _('Salmon L.Skin')),
+    ('#a7ffeb', _('Turquoise L.Sea')),
+    ('#ffcdd2', _('Crimson L.Flame')),
+    ('#fff8e1', _('Egyptian L.Sand')),
+    ('#82b1ff', _('Midnight L.Blue')),
+    ('#e0f2f1', _('Kemet L.Earth')),
+    ('#fce4ec', _('Ruby L.Rose')),
+    ('#cfd8dc', _('Steel L.Grey')),
+    ('#0049bbff', _('Egypt L.Blue')),
+    ('#FF8C00', _('Egypt L.Sunset')),
+    ('#D6CDAF', _('Egypt L.Dunes')),
+    ('#BFBFBF', _('Egypt L.Classic')),
+    ('#A3C9A8', _('Egypt L.Jungle')),
+    ('#D9CBA0', _('Egypt L.Forest')),
+    ('#ffb703', _('Egypt L.Pyramids')),
+    ('#fff3b0', _('Egypt L.Kemet')),
+    ('#fb8b24', _('Egypt L.Sand')),
+    ('#c9cba3', _('Egypt L.Sun')),
+    ('#03a0ff', _('L.Blue')),
+    ('#F0CA6D', _('L.Brown')),
+    ('#64E33E', _('L.Green')),
+    ('#9f9f9f', _('L.Grey')),
+    ('#bc7a80', _('L.Maroon')),
+    ('#ff9200', _('L.Orange')),
+    ('#F56EB3', _('L.Pink')),
+    ('#836FFF', _('L.Purple')),
+    ('#66b2b2', _('L.Teal')),
+    ('#ffee00', _('L.Gold')),
+    ('#ff7b7b', _('L.Red')),
+    ('#89c2d9', _('L.Cold Blue')),
+    ('#CDC7BE', _('L.Cold Brown')),
+    ('#C4DFAA', _('L.Cold Green')),
+    ('#9BABB3', _('L.Cold Grey')),
+    ('#CC18A8', _('L.Cold Maroon')),
+    ('#D960AE', _('L.Cold Pink')),
+    ('#7520F2', _('L.Cold Purple')),
+    ('#3F85BF', _('L.Cold Teal'))
+])
+
+# Skin Selection Color → bluette (Standard color)
+config.plugins.xDreamy.SelectionColor = ConfigSelection(default='#1e88e5', choices=[
+    ('#1e88e5', _('Sky Blue')),
+    ('#8d6e63', _('Earth Brown')),
+    ('#00acc1', _('Aqua Cyan')),
+    ('#ffc107', _('Pyramids Gold')),
+    ('#43a047', _('Mint Green')),
+    ('#9e9e9e', _('Silver Grey')),
+    ('#d32f2f', _('Nile Maroon')),
+    ('#e91e63', _('Rose Magenta')),
+    ('#1565c0', _('Deep Navy')),
+    ('#fb8c00', _('Desert Orange')),
+    ('#afb42b', _('Olive Branch')),
+    ('#ec407a', _('Peach Pink')),
+    ('#8e24aa', _('Royal Purple')),
+    ('#009688', _('Cyber Teal')),
+    ('#7e57c2', _('Violet Dream')),
+    ('#cddc39', _('Lime Juice')),
+    ('#ff7043', _('Salmon Skin')),
+    ('#1de9b6', _('Turquoise Sea')),
+    ('#e53935', _('Crimson Flame')),
+    ('#fbc02d', _('Egyptian Sand')),
+    ('#2962ff', _('Midnight Blue')),
+    ('#004d40', _('Kemet Earth')),
+    ('#d81b60', _('Ruby Rose')),
+    ('#607d8b', _('Steel Grey')),
+    ('#001b3c85', _('Egypt Blue')),
+    ('#A0522D', _('Egypt Sunset')),
+    ('#A67C3D', _('Egypt Dunes')),
+    ('#4B4B4B', _('Egypt Classic')),
+    ('#6B8E23', _('Egypt Jungle')),
+    ('#A67C2D', _('Egypt Forest')),
+    ('#fb8500', _('Egypt Pyramids')),
+    ('#e09f3e', _('Egypt Kemet')),
+    ('#e09f3e', _('Egypt Sand')),
+    ('#c9cba3', _('Egypt Sun')),
+    ('#2f00ff', _('Blue-Black')),
+    ('#3F2305', _('Brown-Black')),
+    ('#275918', _('Green-Black')),
+    ('#424242', _('Grey-Black')),
+    ('#800000', _('Maroon-Black')),
+    ('#ff5a00', _('Orange-Black')),
+    ('#F72798', _('Pink-Black')),
+    ('#7F27FF', _('Purple-Black')),
+    ('#006666', _('Teal-Black')),
+    ('#aa7700', _('Gold-Black')),
+    ('#ff0000', _('Red-Black')),
+    ('#013C66', _('Cold Blue')),
+    ('#593E3E', _('Cold Brown')),
+    ('#1E5951', _('Cold Green')),
+    ('#43494D', _('Cold Grey')),
+    ('#4D093F', _('Cold Maroon')),
+    ('#592848', _('Cold Pink')),
+    ('#310E66', _('Cold Purple')),
+    ('#224766', _('Cold Teal'))
+])
+
+# Skin Background Color → header (Dark background)
+config.plugins.xDreamy.BackgroundColor = ConfigSelection(default='#00000000', choices=[
+    ('#00000000', _('Default')),
+    ('#20000000', _('Transparent Black 1')),
+    ('#40000000', _('Transparent Black 2')),
+    ('#60000000', _('Transparent Black 3')),
+    ('#000d47a1', _('Sky Blue')),
+    ('#004e342e', _('Earth Brown')),
+    ('#00006064', _('Aqua Cyan')),
+    ('#00ffa000', _('Pyramids Gold')),
+    ('#001b5e20', _('Mint Green')),
+    ('#00424242', _('Silver Grey')),
+    ('#00880e4f', _('Nile Maroon')),
+    ('#00880e4f', _('Rose Magenta')),
+    ('#000d47a1', _('Deep Navy')),
+    ('#00e65100', _('Desert Orange')),
+    ('#00827717', _('Olive Branch')),
+    ('#00880e4f', _('Peach Pink')),
+    ('#004a148c', _('Royal Purple')),
+    ('#00004d40', _('Cyber Teal')),
+    ('#004527a0', _('Violet Dream')),
+    ('#00827717', _('Lime Juice')),
+    ('#00bf360c', _('Salmon Skin')),
+    ('#00426a5a', _('Turquoise Sea')),
+    ('#00c62828', _('Crimson Flame')),
+    ('#00f57f17', _('Egyptian Sand')),
+    ('#001a237e', _('Midnight Blue')),
+    ('#002e7d32', _('Kemet Earth')),
+    ('#009c0033', _('Ruby Rose')),
+    ('#00374141', _('Steel Grey')),
+    ('#20000000', _('Blue-Black')),
+    ('#20000000', _('Brown-Black')),
+    ('#20000000', _('Green-Black')),
+    ('#20000000', _('Grey-Black')),
+    ('#20000000', _('Maroon-Black')),
+    ('#20000000', _('Orange-Black')),
+    ('#20000000', _('Pink-Black')),
+    ('#20000000', _('Purple-Black')),
+    ('#20000000', _('Teal-Black')),
+    ('#20000000', _('Gold-Black')),
+    ('#20000000', _('Red-Black')),
+    ('#05011D33', _('Cold Blue')),
+    ('#05332323', _('Cold Brown')),
+    ('#0511332E', _('Cold Green')),
+    ('#05212526', _('Cold Grey')),
+    ('#0526051F', _('Cold Maroon')),
+    ('#05331729', _('Cold Pink')),
+    ('#05190733', _('Cold Purple')),
+    ('#05112333', _('Cold Teal'))
+])
+
+config.plugins.xDreamy.transparency = ConfigSelection(default="00", choices=[
+    ("00", _("Opaque")),
+    ("05", _("5%")),
+    ("10", _("10%")),
+    ("15", _("15%")),
+    ("20", _("20%")),
+    ("25", _("25%")),
+    ("30", _("30%")),
+    ("35", _("35%")),
+    ("40", _("40%")),
+    ("45", _("45%")),
+    ("50", _("50%")),
+    ("55", _("55%")),
+    ("60", _("60%")),
+    ("65", _("65%")),
+    ("70", _("70%")),
+    ("75", _("75%")),
+    ("80", _("80%")),
+    ("85", _("85%")),
+    ("90", _("90%")),
+    ("95", _("95%")),
+    ("99", _("Transparent"))])
+
+#================================ SKIN FONTS =============================
+# Font Style Selection 
+config.plugins.xDreamy.FontStyle = ConfigSelection(default='default', choices=[
+    ('default', _('Default')),
+    ('basic', _('Custom'))])
+
+# Font Name
+config.plugins.xDreamy.FontName = ConfigSelection(default='Verdana.ttf', choices=[
+    ('Verdana.ttf', _('Default')),
+    ('Andlso.ttf', _('Andlso')),
+    ('Beiruti-Regular.ttf', _('Beiruti')),
+    ('BonaNovaSC-Regular.ttf', _('BonaNovaSC')),
+    ('Dubai-REGULAR.ttf', _('Dubai')),
+    ('ElMessiri-Regular.ttf', _('ElMessiri')),
+    ('Fustat-Regular.ttf', _('Fustat')),
+    ('Nmsbd.ttf', _('Nmsbd')),
+    ('Lucida.ttf', _('Lucida')),
+    ('Majalla.ttf', _('Majalla')),
+    ('Mvboli.ttf', _('Mvboli')),
+    ('NaskhArabic-Regular.ttf', _('Naskh')),
+    ('PlexSansArabic-Regular.ttf', _('PlexSans')),
+    ('ReadexPro-Regular.ttf', _('ReadexPro')),
+    ('Rubik-Regular.ttf', _('Rubik')),
+    ('Tajawal-Regular.ttf', _('Tajawal')),
+    ('Zain-Regular.ttf', _('Zain'))])
+
+#Font Scale
+config.plugins.xDreamy.FontScale = ConfigSelection(default="100", choices=[
+    ('100', _('Default')),
+    ('105', _('5%')),
+    ('110', _('10%')),
+    ('115', _('15%')),
+    ('120', _('20%')),
+    ('125', _('25%')),
+    ('130', _('30%')),
+    ('135', _('35%')),
+    ('95', _('-5%')),
+    ('90', _('-10%')),
+    ('85', _('-15%')),
+    ('80', _('-20%')),
+    ('75', _('-25%'))])
+
+#================================ INFOBAR ================================
+# INFOBAR Templates
 config.plugins.xDreamy.InfobarStyle = ConfigSelection(default='InfoBar-1P', choices=[
-    ('InfoBar-1P', _('Default')), ('InfoBar-2P', _('InfoBar-2P')), ('InfoBar-NP', _('InfoBar1-NP')),
-    ('InfoBar2-NP', _('InfoBar2-NP')), ('InfoBar2-1P', _('InfoBar2-1P')), ('InfoBar2-2P', _('InfoBar2-2P')),
-    ('InfoBar2-1PW', _('InfoBar2-1PW')), ('InfoBar3-F1', _('InfoBar3-F1')), ('InfoBar3-F2', _('InfoBar3-F2')),
-    ('InfoBar3-F3', _('InfoBar3-F3')), ('InfoBar-HMF', _('Custom - InfoBar'))
-])
+    ('InfoBar-1P', _('Default')),
+    ('InfoBar-2P', _('InfoBar-2P')),
+    ('InfoBar-NP', _('InfoBar1-NP')),
+    ('InfoBar2-NP', _('InfoBar2-NP')),
+    ('InfoBar2-1P', _('InfoBar2-1P')),
+    ('InfoBar2-2P', _('InfoBar2-2P')),
+    ('InfoBar2-1PW', _('InfoBar2-1PW')),
+    ('InfoBar-HMF', _('Custom - InfoBar'))])
+# INFOBAR Header
 config.plugins.xDreamy.InfobarH = ConfigSelection(default='No Header', choices=[
-    ('No Header', _('Default- No Header')), ('InfoBar H1', _('H01- EMU/Network/Card')),
-    ('InfoBar H2', _('H02- Current & Next Three Days Weather')), ('InfoBar H3', _('H03- Slim Header'))
-])
+    ('No Header', _('Default- No Header')),
+    ('InfoBar H1', _('H01- EMU/Network/Card')),
+    ('InfoBar H2', _('H02- Current & Next Three Days Weather')),
+    ('InfoBar H3', _('H03- Slim Header'))])
+# INFOBAR Middle
 config.plugins.xDreamy.InfobarM = ConfigSelection(default='No Middle', choices=[
-    ('No Middle', _('Default- No Middle')), ('InfoBar M1', _('M01- ')), ('InfoBar M2', _('M02- ')),
-    ('InfoBar M3', _('M03- ')), ('InfoBar M4', _('M04- '))
-])
+    ('No Middle', _('Default- No Middle')),
+    ('InfoBar M1', _('M01- ')),
+    ('InfoBar M2', _('M02- ')),
+    ('InfoBar M3', _('M03- ')),
+    ('InfoBar M4', _('M04- '))])
+# INFOBAR Footer
 config.plugins.xDreamy.InfobarF = ConfigSelection(default='No Footer', choices=[
-    ('No Footer', _('Default- No Footer')), ('InfoBar F1', _('F01')), ('InfoBar F2', _('F02')),
-    ('InfoBar F3', _('F03')), ('InfoBar F4', _('F04'))
-])
+    ('No Footer', _('Default- No Footer')),
+    ('InfoBar F1', _('F01')),
+    ('InfoBar F2', _('F02')),
+    ('InfoBar F3', _('F03')),
+    ('InfoBar F4', _('F04'))])
 
-# SECONDINFOBAR
+#============================== SECONDINFOBAR ============================
+# SECONDINFOBAR TEMPLATES
 config.plugins.xDreamy.SecondInfobar = ConfigSelection(default='SecondInfobar-2P', choices=[
-    ('SecondInfobar-2P', _('Default')), ('SecondInfobar-NP', _('SecondInfobar-NP')),
-    ('SecondInfobar-2PN', _('SecondInfobar-2PN')), ('SecondInfobar-2PN2', _('SecondInfobar-2PN2')),
-    ('SecondInfobar-HF', _('Custom - SecondInfobar'))
-])
+    ('SecondInfobar-2P', _('Default')),
+    ('SecondInfobar-NP', _('SecondInfobar-NP')),
+    ('SecondInfobar-2PN', _('SecondInfobar-2PN')),
+    ('SecondInfobar-2PN2', _('SecondInfobar-2PN2')),
+    ('SecondInfobar-HF', _('Custom - SecondInfobar'))])
+# SECONDINFOBAR Header
 config.plugins.xDreamy.SecondInfobarH = ConfigSelection(default='SecondInfobarH01', choices=[
-    ('SecondInfobarH01', _('Default')), ('SecondInfobarH02', _('S.InfobarH S1-2E-2P')),
-    ('SecondInfobarH03', _('S.InfobarH S2-2E-NP')), ('SecondInfobarH04', _('S.InfobarH S2-2E-2P')),
-    ('SecondInfobarH05', _('S.InfobarH H-2E-NP')), ('SecondInfobarH06', _('S.InfobarH H-2E-2P')),
-    ('SecondInfobarH07', _('S.InfobarH V-2E-NP')), ('SecondInfobarH08', _('S.InfobarH V-2E-2P')),
-    ('SecondInfobarH09', _('S.InfobarH V-2E-2BD'))
-])
+    ('SecondInfobarH01', _('Default')),
+    ('SecondInfobarH02', _('S.InfobarH S1-2E-2P')),
+    ('SecondInfobarH03', _('S.InfobarH S2-2E-NP')),
+    ('SecondInfobarH04', _('S.InfobarH S2-2E-2P')),
+    ('SecondInfobarH05', _('S.InfobarH H-2E-NP')),
+    ('SecondInfobarH06', _('S.InfobarH H-2E-2P')),
+    ('SecondInfobarH07', _('S.InfobarH V-2E-NP')),
+    ('SecondInfobarH08', _('S.InfobarH V-2E-2P')),
+    ('SecondInfobarH09', _('S.InfobarH V-2E-2BD'))])
+# SECONDINFOBAR Footer
 config.plugins.xDreamy.SecondInfobarF = ConfigSelection(default='SecondInfobarF', choices=[
-    ('SecondInfobarF', _('Default')), ('SecondInfobarF1', _('S.InfobarF F1')), ('SecondInfobarF2', _('S.InfobarF F2'))
-])
+    ('SecondInfobarF', _('Default')),
+    ('SecondInfobarF1', _('S.InfobarF F1')),
+    ('SecondInfobarF2', _('S.InfobarF F2'))])
 
+#============================== CHANNELS LIST ============================
 # CHANNELS LIST
 config.plugins.xDreamy.ChannSelector = ConfigSelection(default='C01-MTV-1P', choices=[
-    ('C01-MTV-1P', _('Default')), ('C02-MTV-2P', _('C02-MTV-2P')), ('C03-MTV-7P', _('C03-MTV-7P')),
-    ('C04-MTV-13P', _('C04-MTV-13P')), ('C05-MTV-NP', _('C05-MTV-NP')), ('C06-MTV-NP', _('C06-MTV-NP')),
-    ('C07-MTV-1P', _('C07-MTV-1P')), ('C08-NP', _('C08-NP')), ('C09-NP', _('C09-NP')),
-    ('C10-1P', _('C10-1P')), ('C11-2P', _('C11-2P')), ('C12-2P-NBG', _('C12-2P-NBG')),
-    ('C13-7P', _('C13-7P')), ('C14-13P', _('C14-13P')), ('C15-14P', _('C15-14P'))
-])
+    ('C01-MTV-1P', _('Default')),
+    ('C02-MTV-2P', _('C02-MTV-2P')),
+    ('C03-MTV-7P', _('C03-MTV-7P')),
+    ('C04-MTV-13P', _('C04-MTV-13P')),
+    ('C05-MTV-NP', _('C05-MTV-NP')),
+    ('C06-MTV-NP', _('C06-MTV-NP')),
+    ('C07-MTV-1P', _('C07-MTV-1P')),
+    ('C08-NP', _('C08-NP')),
+    ('C09-NP', _('C09-NP')),
+    ('C10-1P', _('C10-1P')),
+    ('C11-2P', _('C11-2P')),
+    ('C12-2P-NBG', _('C12-2P-NBG')),
+    ('C13-7P', _('C13-7P')),
+    ('C14-13P', _('C14-13P')),
+    ('C15-14P', _('C15-14P'))])
+
+# CHANNELS GRID
 config.plugins.xDreamy.ChannSelectorGrid = ConfigSelection(default='G01-MTV-NP', choices=[
-    ('G01-MTV-NP', _('G01-MTV-NP')), ('G02-1Raw-1P', _('G02-1Raw-1P')), ('G03-1Raw-2P', _('G03-1Raw-2P')),
-    ('G04-1Raw-1P-Top', _('G04-1Raw-1P-Top')), ('G05-Color-2P', _('G05-Color-2P')),
-    ('G06-Background-NP', _('G06-Background-NP')), ('G07-Transparent-NP', _('G07-Transparent-NP')),
-    ('G08-Color-2P', _('G08-Color-2P')), ('G09-Backdrop', _('G09-Backdrop'))
-])
+    ('G01-MTV-NP', _('G01-MTV-NP')),
+    ('G02-1Raw-1P', _('G02-1Raw-1P')),
+    ('G03-1Raw-2P', _('G03-1Raw-2P')),
+    ('G04-1Raw-1P-Top', _('G04-1Raw-1P-Top')),
+    ('G05-Color-2P', _('G05-Color-2P')),
+    ('G06-Background-NP', _('G06-Background-NP')),
+    ('G07-Transparent-NP', _('G07-Transparent-NP')),
+    ('G08-Color-2P', _('G08-Color-2P')),
+    ('G09-Backdrop', _('G09-Backdrop'))])
 
 # OTHER SCREENS
 config.plugins.xDreamy.EventView = ConfigSelection(default='EventView', choices=[
-    ('EventView', _('Default')), ('EventView1', _('EventV-01 BD')), ('EventView2', _('EventV-02 Big')),
-    ('EventView3', _('EventV-03 7P')), ('EventView4', _('EventV-04 11P-FSB')), ('EventView5', _('EventV-05 1P-FSB'))
-])
+    ('EventView', _('Default')),
+    ('EventView1', _('EventV-01 BD')),
+    ('EventView2', _('EventV-02 Big')),
+    ('EventView3', _('EventV-03 7P')),
+    ('EventView4', _('EventV-04 11P-FSB')),
+    ('EventView5', _('EventV-05 1P-FSB'))])
+
 config.plugins.xDreamy.PluginBrowser = ConfigSelection(default='PluginBrowser', choices=[
-    ('PluginBrowser', _('Default')), ('PluginBrowser1', _('PluginBrowser-01')), ('PluginBrowser2', _('PluginBrowser-02')),
-    ('PluginBrowser3', _('PluginBrowser-03')), ('PluginBrowser4', _('PluginBrowser-04')),
-    ('PluginBrowser4GHT', _('PluginBrowser-04 GHT')), ('PluginBrowser4GHM', _('PluginBrowser-04 GHM')),
-    ('PluginBrowser4GHB', _('PluginBrowser-04 GHB')), ('PluginBrowser5GVL', _('PluginBrowser-05 GVL')),
-    ('PluginBrowser5GVR', _('PluginBrowser-05 GVR'))
-])
+    ('PluginBrowser', _('Default')),
+    ('PluginBrowser1', _('PluginBrowser-01')),
+    ('PluginBrowser2', _('PluginBrowser-02')),
+    ('PluginBrowser3', _('PluginBrowser-03')),
+    ('PluginBrowser4', _('PluginBrowser-04')),
+    ('PluginBrowser4GHT', _('PluginBrowser-04 GHT')),
+    ('PluginBrowser4GHM', _('PluginBrowser-04 GHM')),
+    ('PluginBrowser4GHB', _('PluginBrowser-04 GHB')),
+    ('PluginBrowser5GVL', _('PluginBrowser-05 GVL')),
+    ('PluginBrowser5GVR', _('PluginBrowser-05 GVR'))])
+
 config.plugins.xDreamy.VolumeBar = ConfigSelection(default='volume1', choices=[
-    ('volume1', _('Default')), ('volume2', _('volume2')), ('volume3', _('volume3')),
-    ('volume4', _('volume4')), ('volume5', _('volume5'))
-])
+    ('volume1', _('Default')),
+    ('volume2', _('volume2')),
+    ('volume3', _('volume3')),
+    ('volume4', _('volume4')),
+    ('volume5', _('volume5'))])
+
 config.plugins.xDreamy.VirtualKeyboard = ConfigSelection(default='VirtualKeyBoard', choices=[
-    ('VirtualKeyBoard', _('Default')), ('VirtualKeyBoardor', _('V.Keyboardor')), ('VirtualKeyBoard1', _('V.Keyboard1')),
-    ('VirtualKeyBoard2', _('V.Keyboard2'))
-])
+    ('VirtualKeyBoard', _('Default')),
+    ('VirtualKeyBoard1', _('Black - Keyboard')),
+    ('VirtualKeyBoard2', _('Color - Keyboard'))])
+    
 config.plugins.xDreamy.NewVirtualKeyboard = ConfigSelection(default='NewVirtualKeyBoard0', choices=[
-    ('NewVirtualKeyBoard0', _('Default')), ('NewVirtualKeyBoard1', _('NV.KeyBoard1')), ('NewVirtualKeyBoard2', _('NV.KeyBoard2')),
-    ('NewVirtualKeyBoard3', _('NV.KeyBoard3')), ('NewVirtualKeyBoard4', _('NV.KeyBoard4'))
-])
+    ('NewVirtualKeyBoard0', _('Default')),
+    ('NewVirtualKeyBoard1', _('NV.KeyBoard1')),
+    ('NewVirtualKeyBoard2', _('NV.KeyBoard2')),
+    ('NewVirtualKeyBoard3', _('NV.KeyBoard3')),
+    ('NewVirtualKeyBoard4', _('NV.KeyBoard4'))])
+
 config.plugins.xDreamy.HistoryZapSelector = ConfigSelection(default='HistoryZapSelector0', choices=[
-    ('HistoryZapSelector0', _('Default')), ('HistoryZapSelector1', _('HistoryZap1-NP')), ('HistoryZapSelector2', _('HistoryZap2-NP')),
-    ('HistoryZapSelector3', _('HistoryZap3-NP'))
-])
+    ('HistoryZapSelector0', _('Default')),
+    ('HistoryZapSelector1', _('HistoryZap1-NP')),
+    ('HistoryZapSelector2', _('HistoryZap2-NP')),
+    ('HistoryZapSelector3', _('HistoryZap3-NP'))])
+
 config.plugins.xDreamy.EPGMultiSelection = ConfigSelection(default='EPGMultiSelection', choices=[
-    ('EPGMultiSelection', _('Default')), ('EPGMultiSelection1', _('EPGMultiSelection1'))
-])
+    ('EPGMultiSelection', _('Default')),
+    ('EPGMultiSelection1', _('EPGMultiSelection1'))])
+
 config.plugins.xDreamy.E2Player = ConfigSelection(default='E2Player', choices=[
-    ('E2Player', _('Default')), ('E2Player1', _('E2Player1')), ('E2Player2', _('E2Player2'))
-])
+    ('E2Player', _('Default')),
+    ('E2Player1', _('E2Player1')),
+    ('E2Player2', _('E2Player2'))])
+
 config.plugins.xDreamy.EnhancedMovieCenter = ConfigSelection(default='EnhancedMovieCenter', choices=[
-    ('EnhancedMovieCenter', _('Default')), ('EnhancedMovieCenter1', _('E.MovieCenter1')), ('EnhancedMovieCenter2', _('E.MovieCenter2')),
-    ('EnhancedMovieCenter3', _('E.MovieCenter3'))
-])
+    ('EnhancedMovieCenter', _('Default')),
+    ('EnhancedMovieCenter1', _('E.MovieCenter1')),
+    ('EnhancedMovieCenter2', _('E.MovieCenter2')),
+    ('EnhancedMovieCenter3', _('E.MovieCenter3'))])
+
 config.plugins.xDreamy.ChannelListBackground = ConfigSelection(default='Black', choices=[
-    ('Black', _('Default- Black')), ('Color', _('Skin Color')), ('Background', _('Background')),
-    ('Background1', _('Background1')), ('Background2', _('Background2')), ('Background3', _('Background3')),
-    ('Background4', _('Background4')), ('Background5', _('Background5')), ('Background6', _('Background6')),
-    ('Background7', _('Background7')), ('Background8', _('Background8')), ('Background9', _('Background9')),
-    ('Background10', _('Background10')), ('Background11', _('Background11')), ('Background12', _('Background12')),
-    ('Background13', _('Background13')), ('Background14', _('Background14')), ('Background15', _('Background15'))
-])
+    ('Black', _('Default- Black')),
+    ('Color', _('Skin Color')),
+    ('Background', _('Background')),
+    ('Background1', _('Background1')),
+    ('Background2', _('Background2')),
+    ('Background3', _('Background3')),
+    ('Background4', _('Background4')),
+    ('Background5', _('Background5')),
+    ('Background6', _('Background6')),
+    ('Background7', _('Background7')),
+    ('Background8', _('Background8')),
+    ('Background9', _('Background9')),
+    ('Background10', _('Background10')),
+    ('Background11', _('Background11')),
+    ('Background12', _('Background12')),
+    ('Background13', _('Background13')),
+    ('Background14', _('Background14')),
+    ('Background15', _('Background15')),
+    ('Background16', _('Background16'))])
+
 config.plugins.xDreamy.TurnOff = ConfigSelection(default='Background', choices=[
-    ('Background', _('Background')), ('Background1', _('Background1')), ('Background2', _('Background2')),
-    ('Background3', _('Background3')), ('Background4', _('Background4')), ('Background5', _('Background5')),
-    ('Background6', _('Background6')), ('Background7', _('Background7')), ('Background8', _('Background8')),
-    ('Background9', _('Background9')), ('Background10', _('Background10')), ('Background11', _('Background11')),
-    ('Background12', _('Background12')), ('Background13', _('Background13')), ('Background14', _('Background14')),
-    ('Background15', _('Background15'))
-])
+    ('Background', _('Background')),
+    ('Background1', _('Background1')),
+    ('Background2', _('Background2')),
+    ('Background3', _('Background3')),
+    ('Background4', _('Background4')),
+    ('Background5', _('Background5')),
+    ('Background6', _('Background6')),
+    ('Background7', _('Background7')),
+    ('Background8', _('Background8')),
+    ('Background9', _('Background9')),
+    ('Background10', _('Background10')),
+    ('Background11', _('Background11')),
+    ('Background12', _('Background12')),
+    ('Background13', _('Background13')),
+    ('Background14', _('Background14')),
+    ('Background15', _('Background15')),
+    ('Background16', _('Background16'))])
+
 config.plugins.xDreamy.WeatherSource = ConfigSelection(default='OAWeatherPlugin', choices=[
-    ('OAWeatherPlugin', _('Default-OAWeatherPlugin')), ('MSNWeatherPlugin', _('MSNWeatherPlugin'))
-])
+    ('OAWeatherPlugin', _('Default-OAWeatherPlugin')),
+    ('MSNWeatherPlugin', _('MSNWeatherPlugin'))])
+
 config.plugins.xDreamy.BitrateSource = ConfigSelection(default='BitrateRenderer', choices=[
-    ('BitrateRenderer', _('Default-BitrateRenderer')), ('BitratePlugin', _('Bitrate Plugin'))
-])
+    ('BitrateRenderer', _('Default-BitrateRenderer')),
+    ('BitratePlugin', _('Bitrate Plugin'))])
+
 config.plugins.xDreamy.SubtitlesClock = ConfigSelection(default='SC', choices=[
-    ('SC', _('Default- No Clock')), ('SC1', _('DSC-Bottom Right')), ('SC2', _('DSC-Bottom Left')),
-    ('SC3', _('DSC-Top Right')), ('SC4', _('DSC-Top Left'))
-])
+    ('SC', _('Default- No Clock')),
+    ('SC1', _('DSC-Bottom Right')),
+    ('SC2', _('DSC-Bottom Left')),
+    ('SC3', _('DSC-Top Right')),
+    ('SC4', _('DSC-Top Left'))])
+
 config.plugins.xDreamy.RatingStars = ConfigSelection(default='NRS', choices=[
-    ('NRS', _('Default-Disable')), ('RS', _('Enable'))
-])
+    ('NRS', _('Default-Disable')),
+    ('RS', _('Enable'))])
+
 config.plugins.xDreamy.CamName = ConfigSelection(default='Access', choices=[
-    ('Access', _('Default')), ('CaidInfo2', _('CaidInfo')), ('CamdRAED', _('CamdRAED')),
-    ('CryptoInfo', _('CryptoInfo')), ('EcmInfo', _('EcmInfo'))
-])
+    ('Access', _('Default')),
+    ('CaidInfo2', _('CaidInfo')),
+    ('CamdRAED', _('CamdRAED')),
+    ('CryptoInfo', _('CryptoInfo')),
+    ('EcmInfo', _('EcmInfo'))])
+
 config.plugins.xDreamy.channelnamecolor = ConfigSelection(default="CLC", choices=[
-    ("CLC", _("Default- White")), ("CLC1", _("Skin Color"))
-])
+    ("CLC", _("Default- White")),
+    ("CLC1", _("Skin Color"))])
+
 config.plugins.xDreamy.menufontcolor = ConfigSelection(default='MC', choices=[
-    ('MC', _('Default- White')), ('MC1', _('Skin Color'))
-])
+    ('MC', _('Default- White')),
+    ('MC1', _('Skin Color'))])
+
 config.plugins.xDreamy.crypt = ConfigSelection(default='Cryptoname', choices=[
-    ('Cryptoname', _('Default-Name')), ('Cryptobar', _('Crypt-Bar'))
+    ('Cryptoname', _('Default-Name')),
+    ('Cryptobar', _('Crypt-Bar'))])
+
+config.plugins.xDreamy.posterRemovalInterval = ConfigSelection(default="31536000", choices=[
+    ("86400", _("1 Day")),               # 1 day = 86400 seconds
+    ("432000", _("5 Days")),             # 5 days = 432000 seconds
+    ("864000", _("10 Days")),            # 10 days = 864000 seconds
+    ("1296000", _("15 Days")),           # 15 days = 1296000 seconds
+    ("2592000", _("30 Days")),           # 30 days = 2592000 seconds
+    ("5184000", _("2 Months")),          # 2 months = 60 days = 5184000 seconds
+    ("10368000", _("4 Months")),         # 4 months = 120 days = 10368000 seconds
+    ("15552000", _("6 Months")),         # 6 months = 180 days = 15552000 seconds
+    ("31536000", _("12 Months")),        # 12 months = 365 days = 31536000 seconds
+    ("63072000", _("2 Years")),          # 2 years = 730 days = 63072000 seconds
 ])
 
-# Add new config entry for color selection
-config.plugins.xDreamy.BasicColor = ConfigSelection(default='#1b3c85', choices=[
-    ('#1b3c85', _('Default')), ('#2f00ff', _('Blue')), ('#3F2305', _('Brown')),
-    ('#275918', _('Green')), ('#424242', _('Grey')), ('#800000', _('Maroon')),
-    ('#ff5a00', _('Orange')), ('#F72798', _('Pink')), ('#7F27FF', _('Purple')),
-    ('#006666', _('Teal')), ('#aa7700', _('Gold')), ('#ff0000', _('Red')),
-    ('#013C66', _('Cold Blue')), ('#593E3E', _('Cold Brown')),
-    ('#1E5951', _('Cold Green')), ('#43494D', _('Cold Grey')),
-    ('#4D093F', _('Cold Maroon')), ('#592848', _('Cold Pink')),
-    ('#310E66', _('Cold Purpel')), ('#224766', _('Cold Teal'))])
+config.plugins.xDreamy.posters= ConfigSelection(default='iPosterX', choices=[
+    ('iPosterX', _('Default'))])
+#    ('xtraEvent', _('xtraEvent'))])
 
-config.plugins.xDreamy.SelectionColor = ConfigSelection(default='#49bbff', choices=[
-    ('#49bbff', _('Default')), ('#03a0ff', _('Light Blue')), ('#F0CA6D', _('Light Brown')),
-    ('#64E33E', _('Light Green')), ('#9f9f9f', _('Light Grey')), ('#bc7a80', _('Light Maroon')),
-    ('#ff9200', _('Light Orange')), ('#F56EB3', _('Light Pink')), ('#836FFF', _('Light Purple')),
-    ('#66b2b2', _('Light Teal')), ('#ffee00', _('Light Gold')), ('#ff7b7b', _('Light Red')),
-    ('#2f00ff', _('Blue')), ('#3F2305', _('Brown')), ('#275918', _('Green')), ('#424242', _('Grey')), ('#800000', _('Maroon')),
-    ('#ff5a00', _('Orange')), ('#F72798', _('Pink')), ('#7F27FF', _('Purple')), ('#006666', _('Teal')), ('#aa7700', _('Gold')), ('#ff0000', _('Red')),
-    ('#89c2d9', _('Cold Blue')), ('#CDC7BE', _('Cold Brown')), ('#C4DFAA', _('Cold Green')), ('#9BABB3', _('Cold Grey')), ('#CC18A8', _('Cold Maroon')), ('#D960AE', _('Cold Pink')),
-    ('#7520F2', _('Cold Purpel')), ('#3F85BF', _('Cold Teal'))])
+def applyDateFormat():
+    skinFiles = [
+        "/usr/share/enigma2/xDreamy/sample/head-head.xml",
+        "/usr/share/enigma2/xDreamy/skin.xml"
+    ]
 
-config.plugins.xDreamy.BackgroundColor = ConfigSelection(default='#20000000', choices=[
-    ('#20000000', _('Default')), ('#40000000', _('Transparent Black 1')), ('#80000000', _('Transparent Black 2')),
-    ('#05011D33', _('Cold Blue')), ('#05332323', _('Cold Brown')), ('#0511332E', _('Cold Green')), ('#05212526', _('Cold Grey')),
-    ('#0526051F', _('Cold Maroon')), ('#05331729', _('Cold Pink')),('#05190733', _('Cold Purpel')), ('#05112333 ', _('Cold Teal')),
-    ('#03a0ff', _('Light Blue')), ('#F0CA6D', _('Light Brown')), ('#64E33E', _('Light Green')), ('#9f9f9f', _('Light Grey')), ('#bc7a80', _('Light Maroon')),
-    ('#ff9200', _('Light Orange')), ('#F56EB3', _('Light Pink')), ('#836FFF', _('Light Purple')), ('#66b2b2', _('Light Teal')), ('#ffee00', _('Light Gold')), ('#ff7b7b', _('Light Red')), ('#000000', _('Black'))])
+    new_format = config.plugins.xDreamy.dateFormat.value
+    changes_made = False  
 
-def updateColor(ltbluette_value, bluette_value, header_value):
-    """Update bluette, ltbluette, and header colors in the skin.xml file."""
-    skin_file_path = '/usr/share/enigma2/xDreamy/sample/C-color23_Custom.xml'
+    for skinFile in skinFiles:
+        try:
+            if not os.path.exists(skinFile):
+                logger.warning(_("Skin file not found: {skinFile}").format(skinFile=skinFile))
+                continue  
+
+            with open(skinFile, "r") as file:
+                skin_data = file.read()
+
+            logger.debug(_("Checking file: {skinFile}").format(skinFile=skinFile))  
+
+            # ✅ Define the start and end of the <convert>` tag
+            start_tag = '<convert type="ClockToText">Format '
+            end_tag = '</convert>'
+
+            # ✅ Find the position of the start and end tags
+            start_index = skin_data.find(start_tag)
+            end_index = skin_data.find(end_tag, start_index) if start_index != -1 else -1
+
+            if start_index != -1 and end_index != -1:
+                # ✅ Extract the old `<convert>` tag (including the old format)
+                old_convert_tag = skin_data[start_index:end_index + len(end_tag)]
+
+                # ✅ Create the new `<convert>` tag with the new format
+                new_convert_tag = f'{start_tag}{new_format}{end_tag}'
+
+                # ✅ Replace the old tag with the new one
+                updated_skin_data = skin_data.replace(old_convert_tag, new_convert_tag)
+
+                if updated_skin_data != skin_data:
+                    try:
+                        with open(skinFile, "w") as file:
+                            file.write(updated_skin_data)
+                        logger.info(_("Updated date format to: {new_format} in {skinFile}").format(new_format=new_format, skinFile=skinFile))
+                        changes_made = True  
+                    except IOError as e:
+                        logger.error(_("Failed to write to {skinFile}: {error}").format(skinFile=skinFile, error=e))
+            else:
+                logger.warning(_("No <convert> tag found in {skinFile}!").format(skinFile=skinFile))
+
+        except Exception as e:
+            logger.error(_("Error updating {skinFile}: {error}").format(skinFile=skinFile, error=e))
+
+    if changes_made:
+        logger.info(_("Date format updated in skin templates. Restart Enigma2 manually if needed."))
+    else:
+        logger.warning(_("No changes detected in skin templates."))
+
+# ✅ Ensure function runs when setting is changed
+config.plugins.xDreamy.dateFormat.addNotifier(lambda _: applyDateFormat())
+
+########################################################## COLORS CODE CHANGE ##########################################################
+def apply_template(template_name):
+    """Apply a template by updating the predefined three color values in C-default-color.xml."""
+    if template_name in TEMPLATES:
+        ltbluette_value, bluette_value, header_value = TEMPLATES[template_name]
+
+        # Get transparency value from config
+        transparency_value = config.plugins.xDreamy.transparency.value  # e.g., "25"
+
+        # Ensure header_value starts with "#" and is 9 characters long
+        if header_value.startswith("#") and len(header_value) == 9:
+            header_value = f"#{transparency_value}{header_value[3:]}"  # Apply transparency
+
+        update_colors_in_file(
+            '/usr/share/enigma2/xDreamy/sample/C-default-color.xml',
+            ltbluette_value, None, bluette_value, header_value
+        )
+        logger.info(_("Template '{template_name}' applied to C-default-color.xml with transparency {transparency_value}.").format(template_name=template_name, transparency_value=transparency_value))
+    else:
+        logger.warning(_("Template '{template_name}' not found.").format(template_name=template_name))
+
+def update_individual_colors(ltbluette_value=None, white_value=None, bluette_value=None, header_value=None):
+    """Update one or more individual colors in C-color23_Custom.xml."""
+    update_colors_in_file(
+        '/usr/share/enigma2/xDreamy/sample/C-color23_Custom.xml',
+        ltbluette_value, white_value, bluette_value, header_value
+    )
+    logger.info(_("Selected colors updated in C-color23_Custom.xml."))
+
+def update_colors_in_file(file_path, ltbluette_value=None, white_value=None, bluette_value=None, header_value=None):
     try:
-        with open(skin_file_path, 'r') as file:
+        updated_lines = []
+        color_updated = {"ltbluette": False, "white": False, "bluette": False, "header": False}
+
+        # Read the current file
+        with open(file_path, 'r') as file:
+            lines = file.readlines()
+
+        # Get transparency value from config
+        transparency_value = config.plugins.xDreamy.transparency.value  # e.g., "25"
+
+        # Process each line and update colors
+        for line in lines:
+            if '<color name="ltbluette"' in line and ltbluette_value is not None:
+                line = f'<color name="ltbluette" value="{ltbluette_value}"/>\n'
+                color_updated["ltbluette"] = True
+            elif '<color name="white"' in line and white_value is not None:
+                line = f'<color name="white" value="{white_value}"/>\n'
+                color_updated["white"] = True
+            elif '<color name="bluette"' in line and bluette_value is not None:
+                line = f'<color name="bluette" value="{bluette_value}"/>\n'
+                color_updated["bluette"] = True
+            elif '<color name="header"' in line and header_value is not None:
+                # Ensure header_value starts with "#" and is 9 characters long
+                if header_value.startswith("#") and len(header_value) == 9:
+                    # Apply transparency by replacing the first two digits after "#"
+                    new_color = f"#{transparency_value}{header_value[3:]}"
+                    line = f'<color name="header" value="{new_color}"/>\n'
+                    color_updated["header"] = True
+
+            updated_lines.append(line)  # Add the processed line to the list
+
+        # Write the updated lines back to the file (overwrite mode)
+        with open(file_path, 'w') as file:
+            file.writelines(updated_lines)
+
+        os.system("sync")  # Ensure changes are saved
+        logger.info(_("Colors updated in {file_path}, Header: {header_value} -> {new_color}").format(file_path=file_path, header_value=header_value, new_color=new_color))
+
+    except Exception as e:
+        logger.error(_("Error updating colors in {file_path}: {error}").format(file_path=file_path, error=e))
+
+
+########################################################## FONTS NAME & SIZE CHANGE ##########################################################
+def update_font_settings(font_name=None, font_scale=None):
+    font_file_path = '/usr/share/enigma2/xDreamy/sample/font-basic.xml'
+    try:
+        with open(font_file_path, 'r') as file:
             lines = file.readlines()
         
-        with open(skin_file_path, 'w') as file:
+        with open(font_file_path, 'w') as file:
             for line in lines:
-                if '<color name="ltbluette"' in line:
-                    line=f'        <color name="ltbluette" value="{ltbluette_value}"/>\n'
-                elif'<color name="bluette"' in line:
-                    line=f'        <color name="bluette" value="{bluette_value}"/>\n'
-                elif'<color name="header"' in line:
-                    line=f'        <color name="header" value="{header_value}"/>\n'
-                file.write(line) 
-        print(f"All colors updated: bluette={bluette_value}, ltbluette={ltbluette_value}, header={header_value}")
+                if '<font name="Regular"' in line:
+                    line = f'<font name="Regular" filename="/usr/share/enigma2/xDreamy/fonts/{font_name}" scale="{font_scale}" />\n'
+                file.write(line)
+        
+        os.system("sync")  # Save changes
+        logger.info(_("Font settings updated: {font_name}, scale={font_scale}").format(font_name=font_name, font_scale=font_scale))
     except Exception as e:
-        print(f" Error updating colors: {e}") 
+        logger.error(_("Error updating font settings: {error}").format(error=e))
+
+########################################################## iPOSTERX CHANGE ##########################################################
+# Update the renderer logic
+import os
+import logging
+
+# Set up logging
+logger = logging.getLogger(__name__)
+
+# Configuration
+FILES_TO_UPDATE = [
+    '/usr/lib/enigma2/python/Components/Renderer/iPosterX.py',
+    '/usr/lib/enigma2/python/Components/Renderer/iPosterXDownloadThread.py',
+    '/usr/lib/enigma2/python/Components/Renderer/iBackdropX.py',
+    '/usr/lib/enigma2/python/Components/Renderer/iBackdropXDownloadThread.py',
+    # Add more files here as needed
+]
+
+def replace_class_names(file_path, enable):
+    """Replace class names in a file to enable or disable the renderer."""
+    try:
+        with open(file_path, 'r') as file:
+            lines = file.readlines()
+
+        with open(file_path, 'w') as file:
+            for line in lines:
+                # Check if the line contains a class definition starting with "i"
+                if line.strip().startswith("class i"):
+                    if enable:
+                        # Enable: Replace "OFF_" with "i"
+                        line = line.replace("OFF_", "i")
+                    else:
+                        # Disable: Replace "i" with "OFF_"
+                        line = line.replace("class i", "class OFF_")
+                file.write(line)
+
+        logger.info(_("Updated class names in {file_path} (enable={enable})").format(file_path=file_path, enable=enable))
+    except Exception as e:
+        logger.error(_("Error updating class names in {file_path}: {error}").format(file_path=file_path, error=e))
+
+def update_renderer_status(enable, files_to_update=None):
+    """
+    Enable or disable a renderer by updating class names in the specified files.
+    
+    :param enable: Boolean, True to enable the renderer, False to disable it.
+    :param files_to_update: List of file paths to update. If None, defaults to PosterX files.
+    """
+    if files_to_update is None:
+        # Default to PosterX files if no specific files are provided
+        files_to_update = [
+            '/usr/lib/enigma2/python/Components/Renderer/iPosterX.py',
+            '/usr/lib/enigma2/python/Components/Renderer/iPosterXDownloadThread.py',
+            '/usr/lib/enigma2/python/Components/Renderer/iBackdropX.py',
+            '/usr/lib/enigma2/python/Components/Renderer/iBackdropXDownloadThread.py',
+        ]
+
+    try:
+        for file_path in files_to_update:
+            if os.path.exists(file_path):
+                with open(file_path, 'r') as file:
+                    lines = file.readlines()
+
+                with open(file_path, 'w') as file:
+                    for line in lines:
+                        # Enable: Replace "OFF_" with "i"
+                        if enable:
+                            line = line.replace("OFF_", "i")
+                        # Disable: Replace "i" with "OFF_"
+                        else:
+                            line = line.replace("class i", "class OFF_")
+                        file.write(line)
+
+                logger.info(_("Updated {file_path} to {'enable' if enable else 'disable'} renderer.").format(file_path=file_path))
+            else:
+                logger.warning(_("File not found: {file_path}").format(file_path=file_path))
+
+        os.system("sync")  # Ensure changes are saved
+        logger.info(_("Renderer {'enabled' if enable else 'disabled'} successfully."))
+    except Exception as e:
+        logger.error(_("Error updating renderer status: {error}").format(error=e))
+
+# Notifier for PosterX
+config.plugins.xDreamy.enablePosterX.addNotifier(lambda config: update_renderer_status(config.value))
+
+def update_removal_time(removal_time):
+    """Update the auto-removal interval for posters."""
+    try:
+        posterx_file_path = '/usr/lib/enigma2/python/Components/Renderer/iPosterX.py'
+        with open(posterx_file_path, 'r') as file:
+            lines = file.readlines()
+
+        with open(posterx_file_path, 'w') as file:
+            for line in lines:
+                if 'elif diff_tm > 31536000:' in line:
+                    # Preserve the indentation of the original line
+                    indentation = line[:line.find('elif')]  # Get the leading spaces/tabs
+                    line = f"{indentation}elif diff_tm > {removal_time}:\n"
+                file.write(line)
+
+        os.system("sync")  # Ensure changes are saved
+        logger.info(_("Poster removal time updated to: {removal_time} seconds").format(removal_time=removal_time))
+    except Exception as e:
+        logger.error(_("Error updating poster removal time: {error}").format(error=e))
+
+config.plugins.xDreamy.posterRemovalInterval.addNotifier(lambda config: update_removal_time(config.value))
 
 def autostart(reason, **kwargs):
     if reason == 0:  # Only run on startup
@@ -417,20 +1150,81 @@ def autostart(reason, **kwargs):
                 shutil.copy(mvi + 'bootlogoBack.mvi', mvi + 'bootlogo.mvi')
                 os.remove(mvi + 'bootlogoBack.mvi')
 
+# ✅ Ensure function runs after Enigma2 boots
+def onEnigmaStart(reason, **kwargs):
+    if reason == 0:  # Runs only on full Enigma2 startup (not standby mode)
+        logger.info(_("Enigma2 Startup Detected - Applying Date Format Changes"))
+        applyDateFormat()
+
 def Plugins(**kwargs):
-    return [PluginDescriptor(
+    pluginList = [
+        PluginDescriptor(
             name=_("XDREAMY"),
             description=_('Customization tool for XDREAMY Skin'),
             where=PluginDescriptor.WHERE_PLUGINMENU,
             icon='plugin.png',
-            fnc=main),
-
-            PluginDescriptor(
+            fnc=main
+        ),
+        PluginDescriptor(
             name=_("XDREAMY BOOT"),
-            description="XDREAMY BOOT LOGO",
+            description=_("XDREAMY BOOT LOGO"),
             where=PluginDescriptor.WHERE_AUTOSTART,
-            fnc=autostart)]
+            fnc=autostart
+        )
+    ]
+    
+    # تحقق مما إذا كان يجب عرض الإضافة في قائمة الامتدادات
+    if config.plugins.xDreamy.ShowInExtensions.value:
+        pluginList.append(
+            PluginDescriptor(
+                name=_("XDREAMY Skin Settings"),
+                description=_("Customization tool for XDREAMY Skin"),
+                where=[PluginDescriptor.WHERE_EXTENSIONSMENU],
+                fnc=main
+            )
+        )
+    
+    return pluginList
 
+#====================================================================
+
+def switch_poster_render():
+    """Switch between iPosterX and xtraEvent in XML skin files."""
+    base_path = "/usr/share/enigma2/xDreamy/sample/"
+    target_files = [f for f in os.listdir(base_path) if f.startswith(("infobar-", "secondinfobar-", "CHL-", "CHLG-"))]
+
+    # Get user config selection
+    selected_render = config.plugins.xDreamy.posters.value  # 'iPosterX' or 'xtraEvent'
+
+    # Define the replacement mappings
+    replacements = {
+        'iPosterX': 'xtraPoster',
+        'iBackdropX': 'xtraBackdrop'
+    } if selected_render == 'xtraEvent' else {
+        'xtraPoster': 'iPosterX',
+        'xtraBackdrop': 'iBackdropX'
+    }
+
+    for filename in target_files:
+        file_path = os.path.join(base_path, filename)
+
+        try:
+            with open(file_path, 'r') as file:
+                content = file.read()
+
+            # Replace occurrences
+            for old, new in replacements.items():
+                content = content.replace(old, new)
+
+            # Write back the updated content
+            with open(file_path, 'w') as file:
+                file.write(content)
+
+            logger.info(_("Updated poster rendering in {filename} ({selected_render})").format(filename=filename, selected_render=selected_render))
+
+        except Exception as e:
+            logger.error(_("Error processing {filename}: {error}").format(filename=filename, error=e))
+#====================================================================
 def main(session, **kwargs):
     session.open(xDreamySetup)
 
@@ -443,40 +1237,18 @@ def convert_image(image):
     img = Image.open(path)
     img.save(path, "PNG")
     return image
-
-def showPictureForSection(self, section_name):
-    if self["Preview"].instance:
-        size = self['Preview'].instance.size()
-        if size.isNull():
-            size.setWidth(498)
-            size.setHeight(280)
-        
-        image_path = self.getImagePath(section_name)
-        
-        if fileExists(image_path):
-            print(f"Loading image from: {image_path}")
-            png = loadPic(image_path, size.width(), size.height(), 0, 0, 0, 1)
-            self["Preview"].instance.setPixmap(png)
-            print("Image loaded successfully.")
-        else:
-            default_image_path = "/usr/share/enigma2/xDreamy/screens/default.png"
-            print(f"Image not found: {image_path}, loading default image: {default_image_path}")
-            if fileExists(default_image_path):
-                png = loadPic(default_image_path, size.width(), size.height(), 0, 0, 0, 1)
-                self["Preview"].instance.setPixmap(png)
-                print("Default image loaded successfully.")
-            else:
-                print(f"Default image not found: {default_image_path}")
+    
 
 class xDreamySetup(ConfigListScreen, Screen):
-    skin = '''<screen name="xDreamySetup" position="center,center" size="1000,640" title="XDREAMY skin customization plugin">
-    <eLabel font="Regular; 24" foregroundColor="#00ff4A3C" halign="center" position="20,598" size="120,26" text="Cancel"/>
-    <eLabel font="Regular; 24" foregroundColor="#0056C856" halign="center" position="220,598" size="120,26" text="Save"/>
-    <widget name="Preview" position="997,690" size="498, 280" zPosition="1"/>
-    <widget name="config" font="Regular; 24" itemHeight="40" position="5,5" scrollbarMode="showOnDemand" size="990,550"/>
-    <widget name="city" font="Regular; 26" position="564,571" size="420,60" foregroundColor="#00ff4A3C" backgroundColor="#000000" transparent="1" zPosition="4" halign="center" valign="bottom"/>
-    <widget name="helpText" font="Regular; 22" position="5,560" size="990,30" foregroundColor="#00ffffff" backgroundColor="#000000" transparent="1" zPosition="2" halign="left" valign="center"/>
-</screen>
+    skin = '''
+                                    <screen name="xDreamySetup" position="center,center" size="1000,640" title="XDREAMY skin customization plugin">
+                                        <eLabel font="Regular; 24" foregroundColor="#00ff4A3C" halign="center" position="20,598" size="120,26" text="Cancel"/>
+                                        <eLabel font="Regular; 24" foregroundColor="#0056C856" halign="center" position="220,598" size="120,26" text="Save"/>
+                                        <widget name="Preview" position="997,690" size="498, 280" zPosition="1"/>
+                                        <widget name="config" font="Regular; 24" itemHeight="40" position="5,5" scrollbarMode="showOnDemand" size="990,550"/>
+                                        <widget name="city" font="Regular; 26" position="564,571" size="420,60" foregroundColor="#00ff4A3C" backgroundColor="#000000" transparent="1" zPosition="4" halign="center" valign="bottom"/>
+                                        <widget name="helpText" font="Regular; 22" position="5,560" size="990,30" foregroundColor="#00ffffff" backgroundColor="#000000" transparent="1" zPosition="2" halign="left" valign="center"/>
+                                    </screen>
            '''
 
     def __init__(self, session):
@@ -488,15 +1260,19 @@ class xDreamySetup(ConfigListScreen, Screen):
         self['Preview'] = Pixmap()
         self['city'] = Label('')
         self['helpText'] = Label('')  # Initialize the helpText label
-        self.setup_title = f"XDREAMY Setup v {version}"
+        self['yellow'] = Label(_('Check for Update'))  # Add translation for yellow key
+        self['blue'] = Label(_('Version'))  # Add translation for blue key
+        self.setup_title = f"XDREAMY SKIN v {version}"
         self.activeComponents = []  # Initialize activeComponents attribute
         list = []
         ConfigListScreen.__init__(self, list, session=self.session, on_change=self.changedEntry)
         self.onChangedEntry = []
         self.editListEntry = None
-        self.createSetup()  # Ensure createSetup is called here
+        self.createSetup()  # ✅ تأكد أن `createSetup` يتم استدعاؤها أولًا
         self.onLayoutFinish.append(self.createSetup)
+        self.onLayoutFinish.append(self.ShowPicture)
         self["actions"] = ActionMap(["SetupActions"], {
+            'ok': self.keyOK,
             "cancel": self.keyCancel,
             "save": self.keySave,
         }, -2)
@@ -514,9 +1290,7 @@ class xDreamySetup(ConfigListScreen, Screen):
                                                        'up': self.keyUp,
                                                        'red': self.keyExit,
                                                        'green': self.keySave,
-                                                       'menu': self.Checkskin,
                                                        'yellow': self.checkforUpdate,
-                                                       'info': self.mesInfo,
                                                        'blue': self.info,
                                                        'cancel': self.keyExit,
                                                        'ok': self.keyRun}, -1)
@@ -536,6 +1310,7 @@ class xDreamySetup(ConfigListScreen, Screen):
         # Call this function during initialization
         update_plugin_install_status()
 
+
     def __layoutFinished(self):
         self['city'].setText("%s" % str(config.plugins.xDreamy.city.value))
         self.setTitle(self.setup_title)
@@ -545,16 +1320,8 @@ class xDreamySetup(ConfigListScreen, Screen):
         if current:
             self['helpText'].setText(current[2] if len(current) > 2 else '')
 
-    def isInstallPlugin(self, item_name):
-        install_plugins = [
-            "LinuxsatPanel", "AJPanel", "MSNWeather", "MultiCamManager",
-            "XKlass", "E2iPlayer", "Transmission", "MultiStalkerPro",
-            "SubsSupport", "HistoryZapSelector", "NewVirtualKeyboard"
-        ]
-        return item_name in install_plugins
-        
     def mesInfo(self):
-        message = (
+        message = _(
             "Experience Enigma2 skin like never before with XDREAMY\n\n"
             "XDREAMY skin is a new vision, created by Inspiron.\n"
             "Users can fully customize their interface, and change layout,\n"
@@ -567,46 +1334,38 @@ class xDreamySetup(ConfigListScreen, Screen):
             "Egami, OpenATV, OpenSpa, PurE2, OpenDroid, OpenBH & Alliance Based Images.\n"
             "OpenPLi, OpenVIX, OpenHDF, OpenTR, Satlodge, NonSoloSat, Foxbob & PLi Base Images.\n\n"
             "Forum support: Linuxsat-support.com\n"
-            "Mahmoud Hussein")
-        self.session.open(MessageBox, _(message), MessageBox.TYPE_INFO, timeout=10)
+            "Mahmoud Hussein"
+        )
+        self.session.open(MessageBox, message, MessageBox.TYPE_INFO, timeout=10)
 
     def getImagePath(self, item_name):
         base_dir = "/usr/share/enigma2/xDreamy/screens/"
         item_name = item_name.lower().replace(" ", "").replace("-", "")
         return os.path.join(base_dir, f"{item_name}.png")
 
-    def ShowPicture(self, data=None):
-        if self["Preview"].instance:
-            size = self['Preview'].instance.size()
-            if size.isNull():
-                size.setWidth(498)
-                size.setHeight(280)
-            current_item = self["config"].getCurrent()
-            if current_item and len(current_item) > 0:
-                current_item = current_item[0]
-                if self.isInstallPlugin(current_item):
-                    image_path = self.getImagePath(current_item.lower().replace("install_", ""))
-                else:
-                    image_path = self.getImagePath(current_item)
-                
-                # Debug output
-                print(f"Current item: {current_item}")
-                print(f"Image path: {image_path}")
-                
-                if fileExists(image_path):
-                    print(f"Loading image from: {image_path}")
-                    png = loadPic(image_path, size.width(), size.height(), 0, 0, 0, 1)
-                    self["Preview"].instance.setPixmap(png)
-                    print("Image loaded successfully.")
-                else:
-                    default_image_path = "/usr/share/enigma2/xDreamy/screens/default.png"
-                    print(f"Image not found: {image_path}, loading default image: {default_image_path}")
-                    if fileExists(default_image_path):
-                        png = loadPic(default_image_path, size.width(), size.height(), 0, 0, 0, 1)
-                        self["Preview"].instance.setPixmap(png)
-                        print("Default image loaded successfully.")
-                    else:
-                        print(f"Default image not found: {default_image_path}")
+    def openSelectionPopup(self, current):
+        sel = current[1]
+
+        # ✅ Ensure the setting has valid choices
+        if hasattr(sel, "choices"):
+            options = [(str(opt), opt) for opt in sel.choices]  # Handle both list and dict
+        else:
+            logger.warning(_("No choices available for {current}").format(current=current[0]))
+            return
+
+        # ✅ Open popup with available choices
+        self.session.openWithCallback(
+            lambda choice: self.selectionMade(choice, sel),
+            ChoiceBox,
+            title=_("Select an option for: ") + current[0],
+            list=options
+        )
+
+    def selectionMade(self, choice, configItem):
+        if choice:
+            configItem.value = choice[1]  # ✅ Apply the selected option
+            self.createSetup()  # ✅ Refresh UI
+
 
     def keyRun(self):
         current = self["config"].getCurrent()
@@ -638,10 +1397,16 @@ class xDreamySetup(ConfigListScreen, Screen):
                 self.keyApi4()
             elif sel == config.plugins.xDreamy.txtapi4:
                 self.KeyText()
-            elif sel == config.plugins.xDreamy.install_linuxsatpanel:
-                self.installPlugin("LinuxsatPanel", "https://raw.githubusercontent.com/Belfagor2005/LinuxsatPanel/main/installer.sh")
+            # ✅ Open Popup for ConfigSelection Settings
+            elif isinstance(sel, ConfigSelection):
+                self.openSelectionPopup(current)  # ✅ Show popup with available options
+
             elif sel == config.plugins.xDreamy.install_ajpanel:
                 self.installPlugin("AJPanel", "https://raw.githubusercontent.com/AMAJamry/AJPanel/main/installer.sh")
+            elif sel == config.plugins.xDreamy.install_linuxsatpanel:
+                self.installPlugin("LinuxsatPanel", "https://raw.githubusercontent.com/Belfagor2005/LinuxsatPanel/main/installer.sh")
+            elif sel == config.plugins.xDreamy.install_CiefpPlugins:
+                self.installPlugin("CiefpPlugins", "https://raw.githubusercontent.com/ciefp/CiefpPlugins/main/installer.sh")
             elif sel == config.plugins.xDreamy.install_smartpanel:
                 self.installPlugin("SmartPanel", "https://raw.githubusercontent.com/emilnabil/download-plugins/refs/heads/main/SmartAddonspanel/smart-Panel.sh")
             elif sel == config.plugins.xDreamy.install_elisatpanel:
@@ -663,7 +1428,7 @@ class xDreamySetup(ConfigListScreen, Screen):
             elif sel == config.plugins.xDreamy.install_youtube:
                 self.installPlugin("YouTube", "https://raw.githubusercontent.com/fairbird/Youtube-Opensource-DreamOS/master/installer.sh")
             elif sel == config.plugins.xDreamy.install_e2iplayer:
-                self.installPlugin("E2iPlayer", "https://mohamed_os.gitlab.io/e2iplayer/online-setup")
+                self.installPlugin("E2iPlayer", "https://gitlab.com/eliesat/extensions/-/raw/main/e2iplayer/e2iplayer-main.sh")
             elif sel == config.plugins.xDreamy.install_transmission:
                 self.installPlugin("Transmission", "http://dreambox4u.com/dreamarabia/Transmission_e2/Transmission_e2.sh")
             elif sel == config.plugins.xDreamy.install_multistalkerpro:
@@ -680,20 +1445,20 @@ class xDreamySetup(ConfigListScreen, Screen):
                 self.installPlugin("NewVirtualKeyBoard", "https://raw.githubusercontent.com/fairbird/NewVirtualKeyBoard/main/installer.sh")
             elif sel == config.plugins.xDreamy.install_raedquicksignal:
                 self.installPlugin("RaedQuickSignal", "https://raw.githubusercontent.com/fairbird/RaedQuickSignal/main/installer.sh")
-            
+
     def installPlugin(self, plugin_name, url):
         if check_plugin_installed(plugin_name):
             self.session.openWithCallback(lambda result: self.runInstallation(result, plugin_name, url), MessageBox, 
-                                          f"{plugin_name} is already installed. Do you want to open, reinstall, remove, or cancel?", 
+                                          _("{plugin_name} is already installed. Do you want to open, reinstall, remove, or cancel?").format(plugin_name=plugin_name), 
                                           MessageBox.TYPE_YESNO, default=False, simple=True, list=[("Open", "open"), ("Reinstall", "reinstall"), ("Remove", "remove"), ("Cancel", "cancel")])
         else:
             self.session.openWithCallback(lambda result: self.runInstallation(result, plugin_name, url), MessageBox, 
-                                          f"{plugin_name} is not installed. Do you want to install it now?", 
+                                          _("{plugin_name} is not installed. Do you want to install it now?").format(plugin_name=plugin_name), 
                                           MessageBox.TYPE_YESNO)
 
     def runInstallation(self, result, plugin_name, url):
         if result == "open":
-            self.session.open(MessageBox, f"Opening {plugin_name}...", MessageBox.TYPE_INFO, timeout=4)
+            self.session.open(MessageBox, _("Opening {plugin_name}...").format(plugin_name=plugin_name), MessageBox.TYPE_INFO, timeout=4)
             # Logic to open the plugin
         elif result == "reinstall" or result == True:
             command = f"wget -q --no-check-certificate {url} -O - | /bin/sh"
@@ -710,7 +1475,7 @@ class xDreamySetup(ConfigListScreen, Screen):
             if fileExists(api) and os.stat(api).st_size > 0:
                 self.session.openWithCallback(self.keyApi, MessageBox, _("Import Api Key TMDB from /tmp/apikey.txt?"))
             else:
-                self.session.open(MessageBox, (_("Missing %s !") % api), MessageBox.TYPE_INFO, timeout=4)
+                self.session.open(MessageBox, (_("Missing {api} !").format(api=api)), MessageBox.TYPE_INFO, timeout=4)
         elif answer:
             if fileExists(api) and os.stat(api).st_size > 0:
                 with open(api, 'r') as f:
@@ -725,7 +1490,7 @@ class xDreamySetup(ConfigListScreen, Screen):
                 else:
                     self.session.open(MessageBox, _("TMDB ApiKey is empty!"), MessageBox.TYPE_INFO, timeout=4)
             else:
-                self.session.open(MessageBox, (_("Missing %s !") % api), MessageBox.TYPE_INFO, timeout=4)
+                self.session.open(MessageBox, (_("Missing {api} !").format(api=api)), MessageBox.TYPE_INFO, timeout=4)
         self.createSetup()
 
     def keyApi2(self, answer=None):
@@ -734,7 +1499,7 @@ class xDreamySetup(ConfigListScreen, Screen):
             if fileExists(api2) and os.stat(api2).st_size > 0:
                 self.session.openWithCallback(self.keyApi2, MessageBox, _("Import Api Key OMDB from /tmp/omdbkey.txt?"))
             else:
-                self.session.open(MessageBox, (_("Missing %s !") % api2), MessageBox.TYPE_INFO, timeout=4)
+                self.session.open(MessageBox, (_("Missing {api2} !").format(api2=api2)), MessageBox.TYPE_INFO, timeout=4)
         elif answer:
             if fileExists(api2) and os.stat(api2).st_size > 0:
                 with open(api2, 'r') as f:
@@ -749,7 +1514,7 @@ class xDreamySetup(ConfigListScreen, Screen):
                 else:
                     self.session.open(MessageBox, _("OMDB ApiKey is empty!"), MessageBox.TYPE_INFO, timeout=4)
             else:
-                self.session.open(MessageBox, (_("Missing %s !") % api2), MessageBox.TYPE_INFO, timeout=4)
+                self.session.open(MessageBox, (_("Missing {api2} !").format(api2=api2)), MessageBox.TYPE_INFO, timeout=4)
         self.createSetup()
 
     def keyApi3(self, answer=None):
@@ -758,7 +1523,7 @@ class xDreamySetup(ConfigListScreen, Screen):
             if fileExists(api3) and os.stat(api3).st_size > 0:
                 self.session.openWithCallback(self.keyApi3, MessageBox, _("Import Api Key TheTVDB from /tmp/thetvdbkey.txt?"))
             else:
-                self.session.open(MessageBox, (_("Missing %s !") % api3), MessageBox.TYPE_INFO, timeout=4)
+                self.session.open(MessageBox, (_("Missing {api3} !").format(api3=api3)), MessageBox.TYPE_INFO, timeout=4)
         elif answer:
             if fileExists(api3) and os.stat(api3).st_size > 0:
                 with open(api3, 'r') as f:
@@ -773,7 +1538,7 @@ class xDreamySetup(ConfigListScreen, Screen):
                 else:
                     self.session.open(MessageBox, _("TheTVDB ApiKey is empty!"), MessageBox.TYPE_INFO, timeout=4)
             else:
-                self.session.open(MessageBox, (_("Missing %s !") % api3), MessageBox.TYPE_INFO, timeout=4)
+                self.session.open(MessageBox, (_("Missing {api3} !").format(api3=api3)), MessageBox.TYPE_INFO, timeout=4)
         self.createSetup()
 
     def keyApi4(self, answer=None):
@@ -782,7 +1547,7 @@ class xDreamySetup(ConfigListScreen, Screen):
             if fileExists(api4) and os.stat(api4).st_size > 0:
                 self.session.openWithCallback(self.keyApi4, MessageBox, _("Import Api Key Fanart from /tmp/fanartkey.txt?"))
             else:
-                self.session.open(MessageBox, (_("Missing %s !") % api4), MessageBox.TYPE_INFO, timeout=4)
+                self.session.open(MessageBox, (_("Missing {api4} !").format(api4=api4)), MessageBox.TYPE_INFO, timeout=4)
         elif answer:
             if fileExists(api4) and os.stat(api4).st_size > 0:
                 with open(api4, 'r') as f:
@@ -797,7 +1562,7 @@ class xDreamySetup(ConfigListScreen, Screen):
                 else:
                     self.session.open(MessageBox, _("Fanart ApiKey is empty!"), MessageBox.TYPE_INFO, timeout=4)
             else:
-                self.session.open(MessageBox, (_("Missing %s !") % api4), MessageBox.TYPE_INFO, timeout=4)
+                self.session.open(MessageBox, (_("Missing {api4} !").format(api4=api4)), MessageBox.TYPE_INFO, timeout=4)
         self.createSetup()
 
     def KeyText(self):
@@ -816,207 +1581,217 @@ class xDreamySetup(ConfigListScreen, Screen):
         try:
             self.editListEntry = None                                     
             list = []
-            section = '\\c00289496' + _('-------------------------------( SKIN GENERAL SETUP )---------------------------')
+            section = '\\c00289496' + _('SKIN GENERAL SETUP  __________________________________________________________')
             list.append(getConfigListEntry(section))
-            list.append(getConfigListEntry(_('Skin General Style:'), config.plugins.xDreamy.skinSelector, _('Choose the overall style of the skin.')))
-            list.append(getConfigListEntry(_('Skin Font Style:'), config.plugins.xDreamy.FontStyle, _('Select the default font style used throughout the skin.')))
-            list.append(getConfigListEntry(_('Skin Keys Style:'), config.plugins.xDreamy.KeysStyle, _('Choose the style for the key buttons used throughout the skin.')))
+            list.append(getConfigListEntry(_('Skin Style:'), config.plugins.xDreamy.skinTemplate, _('Choose the overall visual theme for your interface. This affects layouts, and graphical elements.')))
+            list.append(getConfigListEntry(_('Keys Style:'), config.plugins.xDreamy.KeysStyle, _('Select the design style for on-screen buttons and key prompts. Different styles offer varying visual effects.')))
+            list.append(getConfigListEntry(_('Font Style:'), config.plugins.xDreamy.FontStyle, _('Set the default font scheme. Choose "Basic" for standard fonts or "Custom" for advanced font control for font style and size.')))
+            if config.plugins.xDreamy.FontStyle.value == 'basic':
+                list.append(getConfigListEntry(_('      - Font Type:'), config.plugins.xDreamy.FontName, _('Select your preferred font family. Verdana is the default for optimal readability on TV screens.')))
+                list.append(getConfigListEntry(_('      - Font Size:'), config.plugins.xDreamy.FontScale, _('Adjust text size in 5 percent increments. 100 percent is standard size. Increase for better visibility or decrease for more screen space.')))
+            list.append(getConfigListEntry(_("Date Format:"), config.plugins.xDreamy.dateFormat, _("Customize how dates are displayed. Options include different orderings of day/month/year and various separators.")))
+            list.append(getConfigListEntry(_("Clock Format:"), config.plugins.xDreamy.clockFormat, _("Select between 12-hour (AM/PM) or 24-hour time format for all clock displays in the interface.")))
+            list.append(getConfigListEntry(_('Show in Extensions:'), config.plugins.xDreamy.ShowInExtensions, _('Toggle visibility of xDreamy in the Extensions menu. Set to "No" to hide the plugin from the Extensions menu.')))
 
-            section = '\\c00289496' + _('--------------------------------( SKIN COLORS SETUP )---------------------------')
+            section = '\\c00289496' + _('  ')
             list.append(getConfigListEntry(section))
-            section = '\\c0056c856' + _('Skin General Color:')
+
+            section = '\\c00289496' + _('SKIN GENERAL COLORS  __________________________________________________________')
             list.append(getConfigListEntry(section))
-            list.append(getConfigListEntry(_('Skin Color:'), config.plugins.xDreamy.colorSelector, _('Select the primary color scheme for the skin.')))
+            list.append(getConfigListEntry(_('Skin General Color:'), config.plugins.xDreamy.colorSelector, _('Select color scheme for the skin, Choose "Default" in order to select one of the color templates or "Custom" to select your own colors from 4 variable.')))
+            if config.plugins.xDreamy.colorSelector.value == 'default-color':
+                list.append(getConfigListEntry(_('      - Color Templates:'), config.plugins.xDreamy.BasicColorTemplates, _('Select a predefined color template for the skin.')))
+                list.append(getConfigListEntry(_('      - Background Transparency:'), config.plugins.xDreamy.transparency, _('Adjust the transparency level for the skin background.')))
             if config.plugins.xDreamy.colorSelector.value == 'color23_Custom':
-                list.append(getConfigListEntry(_('      - Basic Font Color:'), config.plugins.xDreamy.BasicColor, _('Select the color for Titles Font.')))
-                list.append(getConfigListEntry(_('      - Skin Selection Color:'), config.plugins.xDreamy.SelectionColor, _('Select the color for Selection Background.')))
-                list.append(getConfigListEntry(_('      - Skin Background Color:'), config.plugins.xDreamy.BackgroundColor, _('Select the color for general skin Background.')))
-            
-            list.append(getConfigListEntry(_('Menu Font Color:'), config.plugins.xDreamy.menufontcolor, _('Choose the font color for the menu. default is white and skin color.')))
-            list.append(getConfigListEntry(_('Channel Names Color:'), config.plugins.xDreamy.channelnamecolor, _('Choose the font color for channels names. default is white and skin color.')))
+                list.append(getConfigListEntry(_('      - Titles Color:'), config.plugins.xDreamy.BasicColor, _('Select the color for main titles.')))
+                list.append(getConfigListEntry(_('      - Text Color:'), config.plugins.xDreamy.WhiteColor, _('Select the color for general text.')))
+                list.append(getConfigListEntry(_('      - Selection Color:'), config.plugins.xDreamy.SelectionColor, _('Select the color for selection highlights.')))
+                list.append(getConfigListEntry(_('      - Background Color:'), config.plugins.xDreamy.BackgroundColor, _('Select the color for the skin background.')))
+                list.append(getConfigListEntry(_('      - Background Transparency:'), config.plugins.xDreamy.transparency, _('Adjust the transparency level for the skin background.')))
+            list.append(getConfigListEntry(_('Menu Font Color:'), config.plugins.xDreamy.menufontcolor, _('Choose the font color for the menu. Default is white.')))
+            list.append(getConfigListEntry(_('Channel Names Color:'), config.plugins.xDreamy.channelnamecolor, _('Choose the font color for channel names. Default is white.')))
 
-            section = '\\c00289496' + _('--------------------------------( SKIN BASIC SCREENS )--------------------------')
+            section = '\\c00289496' + _('  ')
             list.append(getConfigListEntry(section))
-            section = '\\c0056c856' + _('InfoBar :')
+
+            section = '\\c00289496' + _('SKIN BASIC SCREENS  __________________________________________________________')
             list.append(getConfigListEntry(section))
-            
-            list.append(getConfigListEntry(_('     InfoBar Style:'), config.plugins.xDreamy.InfobarStyle, _('Choose the style for the InfoBar from the templates or Choose "Custom - Infobar" to customize the header, middle and footer using the options below..')))
-            # Check the value of InfobarStyle to conditionally add further options
+
+#            section = '\\c0056c856' + _('InfoBar :')
+#            list.append(getConfigListEntry(section))
+            list.append(getConfigListEntry(_('InfoBar Style:'), config.plugins.xDreamy.InfobarStyle, _('Choose the style for the InfoBar from the templates or Choose "Custom - Infobar" to customize the header, middle and footer using the options below..')))
             if config.plugins.xDreamy.InfobarStyle.value == 'InfoBar-HMF':
                 list.append(getConfigListEntry(_('      - Infobar Header'), config.plugins.xDreamy.InfobarH, _('Select the style for the InfoBar Header after choosing "Custom - Infobar" to customize the Header of your customized InfoBar.')))
                 list.append(getConfigListEntry(_('      - Infobar Middle'), config.plugins.xDreamy.InfobarM, _('Select the style for the InfoBar Middle after choosing "Custom - Infobar" to customize the Middle of your customized InfoBar.')))
                 list.append(getConfigListEntry(_('      - Infobar Footer'), config.plugins.xDreamy.InfobarF, _('Select the style for the InfoBar Footer after choosing "Custom - Infobar" to customize the Footer of your customized InfoBar.')))
-            
-            section = '\\c0056c856' + _('SecondInfobar :')
-            list.append(getConfigListEntry(section))
-            
-            list.append(getConfigListEntry(_('     SecondInfobar Style'), config.plugins.xDreamy.SecondInfobar, _('Select the style for the SecondInfoBar templates or Choose "Custom - SecondInfobar" to customize the header and footer using the options below.')))
+
+#            section = '\\c0056c856' + _('SecondInfobar :')
+#            list.append(getConfigListEntry(section))
+            list.append(getConfigListEntry(_('SecondInfobar Style'), config.plugins.xDreamy.SecondInfobar, _('Select the style for the SecondInfoBar templates or Choose "Custom - SecondInfobar" to customize the header and footer using the options below.')))
             if config.plugins.xDreamy.SecondInfobar.value == 'SecondInfobar-HF':            
                 list.append(getConfigListEntry(_('      - SecondInfobar H'), config.plugins.xDreamy.SecondInfobarH, _('Select the header style for the custom SecondInfoBar.')))
                 list.append(getConfigListEntry(_('      - SecondInfobar F'), config.plugins.xDreamy.SecondInfobarF, _('Select the footer style for the custom SecondInfobar.')))
             
-            section = '\\c0056c856' + _('Channels List :')
-            list.append(getConfigListEntry(section))
-            list.append(getConfigListEntry(_('     Channels List Style'), config.plugins.xDreamy.ChannSelector, _('Choose the style for the regular channels list, working with all images')))
-            list.append(getConfigListEntry(_('     Channels List Grid'), config.plugins.xDreamy.ChannSelectorGrid, _('Select the grid style for the channels list in the supported images. Currently supported by OpenATV, Egami, Foxbob, OpenDroid images. Open Channels List press Menu>Settings> Channel Selection Legacy=Regular & Full Screen=Grid')))
-            
-            section = '\\c0056c856' + _('OTHERS SCREENS :')
-            list.append(getConfigListEntry(section))
+#            section = '\\c0056c856' + _('Channels List :')
+#            list.append(getConfigListEntry(section))
+            list.append(getConfigListEntry(_('Channels List Style'), config.plugins.xDreamy.ChannSelector, _('Choose the style for the regular channels list, working with all images')))
+            list.append(getConfigListEntry(_('Channels List Grid'), config.plugins.xDreamy.ChannSelectorGrid, _('Select the grid style for the channels list in the supported images. Currently supported by OpenATV, Egami, Foxbob, OpenDroid images. Open Channels List press Menu>Settings> Channel Selection Legacy=Regular & Full Screen=Grid')))
+
+#            section = '\\c0056c856' + _('OTHERS SCREENS :')
+#            list.append(getConfigListEntry(section))
             list.append(getConfigListEntry(_('EventView Style:'), config.plugins.xDreamy.EventView, _('Choose the style for the EventView screen.')))
             list.append(getConfigListEntry(_('Volume Bar Style:'), config.plugins.xDreamy.VolumeBar, _('Choose the style for the Volume Bar display.')))
             list.append(getConfigListEntry(_('Plugin Browser Style:'), config.plugins.xDreamy.PluginBrowser, _('Select the style for the Grid Plugin Browser. Supported by OpenATV, Egami, Foxbob, OpenSpa, and OpenDroid images.')))
-            list.append(getConfigListEntry(_('Virtual Keyboard Style:'), config.plugins.xDreamy.VirtualKeyboard, _('Choose the style for the image virtual keyboard.')))
             list.append(getConfigListEntry(_('EPG MultiSelection Style:'), config.plugins.xDreamy.EPGMultiSelection, _('Choose the style for the EPG MultiSelection screen.')))
             list.append(getConfigListEntry(_('History Zap Selector Style:'), config.plugins.xDreamy.HistoryZapSelector, _('Select the style for the Image History Zap Selector.')))
-            
-            section = '\\c00289496' + _('------------------------------( USER PLUGINS SCREENS )-------------------------')
+
+            section = '\\c00289496' + _('  ')
+            list.append(getConfigListEntry(section))
+
+            section = '\\c00289496' + _('USER PLUGINS SCREENS  __________________________________________________________')
             list.append(getConfigListEntry(section))
             list.append(getConfigListEntry(_('E2Player Style:'), config.plugins.xDreamy.E2Player, _('Select the style for the E2Player Plugin')))
             list.append(getConfigListEntry(_('New Virtual Keyboard Style:'), config.plugins.xDreamy.NewVirtualKeyboard, _('Choose the style for the New Virtual Keyboard plugin.')))
             list.append(getConfigListEntry(_('Enhanced Movie Center Style:'), config.plugins.xDreamy.EnhancedMovieCenter, _('Select the style for the Enhanced Movie Center "EMC"')))
-            section = '\\c00289496' + _('---------------------------------( USER BACKGROUND )---------------------------')
+
+            section = '\\c00289496' + _('  ')
             list.append(getConfigListEntry(section))
-            list.append(getConfigListEntry(_('Channels List Background Style:'), config.plugins.xDreamy.ChannelListBackground, _('Choose the background wallpaper style for the regular channels list, Default=skin color.')))
+
+            section = '\\c00289496' + _('USER BACKGROUND  __________________________________________________________')
+            list.append(getConfigListEntry(section))
             list.append(getConfigListEntry(_('ShutDown Style:'), config.plugins.xDreamy.TurnOff, _('Choose the background wallpaper style for the restart, reboot, shutdown screen')))
             list.append(getConfigListEntry(_('Bootlogos Random:'), config.plugins.xDreamy.bootlogos, _('Enable or Disable skin random Bootlogos. When enabled, The skin Bootlogos will change randomly with each reboot, restart, and power-off. Disabling this option restores the original image Bootlogo.')))
-            
-            section = '\\c00289496' + _('---------------------------------( USER DATA SOURCE )--------------------------')
+            list.append(getConfigListEntry(_('Virtual Keyboard Style:'), config.plugins.xDreamy.VirtualKeyboard, _('Choose the style for the image virtual keyboard, Default is skin color, or Balck Bacground or Image Background.')))
+            list.append(getConfigListEntry(_('Channels List Background Style:'), config.plugins.xDreamy.ChannelListBackground, _('Choose the background wallpaper style for the regular channels list, Default=skin color.')))
+
+            section = '\\c00289496' + _('  ')
+            list.append(getConfigListEntry(section))
+
+            section = '\\c00289496' + _('USER DATA SOURCE  __________________________________________________________')
             list.append(getConfigListEntry(section))
             list.append(getConfigListEntry(_('Bitrate Source:'), config.plugins.xDreamy.BitrateSource, _('Select the source for bitrate information. The default option uses the skin renderer to calculate values. or install Bitrates Plugin from image feed, default is skin render')))
             list.append(getConfigListEntry(_('Rating & Stars:'), config.plugins.xDreamy.RatingStars, _('Enable or disable parental rating stars based on IMDB and OMDB information. default is disable')))
             list.append(getConfigListEntry(_('Subtitles Clock:'), config.plugins.xDreamy.SubtitlesClock, _('Select the position for the subtitles clock. This is active only when the subtitles-text option is enabled.')))
             list.append(getConfigListEntry(_('SoftCam Name:'), config.plugins.xDreamy.CamName, _('Select the source for SoftCam information. Use this if the SoftCam name is not displayed properly or if you want to change the name format.')))
             list.append(getConfigListEntry(_('Crypt Infobar:'), config.plugins.xDreamy.crypt, _('Select the style of Crypt Data in infoBar, Default is Name')))
-            
-            section = '\\c00289496' + _('--------------------------------( WEATHER DATA SOURCE )-------------------------')
+
+            section = '\\c00289496' + _('  ')
+            list.append(getConfigListEntry(section))
+
+            section = '\\c00289496' + _('WEATHER DATA SOURCE  __________________________________________________________')
             list.append(getConfigListEntry(section))
             list.append(getConfigListEntry(_('Weather Source:'), config.plugins.xDreamy.WeatherSource, _('Select the source plugin for weather information "Default is OAWeather" ')))
-            list.append(getConfigListEntry("    Install or Open OAWeather Plugin", config.plugins.xDreamy.oaweather))
-            list.append(getConfigListEntry("    Install or Open MsnWeather Plugin", config.plugins.xDreamy.weather))
+            list.append(getConfigListEntry("      Install or Open OAWeather Plugin", config.plugins.xDreamy.oaweather))
+            list.append(getConfigListEntry("      Install or Open MsnWeather Plugin", config.plugins.xDreamy.weather))
             if os.path.isdir(weatherz):
                 list.append(getConfigListEntry("     Setting Weather City", config.plugins.xDreamy.city, _('Set the city for weather information directly from the plugin')))
-                
-            section = '\\c00289496' + _('-------------------------------( SERVER API KEY SETUP )-------------------------')
+
+            section = '\\c00289496' + _('  ')
+            list.append(getConfigListEntry(section))
+
+            section = '\\c00289496' + _('SERVER API KEY SETUP  __________________________________________________________')
             list.append(getConfigListEntry(section))
             list.append(getConfigListEntry("API KEY SETUP:", config.plugins.xDreamy.actapi, _("Apply the skin API keys or insert your personal API keys.")))
             if config.plugins.xDreamy.actapi.value is True:
                 list.append(getConfigListEntry("    TMDB API:", config.plugins.xDreamy.data, _("Settings TMDB ApiKey")))
                 if config.plugins.xDreamy.data.value is True:
-                    list.append(getConfigListEntry("    - Load TMDB Apikey", config.plugins.xDreamy.api, _("Load TMDB Apikey from /tmp/apikey.txt")))
-                    list.append(getConfigListEntry("    - Set TMDB Apikey", config.plugins.xDreamy.txtapi, _("Signup on TMDB and input your free personal ApiKey manually")))
+                    list.append(getConfigListEntry("      - Load TMDB Apikey", config.plugins.xDreamy.api, _("Load TMDB Apikey from /tmp/apikey.txt")))
+                    list.append(getConfigListEntry("      - Set TMDB Apikey", config.plugins.xDreamy.txtapi, _("Signup on TMDB and input your free personal ApiKey manually")))
                 list.append(getConfigListEntry("    OMDB API:", config.plugins.xDreamy.data2, _("Settings OMDB APIKEY")))
                 if config.plugins.xDreamy.data2.value is True:
-                    list.append(getConfigListEntry("    - Load OMDB Apikey", config.plugins.xDreamy.api2, _("Load OMDB Apikey from /tmp/omdbkey.txt")))
-                    list.append(getConfigListEntry("    - Set OMDB Apikey", config.plugins.xDreamy.txtapi2, _("Signup on OMDB and input your free personal ApiKey manually")))
+                    list.append(getConfigListEntry("      - Load OMDB Apikey", config.plugins.xDreamy.api2, _("Load OMDB Apikey from /tmp/omdbkey.txt")))
+                    list.append(getConfigListEntry("      - Set OMDB Apikey", config.plugins.xDreamy.txtapi2, _("Signup on OMDB and input your free personal ApiKey manually")))
                 list.append(getConfigListEntry("    TVDB API:", config.plugins.xDreamy.data3, _("Settings TheTVDB APIKEY")))
                 if config.plugins.xDreamy.data3.value is True:
-                    list.append(getConfigListEntry("    - Load TVDB Apikey", config.plugins.xDreamy.api3, _("Load TheTVDB Apikey from /tmp/thetvdbkey.txt")))
+                    list.append(getConfigListEntry("      - Load TVDB Apikey", config.plugins.xDreamy.api3, _("Load TheTVDB Apikey from /tmp/thetvdbkey.txt")))
                     list.append(getConfigListEntry("    - Set TVDB Apikey", config.plugins.xDreamy.txtapi3, _("Signup on TheTVDB and input your free personal ApiKey manually")))
                 list.append(getConfigListEntry("    Fanart API:", config.plugins.xDreamy.data4, _("Settings Fanart APIKEY")))
                 if config.plugins.xDreamy.data4.value is True:
-                    list.append(getConfigListEntry("    - Load Fanart Apikey", config.plugins.xDreamy.api4, _("Load Fanart Apikey from /tmp/fanartkey.txt")))
-                    list.append(getConfigListEntry("    - Set Fanart Apikey", config.plugins.xDreamy.txtapi4, _("Signup on Fanart and input your free personal ApiKey manually")))
-            section = '\\c00289496' + _('-------------------------------( CLEAN POSTERS FOLDERS )-------------------------')
-            list.append(getConfigListEntry(section))
-            list.append(getConfigListEntry(_('Remove all Posters (OK)'), config.plugins.xDreamy.png, _('Remove all posters PNG files from the poster and backdrop folders.')))
-            
+                    list.append(getConfigListEntry("      - Load Fanart Apikey", config.plugins.xDreamy.api4, _("Load Fanart Apikey from /tmp/fanartkey.txt")))
+                    list.append(getConfigListEntry("      - Set Fanart Apikey", config.plugins.xDreamy.txtapi4, _("Signup on Fanart and input your free personal ApiKey manually")))
+
             section = '\\c00289496' + _('  ')
             list.append(getConfigListEntry(section))
+
+            section = '\\c00289496' + _('POSTERS SOURCES  __________________________________________________________')
+            list.append(getConfigListEntry(section))
+            list.append(getConfigListEntry(_('POSTERS:'), config.plugins.xDreamy.posters, _('Select the primary color scheme for the skin.')))
+            if config.plugins.xDreamy.posters.value == 'iPosterX':
+            # Add new entries for PosterX features
+                list.append(getConfigListEntry(_("Enable PosterX"), config.plugins.xDreamy.enablePosterX, _("Enable or disable the PosterX plugin.")))
+                if config.plugins.xDreamy.enablePosterX.value is True:
+                    list.append(getConfigListEntry(_("Poster Removal Interval"), config.plugins.xDreamy.posterRemovalInterval, _("Set the time interval for auto-removal of posters.")))
+                    list.append(getConfigListEntry(_('Remove all Posters (OK)'), config.plugins.xDreamy.png, _('Remove all posters PNG files from the poster and backdrop folders.')))
+
             section = '\\c00289496' + _('  ')
             list.append(getConfigListEntry(section))
-            section = '\\c00289496' + _('  ')
+
+            section = '\\c00289496' + _('=================================================================')
             list.append(getConfigListEntry(section))
-            section = '\\c00289496' + _('  ')
+            section = '\\c00ff5400' + _('                                XDREAMY TOOLS BOX                ')
             list.append(getConfigListEntry(section))
-            section = '\\c00289496' + _('  ')
-            list.append(getConfigListEntry(section))
-            section = '\\c00289496' + _('  ')
-            list.append(getConfigListEntry(section))
-            section = '\\c00289496' + _('  ')
-            list.append(getConfigListEntry(section))
-            section = '\\c00289496' + _('  ')
-            list.append(getConfigListEntry(section))
-            section = '\\c00289496' + _('  ')
-            list.append(getConfigListEntry(section))
-            section = '\\c00289496' + _('  ')
-            list.append(getConfigListEntry(section))
-            
-            section = '\\c00289496' + _('=========================================================================')
-            list.append(getConfigListEntry(section))            
-            section = '\\c00ff5400' + _('                                      XDREAMY TOOLS BOX                      ')
-            list.append(getConfigListEntry(section))
-            section = '\\c00289496' + _('==========================================================================')
+            section = '\\c00289496' + _('=================================================================')
             list.append(getConfigListEntry(section))
 
             section = '\\c0056c856' + _('Panels Plugins :')
             list.append(getConfigListEntry(section))
-            list.append(getConfigListEntry("  LinuxsatPanel", config.plugins.xDreamy.install_linuxsatpanel, _("Install or Open LinuxsatPanel: An all-in-one management tool supported by Linuxsat-support. It provides a comprehensive set of features for managing your Enigma2 device, including system information, plugin updates, and more.")))
-            list.append(getConfigListEntry("  AJPanel", config.plugins.xDreamy.install_ajpanel, _("Install or Open AJPanel: A versatile plugin developed by AMAJamry that includes a set of powerful tools to fully control your Enigma2 box. Features include system management, plugin updates, streaming services, and more.")))
-            list.append(getConfigListEntry("  SmartAddnsPanel", config.plugins.xDreamy.install_smartpanel, _("Install or Open SmartPanel Supported by Emil Nabil.")))
-            list.append(getConfigListEntry("  EliSatPanel", config.plugins.xDreamy.install_elisatpanel, _("Install or Open EliSatPanel Supported by EliSat.")))
-            list.append(getConfigListEntry("  MagicPanel", config.plugins.xDreamy.install_magicpanel, _("Install or Open MagicPanel Supported by Hamdy Ahmed.")))
-            
+            list.append(getConfigListEntry("    AJPanel", config.plugins.xDreamy.install_ajpanel, _("Install or Open AJPanel: A versatile plugin developed by AMAJamry that includes a set of powerful tools to fully control your Enigma2 box. Features include system management, plugin updates, streaming services, and more.")))
+            list.append(getConfigListEntry("    Linuxsat Panel", config.plugins.xDreamy.install_linuxsatpanel, _("Install or Open LinuxsatPanel: An all-in-one management tool supported by Linuxsat-support. It provides a comprehensive set of features for managing your Enigma2 device, including system information, plugin updates, and more.")))
+            list.append(getConfigListEntry("    Ciefp Plugins", config.plugins.xDreamy.install_CiefpPlugins, _("Install or Open Ciefp Plugins Panel: An all-in-one management tool supported by Ciefp. It provides a comprehensive set of features for managing your Enigma2 device, including channels settings and more.")))
+            list.append(getConfigListEntry("    SmartAddns Panel", config.plugins.xDreamy.install_smartpanel, _("Install or Open SmartPanel Supported by Emil Nabil.")))
+            list.append(getConfigListEntry("    EliSat Panel", config.plugins.xDreamy.install_elisatpanel, _("Install or Open EliSatPanel Supported by EliSat.")))
+            list.append(getConfigListEntry("    Magic Panel", config.plugins.xDreamy.install_magicpanel, _("Install or Open MagicPanel Supported by Hamdy Ahmed.")))
+
+            section = '\\c00289496' + _('  ')
+            list.append(getConfigListEntry(section))
+
             section = '\\c0056c856' + _('Weather Plugins :')
             list.append(getConfigListEntry(section))
-            list.append(getConfigListEntry("  MSNWeather", config.plugins.xDreamy.install_msnweather, _("Install or Open MSNWeather Plugin: A weather forecasting plugin supported by Fairbird. It provides accurate and up-to-date weather information, including forecasts, current conditions, and weather alerts.")))
-            list.append(getConfigListEntry("  OAWeather", config.plugins.xDreamy.install_oaweather, _("Install or Open OAWeather Plugin (from external source): A weather forecasting plugin supported by Lululla. It provides accurate and up-to-date weather information, including forecasts, current conditions, and weather alerts.")))
+            list.append(getConfigListEntry("    MSNWeather", config.plugins.xDreamy.install_msnweather, _("Install or Open MSNWeather Plugin: A weather forecasting plugin supported by Fairbird. It provides accurate and up-to-date weather information, including forecasts, current conditions, and weather alerts.")))
+            list.append(getConfigListEntry("    OAWeather", config.plugins.xDreamy.install_oaweather, _("Install or Open OAWeather Plugin (from external source): A weather forecasting plugin supported by Lululla. It provides accurate and up-to-date weather information, including forecasts, current conditions, and weather alerts.")))
+
+            section = '\\c00289496' + _('  ')
+            list.append(getConfigListEntry(section))
 
             section = '\\c0056c856' + _('SoftCam Plugins :')
             list.append(getConfigListEntry(section))
-            list.append(getConfigListEntry("  MultiCamManager", config.plugins.xDreamy.install_multicammanager, _("Install or Open MultiCamManager: A plugin developed by Levi45 for managing softcams. It allows you to download and install the latest versions of OSCam and NCam files, providing an easy way to manage multiple CAM configurations.")))
-            list.append(getConfigListEntry("  NCam", config.plugins.xDreamy.install_NCam, _("Install or Open")))
-            list.append(getConfigListEntry("  KeyAdder", config.plugins.xDreamy.install_keyadder, _("Install or Open")))
+            list.append(getConfigListEntry("    MultiCamManager", config.plugins.xDreamy.install_multicammanager, _("Install or Open MultiCamManager: A plugin developed by Levi45 for managing softcams. It allows you to download and install the latest versions of OSCam and NCam files, providing an easy way to manage multiple CAM configurations.")))
+            list.append(getConfigListEntry("    NCam", config.plugins.xDreamy.install_NCam, _("Install or Open NCam emulator for enigma2, supported by Fairbaird")))
+            list.append(getConfigListEntry("    KeyAdder", config.plugins.xDreamy.install_keyadder, _("Install or Open KeyAdder plugin to update Softcam file from diffrenet resources")))
+
+            section = '\\c00289496' + _('  ')
+            list.append(getConfigListEntry(section))
 
             section = '\\c0056c856' + _('Media Plugins :')
             list.append(getConfigListEntry(section))
-            list.append(getConfigListEntry("  X-Klass", config.plugins.xDreamy.install_xklass, _("Install or Open X-Klass: A feature-rich IPTV streaming plugin supported by KiddaC. It offers a wide range of IPTV channels and includes advanced features such as EPG, recording, and playback options.")))
-            list.append(getConfigListEntry("  YouTube", config.plugins.xDreamy.install_youtube, _("Install or Open")))
-            list.append(getConfigListEntry("  E2iPlayer", config.plugins.xDreamy.install_e2iplayer, _("Install or Open E2iPlayer: A popular plugin developed by Mohamed_OS for watching online videos, movies, and series. It supports various streaming services and provides a user-friendly interface for easy navigation.")))
-            list.append(getConfigListEntry("  Transmission", config.plugins.xDreamy.install_transmission, _("Install or Open Transmission: A torrent client plugin supported by Ostende. It allows you to download and watch the latest content from torrent sites directly on your Enigma2 device. Features include torrent management, download scheduling, and more.")))
-            list.append(getConfigListEntry("  MultiStalkerPro", config.plugins.xDreamy.install_multistalkerpro, _("Install or Open MultiStalkerPro: A powerful plugin for managing IPTV stalker portals. It provides advanced features for streaming and managing IPTV content.")))
+            list.append(getConfigListEntry("    X-Klass", config.plugins.xDreamy.install_xklass, _("Install or Open X-Klass: A feature-rich IPTV streaming plugin supported by KiddaC. It offers a wide range of IPTV channels and includes advanced features such as EPG, recording, and playback options.")))
+            list.append(getConfigListEntry("    YouTube", config.plugins.xDreamy.install_youtube, _("Install or Open")))
+            list.append(getConfigListEntry("    E2iPlayer", config.plugins.xDreamy.install_e2iplayer, _("Install or Open E2iPlayer: A popular plugin developed by Mohamed_OS for watching online videos, movies, and series. It supports various streaming services and provides a user-friendly interface for easy navigation.")))
+            list.append(getConfigListEntry("    Transmission", config.plugins.xDreamy.install_transmission, _("Install or Open Transmission: A torrent client plugin supported by Ostende. It allows you to download and watch the latest content from torrent sites directly on your Enigma2 device. Features include torrent management, download scheduling, and more.")))
+            list.append(getConfigListEntry("    MultiStalkerPro", config.plugins.xDreamy.install_multistalkerpro, _("Install or Open MultiStalkerPro: A powerful plugin for managing IPTV stalker portals. It provides advanced features for streaming and managing IPTV content.")))
+
+            section = '\\c00289496' + _('  ')
+            list.append(getConfigListEntry(section))
 
             section = '\\c0056c856' + _('Utility Plugins :')
             list.append(getConfigListEntry(section))
-            list.append(getConfigListEntry("  IPAudioPro", config.plugins.xDreamy.install_ipaudiopro, _("Install or Open IPAudioPro Plugin: A plugin used to add audio for the playing channels with your own lang, Supported by Ziko.")))
-            list.append(getConfigListEntry("  EPGGrabber", config.plugins.xDreamy.install_EPGGrabber, _("Install or Open.")))
-            list.append(getConfigListEntry("  SubsSupport", config.plugins.xDreamy.install_subssupport, _("Install or Open SubsSupport: A plugin for managing subtitle downloads and synchronization. It supports various subtitle formats and provides an easy way to find and apply subtitles to your media content.")))
-            list.append(getConfigListEntry("  HistoryZapSelector", config.plugins.xDreamy.install_historyzapselector, _("Install or Open HistoryZapSelector: A plugin for managing and navigating your zap history. It provides an intuitive interface for easy access to previously viewed channels and programs.")))
-            list.append(getConfigListEntry("  NewVirtualKeyboard", config.plugins.xDreamy.install_newvirtualkeyboard, _("Install or Open NewVirtualKeyboard: A modern virtual keyboard plugin that offers enhanced functionality and a user-friendly interface for easy text input on your Enigma2 device.")))
-            list.append(getConfigListEntry("  RaedQuickSignal", config.plugins.xDreamy.install_raedquicksignal, _("Install or Open.")))
+            list.append(getConfigListEntry("    IPAudioPro", config.plugins.xDreamy.install_ipaudiopro, _("Install or Open IPAudioPro Plugin: A plugin used to add audio for the playing channels with your own lang, Supported by Ziko.")))
+            list.append(getConfigListEntry("    EPGGrabber", config.plugins.xDreamy.install_EPGGrabber, _("Install or Open.")))
+            list.append(getConfigListEntry("    SubsSupport", config.plugins.xDreamy.install_subssupport, _("Install or Open SubsSupport: A plugin for managing subtitle downloads and synchronization. It supports various subtitle formats and provides an easy way to find and apply subtitles to your media content.")))
+            list.append(getConfigListEntry("    HistoryZapSelector", config.plugins.xDreamy.install_historyzapselector, _("Install or Open HistoryZapSelector: A plugin for managing and navigating your zap history. It provides an intuitive interface for easy access to previously viewed channels and programs.")))
+            list.append(getConfigListEntry("    NewVirtualKeyboard", config.plugins.xDreamy.install_newvirtualkeyboard, _("Install or Open NewVirtualKeyboard: A modern virtual keyboard plugin that offers enhanced functionality and a user-friendly interface for easy text input on your Enigma2 device.")))
+            list.append(getConfigListEntry("    RaedQuickSignal", config.plugins.xDreamy.install_raedquicksignal, _("Install or Open RaedQuickSignal which offer a modern interface to display AGC and SNR plus more tools and resouces.")))
 
             self["config"].list = list
             self["config"].l.setList(list)
-            self.updateHelpText()                                                                  
+            self.updateHelpText()
             self.ShowPicture()
 
         except Exception as e:
-            print(f"Error in createSetup: {e}")
+            logger.error(_("Error in createSetup: {error}").format(error=e))
 
     def onInfobarStyleChange(self, configElement):
         self.createSetup()
-
-    def Checkskin(self):
-        self.session.openWithCallback(self.Checkskin2,
-                                      MessageBox, _("[Checkskin] This operation checks if the skin has its components (is not sure)..\nDo you really want to continue?"),
-                                      MessageBox.TYPE_YESNO)
-
-    def Checkskin2(self, answer):
-        if answer:
-            from .addons import checkskin
-            self.check_module = eTimer()
-            check = checkskin.check_module_skin()
-            try:
-                self.check_module_conn = self.check_module.timeout.connect(check)
-            except:
-                self.check_module.callback.append(check)
-            self.check_module.start(100, True)
-            self.openVi()
-
-    def openVi(self, callback=''):
-        from .addons.File_Commander import File_Commander
-        user_log = '/tmp/my_debug.log'
-        if fileExists(user_log):
-            self.session.open(File_Commander, user_log)
 
     def GetPicturePath(self):
         currentConfig = self["config"].getCurrent()
@@ -1046,27 +1821,58 @@ class xDreamySetup(ConfigListScreen, Screen):
         self.onLayoutFinish.append(self.ShowPicture)
 
     def removPng(self):
-        print('from remove png......')
+        logger.info(_('Removing PNG files...'))
         removePng()
-        print('png are removed')
+        logger.info(_('PNG files removed'))
         aboutbox = self.session.open(MessageBox, _('All png are removed from folder!'), MessageBox.TYPE_INFO)
         aboutbox.setTitle(_('Info...'))
         
     def ShowPicture(self, data=None):
-        if self["Preview"].instance:
-            size = self['Preview'].instance.size()
-            if size.isNull():
-                size.setWidth(498)
-                size.setHeight(280)
-            pixmapx = self.GetPicturePath()
-            if not fileExists(pixmapx):
-                print("Immagine non trovata:", pixmapx)
-                return
+        """عرض الصور بناءً على العنصر المحدد في القائمة."""
+        if not self["Preview"].instance:
+            return
+
+        size = self['Preview'].instance.size()
+        if size.isNull():
+            size.setWidth(498)
+            size.setHeight(280)
+
+        # ✅ الحصول على مسار الصورة الافتراضية
+        default_image_path = "/usr/share/enigma2/xDreamy/screens/default.png"
+
+        # ✅ الحصول على مسار الصورة بناءً على العنصر الحالي
+        pixmapx = self.GetPicturePath()
+
+        if fileExists(pixmapx):
+            logger.debug(_("Loading default preview image: {pixmapx}").format(pixmapx=pixmapx))
+        else:
+            logger.warning(_("Preview image not found: {pixmapx}, checking for specific item image...").format(pixmapx=pixmapx))
+            pixmapx = default_image_path  # تعيين الصورة الافتراضية إذا لم يتم العثور على الصورة الخاصة
+
+        # ✅ البحث عن الصورة بناءً على العنصر المحدد في القائمة
+        current_item = self["config"].getCurrent()
+    
+        if current_item and len(current_item) > 0:
+            item_name = current_item[0].lower().replace("install_", "").replace(" ", "")
+
+            # ✅ التحقق مما إذا كان العنصر هو "قالب لون" أو "إضافة"
+            image_path = f"/usr/share/enigma2/xDreamy/screens/{item_name}.png"
+            if fileExists(image_path):
+                logger.debug(_("Loading specific item image: {image_path}").format(image_path=image_path))
+                pixmapx = image_path
+            else:
+                logger.warning(_("Image not found for {item_name}, using default image.").format(item_name=item_name))
+    
+        # ✅ تحميل الصورة النهائية
+        if fileExists(pixmapx):
             png = loadPic(pixmapx, size.width(), size.height(), 0, 0, 0, 1)
             self["Preview"].instance.setPixmap(png)
-            
+            logger.debug(_("Image displayed: {pixmapx}").format(pixmapx=pixmapx))
+        else:
+            logger.warning(_("No valid image found, skipping preview update."))
+
     def DecodePicture(self, PicInfo=None):
-        print('PicInfo=', PicInfo)
+        logger.debug(_('PicInfo={PicInfo}').format(PicInfo=PicInfo))
         if PicInfo is None:
             PicInfo = '/usr/share/enigma2/xDreamy/screens/default.png'
         ptr = self.PicLoad.getData()
@@ -1074,10 +1880,10 @@ class xDreamySetup(ConfigListScreen, Screen):
             self["Preview"].instance.setPixmap(ptr)
             self["Preview"].instance.show()
         else:
-            print("Dati dell'immagine non disponibili. Controlla l'immagine.")
+            logger.warning(_("Image data not available. Check the image."))
 
     def info(self):
-        aboutbox = self.session.open(MessageBox, _('Setup xDreamy for xDreamy v.%s') % version, MessageBox.TYPE_INFO)
+        aboutbox = self.session.open(MessageBox, _('Setup xDreamy for xDreamy v.{version}').format(version=version), MessageBox.TYPE_INFO)
         aboutbox.setTitle(_('Info...'))
 
     def keyLeft(self):
@@ -1138,6 +1944,21 @@ class xDreamySetup(ConfigListScreen, Screen):
         self['config'].instance.moveSelection(self['config'].instance.moveUp)
         self.createSetup()
 
+    def keyOK(self):
+        current = self["config"].getCurrent()
+        if current:
+            sel = current[1]
+            
+            # ✅ If it's a text input (e.g., city name), open keyboard
+            if sel == config.plugins.xDreamy.city:
+                self.openCitySelection()
+            elif isinstance(sel, ConfigText):
+                self.KeyText()
+
+            # ✅ If it's a selection list, open popup
+            elif isinstance(sel, ConfigSelection):
+                self.openSelectionPopup(current)
+
     def changedEntry(self):
         self.item = self["config"].getCurrent()
         for x in self.onChangedEntry:
@@ -1146,7 +1967,7 @@ class xDreamySetup(ConfigListScreen, Screen):
             if isinstance(self["config"].getCurrent()[1], ConfigOnOff) or isinstance(self["config"].getCurrent()[1], ConfigYesNo) or isinstance(self["config"].getCurrent()[1], ConfigSelection):
                 self.createSetup()
         except Exception as e:
-            print("Error in changedEntry:", e)
+            logger.error(_("Error in changedEntry: {error}").format(error=e))
 
     def getCurrentValue(self):
         current = self["config"].getCurrent()
@@ -1165,39 +1986,62 @@ class xDreamySetup(ConfigListScreen, Screen):
         return SetupSummary
 
     def keySave(self):
-        if not fileExists(self.skinFile + self.version):
-            for x in self['config'].list:
-                x[1].cancel()
-            self.close()
-            return
+        """حفظ الإعدادات وتحديث الملفات الضرورية ثم إعادة تشغيل الواجهة إذا لزم الأمر."""
 
-        if config.plugins.xDreamy.bootlogos.value is True:
-            if not fileExists(mvi + 'bootlogoBack.mvi'):
-                shutil.copy(mvi + 'bootlogo.mvi', mvi + 'bootlogoBack.mvi')
-        else:
-            if fileExists(mvi + 'bootlogoBack.mvi'):
-                shutil.copy(mvi + 'bootlogoBack.mvi', mvi + 'bootlogo.mvi')
-                os.remove(mvi + 'bootlogoBack.mvi')
         try:
-            # Update individual colors if color23_Custom is selected
-            if config.plugins.xDreamy.colorSelector.value == 'color23_Custom':
-                updateColor(config.plugins.xDreamy.BasicColor.value, config.plugins.xDreamy.SelectionColor.value, config.plugins.xDreamy.BackgroundColor.value)
+            # ✅ تحديث Bootlogo إذا تم التفعيل
+            if config.plugins.xDreamy.bootlogos.value:
+                if not fileExists(mvi + 'bootlogoBack.mvi'):
+                    shutil.copy(mvi + 'bootlogo.mvi', mvi + 'bootlogoBack.mvi')
+            else:
+                if fileExists(mvi + 'bootlogoBack.mvi'):
+                    shutil.copy(mvi + 'bootlogoBack.mvi', mvi + 'bootlogo.mvi')
+                    os.remove(mvi + 'bootlogoBack.mvi')
 
-            
-                                                                             
+            # ✅ تحديث الخط إذا كان النمط مخصصًا
+            if config.plugins.xDreamy.FontStyle.value == 'basic':
+                update_font_settings(
+                    config.plugins.xDreamy.FontName.value, 
+                    config.plugins.xDreamy.FontScale.value
+                )
+
+            # ✅ تحديث الألوان بناءً على الإعدادات المختارة
+            if config.plugins.xDreamy.colorSelector.value == "default-color":
+                apply_template(config.plugins.xDreamy.BasicColorTemplates.value)
+            elif config.plugins.xDreamy.colorSelector.value == "color23_Custom":
+                update_individual_colors(
+                    ltbluette_value=config.plugins.xDreamy.BasicColor.value,
+                    white_value=config.plugins.xDreamy.WhiteColor.value,
+                    bluette_value=config.plugins.xDreamy.SelectionColor.value,
+                    header_value=config.plugins.xDreamy.BackgroundColor.value)
+
+            # ✅ تحديث تنسيق التاريخ في ملفات السكين
+            applyDateFormat()  # ✅ Ensure the date format is applied before saving
+    
+            # ✅ حفظ جميع التعديلات
             for x in self['config'].list:
-                if len(x) > 1:  # Check if x has at least two elements
+                if len(x) > 1:  # التحقق من وجود قيم للحفظ
                     x[1].save()
+            # Save the new configurations
+            config.plugins.xDreamy.enablePosterX.save()
+            config.plugins.xDreamy.posterRemovalInterval.save()
+            config.plugins.xDreamy.city.save()
             config.plugins.xDreamy.save()
             configfile.save()
-        except IndexError:
-            print("Errore: x non ha abbastanza elementi.")
+            os.system("sync")  # تأكيد حفظ التغييرات في النظام
+    
+        except Exception as e:
+            logger.error(_("⚠️ خطأ أثناء حفظ الإعدادات: {error}").format(error=e))
+    
         try:
+            # ✅ إنشاء ملف السكين الجديد
             skin_lines = []
             skin_file_paths = [
                 f'head-{config.plugins.xDreamy.head.value}.xml',
-                f'C-{config.plugins.xDreamy.colorSelector.value}.xml',
                 f'font-{config.plugins.xDreamy.FontStyle.value}.xml',
+                f'C-{config.plugins.xDreamy.colorSelector.value}.xml',
+                f'DC-{config.plugins.xDreamy.clockFormat.value}.xml',
+                f'TP-{config.plugins.xDreamy.skinTemplate.value}.xml',
                 f'keys-{config.plugins.xDreamy.KeysStyle.value}.xml',
                 f'infobar-{config.plugins.xDreamy.InfobarStyle.value}.xml',
                 f'IH-{config.plugins.xDreamy.InfobarH.value}.xml',
@@ -1234,23 +2078,32 @@ class xDreamySetup(ConfigListScreen, Screen):
                 if os.path.isfile(file_path):
                     with open(file_path, 'r') as skFile:
                         skin_lines.extend(skFile.readlines())
-
+    
             base_file_name = 'base.xml'
             if config.plugins.xDreamy.skinSelector.value in ['base1', 'base2', 'base3', 'base4']:
                 base_file_name = f'base{config.plugins.xDreamy.skinSelector.value[-1]}.xml'
-
+    
             base_file_path = os.path.join(self.previewFiles, base_file_name)
             if os.path.isfile(base_file_path):
                 with open(base_file_path, 'r') as skFile:
                     skin_lines.extend(skFile.readlines())
-
+    
             with open(self.skinFile, 'w') as xFile:
                 xFile.writelines(skin_lines)
-
-            self.session.openWithCallback(self.restartGUI, MessageBox, _('GUI needs a restart to apply a new skin.\nDo you want to Restart the GUI now?'), MessageBox.TYPE_YESNO)
+    
+            # ✅ طلب إعادة تشغيل الواجهة لتطبيق التغييرات
+            self.session.openWithCallback(
+                self.restartGUI, 
+                MessageBox, 
+                _('GUI needs a restart to apply a new skin.\nDo you want to Restart the GUI now?'), 
+                MessageBox.TYPE_YESNO
+            )
 
         except Exception as e:
-            self.session.open(MessageBox, _('Error by processing the skin file !!!') + str(e), MessageBox.TYPE_ERROR)
+            if hasattr(self, 'session'):
+                self.session.open(MessageBox, _('Error processing the skin file! ') + str(e), MessageBox.TYPE_ERROR)
+            else:
+                logger.error(_("⚠️ Error processing skin file: {error}").format(error=e))
 
     def restartGUI(self, answer):
         if answer is True:
@@ -1266,7 +2119,7 @@ class xDreamySetup(ConfigListScreen, Screen):
             req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
             fp = urlopen(req)
             fp = fp.read().decode('utf-8')
-            print('fp read:', fp)
+            logger.debug(_('fp read: {fp}').format(fp=fp))
             with open(destr, 'w') as f:
                 f.write(str(fp))  # .decode("utf-8"))
                 f.seek(0)
@@ -1279,22 +2132,26 @@ class xDreamySetup(ConfigListScreen, Screen):
                     self.updateurl = url.strip()
                     cc.close()
                     if str(version_server) == str(version):
-                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
-                                                          version_server,
-                                                          _('Version installed:'),
-                                                          version,
-                                                          _('Congratulation, You have the last version of XDREAMY!'))
+                        message = _('{server_version} {version_server}\n{installed_version} {version}\n\n{congrats}').format(
+                            server_version=_('Server version:'),
+                            version_server=version_server,
+                            installed_version=_('Version installed:'),
+                            version=version,
+                            congrats=_('Congratulation, You have the last version of XDREAMY!')
+                        )
                     elif version_server > version:
-                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),
-                                                          version_server,
-                                                          _('Version installed:'),
-                                                          version,
-                                                          _('The update is available!\n\nDo you want to run the update now?'))
+                        message = _('{server_version} {version_server}\n{installed_version} {version}\n\n{update_available}').format(
+                            server_version=_('Server version:'),
+                            version_server=version_server,
+                            installed_version=_('Version installed:'),
+                            version=version,
+                            update_available=_('The update is available!\n\nDo you want to run the update now?')
+                        )
                         self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
                     else:
-                        self.session.open(MessageBox, _('You have version %s!!!') % version, MessageBox.TYPE_INFO, timeout=10)
+                        self.session.open(MessageBox, _('You have version {version}!!!').format(version=version), MessageBox.TYPE_INFO, timeout=10)
         except Exception as e:
-            print('error: ', str(e))
+            logger.error(_('error: {error}').format(error=str(e)))
 
     def update(self, answer):
         if answer is True:
@@ -1323,17 +2180,17 @@ class xDreamySetup(ConfigListScreen, Screen):
                 from .addons import WeatherSearch
                 entry = config.plugins.WeatherPlugin.Entry[0]
                 self.session.openWithCallback(self.UpdateComponents, WeatherSearch.MSNWeatherPluginEntryConfigScreen, entry)
-            except:
-                pass
+            except Exception as e:
+                logger.error(_("Error in goWeather: {error}").format(error=e))
 
     def goWeatherInstall(self, result=False):
         if result:
             try:
                 cmd = 'enigma2-plugin-extensions-weatherplugin'
-                self.session.open(Console, _('Install WeatherPlugin'), ['opkg install %s' % cmd], closeOnSuccess=False)
+                self.session.open(Console, _('Install WeatherPlugin'), ['opkg install {cmd}'.format(cmd=cmd)], closeOnSuccess=False)
                 time.sleep(5)
             except Exception as e:
-                print(e)
+                logger.error(_("Error in goWeatherInstall: {error}").format(error=e))
         else:
             message = _('Plugin WeatherPlugin not installed!!!')
             self.session.open(MessageBox, message, MessageBox.TYPE_INFO, timeout=10)
@@ -1353,20 +2210,20 @@ class xDreamySetup(ConfigListScreen, Screen):
         if result:
             try:
                 from Plugins.Extensions.OAWeather.plugin import WeatherSettingsView
-                print('i am here!!')
+                logger.debug(_('i am here!!'))
                 self.session.openWithCallback(self.UpdateComponents2, WeatherSettingsView)
-            except:
-                print('passed!!')
-                pass
+            except Exception as e:
+                logger.debug(_('passed!!'))
+                logger.error(_("Error in goOAWeather: {error}").format(error=e))
 
     def goOAWeatherInstall(self, result=False):
         if result:
             try:
                 cmd = 'enigma2-plugin-extensions-oaweather'
-                self.session.open(Console, _('Install OAWeatherPlugin'), ['opkg install %s' % cmd], closeOnSuccess=False)
+                self.session.open(Console, _('Install OAWeatherPlugin'), ['opkg install {cmd}'.format(cmd=cmd)], closeOnSuccess=False)
                 time.sleep(5)
             except Exception as e:
-                print(e)
+                logger.error(_("Error in goOAWeatherInstall: {error}").format(error=e))
         else:
             message = _('Plugin OAWeatherPlugin not installed!!!')
             self.session.open(MessageBox, message, MessageBox.TYPE_INFO, timeout=10)
@@ -1386,8 +2243,8 @@ class xDreamySetup(ConfigListScreen, Screen):
                 self.createSetup()
             else:
                 return
-        except:
-            pass
+        except Exception as e:
+            logger.error(_("Error in UpdateComponents: {error}").format(error=e))
 
     def UpdateComponents2(self):
         try:
@@ -1404,24 +2261,28 @@ class xDreamySetup(ConfigListScreen, Screen):
                 self.createSetup()
             else:
                 return
-        except:
-            pass
+        except Exception as e:
+            logger.error(_("Error in UpdateComponents2: {error}").format(error=e))
 
 class xDreamyUpdater(Screen):
 
     def __init__(self, session, updateurl):
         self.session = session
         skin = '''
-                <screen name="xDreamyUpdater" position="center,center" size="840,260" flags="wfBorder" backgroundColor="background">
-    <widget name="status" position="20,10" size="800,70" transparent="1" font="Regular; 40" foregroundColor="foreground" backgroundColor="background" valign="center" halign="left" noWrap="1"/>
-    <widget source="progress" render="Progress" position="20,120" size="800,20" transparent="1" borderWidth="0" foregroundColor="white" backgroundColor="background"/>
-    <widget source="progresstext" render="Label" position="209,164" zPosition="2" font="Regular; 28" halign="center" transparent="1" size="400,70" foregroundColor="foreground" backgroundColor="background"/>
-</screen>'''
+                
+                    
+                    
+                    
+                                    <screen name="xDreamyUpdater" position="center,center" size="840,260" flags="wfBorder" backgroundColor="background">
+                                        <widget name="status" position="20,10" size="800,70" transparent="1" font="Regular; 40" foregroundColor="foreground" backgroundColor="background" valign="center" halign="left" noWrap="1"/>
+                                        <widget source="progress" render="Progress" position="20,120" size="800,20" transparent="1" borderWidth="0" foregroundColor="white" backgroundColor="background"/>
+                                        <widget source="progresstext" render="Label" position="209,164" zPosition="2" font="Regular; 28" halign="center" transparent="1" size="400,70" foregroundColor="foreground" backgroundColor="background"/>
+                                    </screen>'''
 
         self.skin = skin
         Screen.__init__(self, session)
         self.updateurl = updateurl
-        print('self.updateurl', self.updateurl)
+        logger.debug(_('self.updateurl: {updateurl}').format(updateurl=self.updateurl))
         self['status'] = Label()
         self['progress'] = Progress()
         self['progresstext'] = StaticText()
@@ -1435,7 +2296,136 @@ class xDreamyUpdater(Screen):
     def startUpdate(self):
         self['status'].setText(_('Downloading XDREAMY Skin...'))
         self.dlfile = '/tmp/xDreamy.ipk'
-        print('self.dlfile', self.dlfile)
+        logger.debug(_('self.dlfile: {dlfile}').format(dlfile=self.dlfile))
+        self.download = downloadWithProgress(self.updateurl, self.dlfile)
+        self.download.addProgress(self.downloadProgress)
+        self.download.start().addCallback(self.downloadFinished).addErrback(self.downloadFailed)
+
+    def downloadFinished(self, string=''):
+        self['status'].setText(_('Installing updates please wait!'))
+        os.system('opkg install --force-reinstall --force-overwrite /tmp/xDreamy.ipk')
+        os.system('sync')
+        os.system('rm -r /tmp/xDreamy.ipk')
+        os.system('sync')
+        restartbox = self.session.openWithCallback(self.restartGUI, MessageBox, _('XDREAMY update was done!!!\nDo you want to restart the GUI now?'), MessageBox.TYPE_YESNO)
+        restartbox.setTitle(_('Restart GUI now?'))
+
+    def downloadFailed(self, failure_instance=None, error_message=''):
+        text = _('Error downloading files!')
+        if error_message == '' and failure_instance is not None:
+            error_message = failure_instance.getErrorMessage()
+            text += ': ' + error_message
+        self['status'].setText(text)
+        return
+
+    def downloadProgress(self, recvbytes, totalbytes):
+        self['status'].setText(_('Download in progress...'))
+        self['progress'].value = int(100 * self.last_recvbytes / float(totalbytes))
+        self['progresstext'].text = _('{recv_kbytes} of {total_kbytes} kBytes ({percent:.2f}%)').format(
+            recv_kbytes=self.last_recvbytes / 1024,
+            total_kbytes=totalbytes / 1024,
+            percent=100 * self.last_recvbytes / float(totalbytes)
+        )
+        self.last_recvbytes = recvbytes
+
+    def restartGUI(self, answer):
+        if answer is True:
+            self.session.open(TryQuitMainloop, 3)
+        else:
+            self.close()
+
+#def check_plugin_installed(plugin_name):
+#    plugin_paths = {
+#        "LinuxsatPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/LinuxsatPanel"),
+#        "AJPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/AJPan"),
+#        "SmartPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/SmartAddonspanel"),
+#        "EliSatPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/ElieSatPanel"),
+#        "MagicPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/MagicPanel"),
+#        "MSNWeather": resolveFilename(SCOPE_PLUGINS, "Extensions/WeatherPlugin"),
+#        "OAWeather": resolveFilename(SCOPE_PLUGINS, "Extensions/OAWeather"),
+#        "MultiCamManager": resolveFilename(SCOPE_PLUGINS, "Extensions/Manager"),
+#        }
+    def goOAWeatherInstall(self, result=False):
+        if result:
+            try:
+                cmd = 'enigma2-plugin-extensions-oaweather'
+                self.session.open(Console, _('Install OAWeatherPlugin'), ['opkg install %s' % cmd], closeOnSuccess=False)
+                time.sleep(5)
+            except Exception as e:
+                logger.error(f"Error in goOAWeatherInstall: {e}")
+        else:
+            message = _('Plugin OAWeatherPlugin not installed!!!')
+            self.session.open(MessageBox, message, MessageBox.TYPE_INFO, timeout=10)
+
+    def UpdateComponents(self):
+        try:
+            weatherPluginEntryCount = config.plugins.WeatherPlugin.entrycount.value
+            if weatherPluginEntryCount >= 1:
+                zLine = ''
+                weatherPluginEntry = config.plugins.WeatherPlugin.Entry[0]
+                location = weatherPluginEntry.weatherlocationcode.value
+                city = weatherPluginEntry.city.value
+                zLine = str(city) + ' - ' + str(location)
+                config.plugins.xDreamy.city.setValue(zLine)
+                config.plugins.xDreamy.city.save()
+                self['city'].setText(zLine)
+                self.createSetup()
+            else:
+                return
+        except Exception as e:
+            logger.error(f"Error in UpdateComponents: {e}")
+
+    def UpdateComponents2(self):
+        try:
+            if config.plugins.OAWeather.enabled.value:
+                zLine = ''
+                city = config.plugins.OAWeather.weathercity.value
+                location = config.plugins.OAWeather.owm_geocode.value.split(",")
+                zLine = str(city)
+                if location:
+                    zLine += ' - ' + str(location)
+                config.plugins.xDreamy.city.setValue(zLine)
+                config.plugins.xDreamy.city.save()
+                self['city'].setText(zLine)
+                self.createSetup()
+            else:
+                return
+        except Exception as e:
+            logger.error(f"Error in UpdateComponents2: {e}")
+
+class xDreamyUpdater(Screen):
+
+    def __init__(self, session, updateurl):
+        self.session = session
+        skin = '''
+                
+                    
+                    
+                    
+                                    <screen name="xDreamyUpdater" position="center,center" size="840,260" flags="wfBorder" backgroundColor="background">
+                                        <widget name="status" position="20,10" size="800,70" transparent="1" font="Regular; 40" foregroundColor="foreground" backgroundColor="background" valign="center" halign="left" noWrap="1"/>
+                                        <widget source="progress" render="Progress" position="20,120" size="800,20" transparent="1" borderWidth="0" foregroundColor="white" backgroundColor="background"/>
+                                        <widget source="progresstext" render="Label" position="209,164" zPosition="2" font="Regular; 28" halign="center" transparent="1" size="400,70" foregroundColor="foreground" backgroundColor="background"/>
+                                    </screen>'''
+
+        self.skin = skin
+        Screen.__init__(self, session)
+        self.updateurl = updateurl
+        logger.debug(f'self.updateurl: {self.updateurl}')
+        self['status'] = Label()
+        self['progress'] = Progress()
+        self['progresstext'] = StaticText()
+        self.downloading = False
+        self.last_recvbytes = 0
+        self.error_message = None
+        self.download = None
+        self.aborted = False
+        self.startUpdate()
+
+    def startUpdate(self):
+        self['status'].setText(_('Downloading XDREAMY Skin...'))
+        self.dlfile = '/tmp/xDreamy.ipk'
+        logger.debug(f'self.dlfile: {self.dlfile}')
         self.download = downloadWithProgress(self.updateurl, self.dlfile)
         self.download.addProgress(self.downloadProgress)
         self.download.start().addCallback(self.downloadFinished).addErrback(self.downloadFailed)
@@ -1471,26 +2461,27 @@ class xDreamyUpdater(Screen):
 
 def check_plugin_installed(plugin_name):
     plugin_paths = {
+        "AJPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/AJPan"),
         "LinuxsatPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/LinuxsatPanel"),
-        "AJPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/AJPanel"),
-        "SmartPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/SmartPanel"),
-        "EliSatPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/EliSatPanel"),
+        "CiefpPlugins": resolveFilename(SCOPE_PLUGINS, "Extensions/CiefpPlugins"),
+        "SmartPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/SmartAddonspanel"),
+        "EliSatPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/ElieSatPanel"),
         "MagicPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/MagicPanel"),
-        "MSNWeather": resolveFilename(SCOPE_PLUGINS, "Extensions/MSNWeather"),
+        "MSNWeather": resolveFilename(SCOPE_PLUGINS, "Extensions/WeatherPlugin"),
         "OAWeather": resolveFilename(SCOPE_PLUGINS, "Extensions/OAWeather"),
-        "MultiCamManager": resolveFilename(SCOPE_PLUGINS, "Extensions/MultiCamManager"),
+        "MultiCamManager": resolveFilename(SCOPE_PLUGINS, "Extensions/Manager"),
         "NCam": resolveFilename(SCOPE_PLUGINS, "Extensions/NCam"),
         "KeyAdder": resolveFilename(SCOPE_PLUGINS, "Extensions/KeyAdder"),
         "XKlass": resolveFilename(SCOPE_PLUGINS, "Extensions/XKlass"),
         "YouTube": resolveFilename(SCOPE_PLUGINS, "Extensions/YouTube"),
-        "E2iPlayer": resolveFilename(SCOPE_PLUGINS, "Extensions/E2iPlayer"),
+        "E2iPlayer": resolveFilename(SCOPE_PLUGINS, "Extensions/IPTVPlayer"),
         "Transmission": resolveFilename(SCOPE_PLUGINS, "Extensions/Transmission"),
         "MultiStalkerPro": resolveFilename(SCOPE_PLUGINS, "Extensions/MultiStalkerPro"),
         "IPAudioPro": resolveFilename(SCOPE_PLUGINS, "Extensions/IPAudioPro"),
         "EPGGrabber": resolveFilename(SCOPE_PLUGINS, "Extensions/EPGGrabber"),
         "SubsSupport": resolveFilename(SCOPE_PLUGINS, "Extensions/SubsSupport"),
         "HistoryZapSelector": resolveFilename(SCOPE_PLUGINS, "Extensions/HistoryZapSelector"),
-        "NewVirtualKeyboard": resolveFilename(SCOPE_PLUGINS, "Extensions/NewVirtualKeyboard"),
+        "NewVirtualKeyboard": resolveFilename(SCOPE_PLUGINS, "SystemPlugins/NewVirtualKeyBoard"),
         "RaedQuickSignal": resolveFilename(SCOPE_PLUGINS, "Extensions/RaedQuickSignal"),
     }
     if os.path.isdir(plugin_paths.get(plugin_name, "")):
@@ -1505,13 +2496,13 @@ def check_plugin_installed(plugin_name):
                     return True
     except ImportError:
         pass
-
     return False
 
 def update_plugin_install_status():
     plugin_configs = {
         "LinuxsatPanel": config.plugins.xDreamy.install_linuxsatpanel,
         "AJPanel": config.plugins.xDreamy.install_ajpanel,
+        "CiefpPlugins": config.plugins.xDreamy.install_CiefpPlugins,
         "SmartPanel": config.plugins.xDreamy.install_smartpanel,
         "EliSatPanel": config.plugins.xDreamy.install_elisatpanel,
         "MagicPanel": config.plugins.xDreamy.install_magicpanel,
