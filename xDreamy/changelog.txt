@@ -1,1 +1,5 @@
-changelog.txt
+What's New in XDREAMY v 6.0.0
+	1. Complete New Set of colors to refresh the look of the skin.
+	2. Recoding 90% of the skin main codes, focus on smart & universal Panels
+	3. Fix some failures in dependencies installation for some Pli base images.
+	4. Revise the postinst code to avoid the error of the opbitrates file preexistence in some images (OpenSPA).
