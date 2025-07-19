@@ -853,7 +853,6 @@ config.plugins.xDreamy.channelnamecolor = ConfigSelection(default="CLC", choices
     ("CLC1", _("White - Color")),
     ("CLC2", _("Color - White")),
     ("CLC3", _("Color - Color"))])
-])
 
 config.plugins.xDreamy.menufontcolor = ConfigSelection(default='MC', choices=[
     ('MC', _('Default- White')),
@@ -2122,43 +2121,55 @@ class xDreamySetup(ConfigListScreen, Screen):
 
     def checkforUpdate(self):
         try:
-            fp = ''
             destr = '/tmp/xDreamyv.txt'
             req = Request('https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/xDreamyv.txt')
-            req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
-            fp = urlopen(req)
-            fp = fp.read().decode('utf-8')
-            logger.debug(_('fp read: {fp}').format(fp=fp))
+            req.add_header('User-Agent', 'Mozilla/5.0')
+            response = urlopen(req)
+            data = response.read().decode('utf-8').strip()
+
+            logger.debug(_('fp read: {fp}').format(fp=data))
+
             with open(destr, 'w') as f:
-                f.write(str(fp))  # .decode("utf-8"))
-                f.seek(0)
+                f.write(data)
+
             if fileExists(destr):
                 with open(destr, 'r') as cc:
-                    s1 = cc.readline()  # .decode("utf-8")
-                    vers = s1.split('#')[0]
-                    url = s1.split('#')[1]
+                    line = cc.readline().strip()
+                    vers, url = line.split('#')
                     version_server = vers.strip()
                     self.updateurl = url.strip()
-                    cc.close()
-                    if str(version_server) == str(version):
-                        message = _('{server_version} {version_server}\n{installed_version} {version}\n\n{congrats}').format(
-                            server_version=_('Server version:'),
-                            version_server=version_server,
-                            installed_version=_('Version installed:'),
-                            version=version,
-                            congrats=_('Congratulation, You have the last version of XDREAMY!')
-                        )
-                    elif version_server > version:
-                        message = _('{server_version} {version_server}\n{installed_version} {version}\n\n{update_available}').format(
-                            server_version=_('Server version:'),
-                            version_server=version_server,
-                            installed_version=_('Version installed:'),
-                            version=version,
-                            update_available=_('The update is available!\n\nDo you want to run the update now?')
-                        )
-                        self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
-                    else:
-                        self.session.open(MessageBox, _('You have version {version}!!!').format(version=version), MessageBox.TYPE_INFO, timeout=10)
+
+                # Compare versions
+                if str(version_server) == str(version):
+                    message = _(
+                        '{server_version} {version_server}\n{installed_version} {version}\n\n{congrats}'
+                    ).format(
+                        server_version=_('Server version:'),
+                        version_server=version_server,
+                        installed_version=_('Version installed:'),
+                        version=version,
+                        congrats=_('Congratulation, You have the last version of XDREAMY!')
+                    )
+                    self.session.open(MessageBox, message, MessageBox.TYPE_INFO, timeout=10)
+
+                elif version_server > version:
+                    changelog = self.getChangelogText()
+                    message = _(
+                        'Server version: {server_v}\nInstalled version: {local_v}\n\nUpdate available!\n\nWhat’s New:\n{changelog}\n\nDo you want to run the update now?'
+                    ).format(
+                        server_v=version_server,
+                        local_v=version,
+                        changelog=changelog
+                    )
+                    self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
+
+                else:
+                    self.session.open(
+                        MessageBox,
+                        _('You have version {version}!!!').format(version=version),
+                        MessageBox.TYPE_INFO,
+                        timeout=10
+                    )
         except Exception as e:
             logger.error(_('error: {error}').format(error=str(e)))
 
@@ -2302,6 +2313,19 @@ class xDreamyUpdater(Screen):
         self.aborted = False
         self.startUpdate()
 
+    def getChangelogText(self):
+        try:
+            changelog_url = "https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/changelog.txt"
+            req = Request(changelog_url)
+            req.add_header('User-Agent', 'Mozilla/5.0')
+            response = urlopen(req, timeout=5)
+            if response.getcode() == 200:
+                return response.read().decode('utf-8').strip()
+            else:
+                return _("(Could not load changelog)")
+        except Exception as e:
+            return _("(Changelog error: %s)") % str(e)
+
     def startUpdate(self):
         self['status'].setText(_('Downloading XDREAMY Skin...'))
         self.dlfile = '/tmp/xDreamy.ipk'
@@ -2343,17 +2367,6 @@ class xDreamyUpdater(Screen):
         else:
             self.close()
 
-#def check_plugin_installed(plugin_name):
-#    plugin_paths = {
-#        "LinuxsatPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/LinuxsatPanel"),
-#        "AJPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/AJPan"),
-#        "SmartPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/SmartAddonspanel"),
-#        "EliSatPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/ElieSatPanel"),
-#        "MagicPanel": resolveFilename(SCOPE_PLUGINS, "Extensions/MagicPanel"),
-#        "MSNWeather": resolveFilename(SCOPE_PLUGINS, "Extensions/WeatherPlugin"),
-#        "OAWeather": resolveFilename(SCOPE_PLUGINS, "Extensions/OAWeather"),
-#        "MultiCamManager": resolveFilename(SCOPE_PLUGINS, "Extensions/Manager"),
-#        }
     def goOAWeatherInstall(self, result=False):
         if result:
             try:
