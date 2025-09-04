@@ -1,1 +1,2 @@
-6.2.0#https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/xDreamy.ipk
+6.2.1#https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/xDreamy.ipk
+
