@@ -74,9 +74,9 @@ _ = gettext.gettext
 PY3 = sys.version_info.major >= 3
 
 # Plugin version
-version = "5.9.9" # New Merge
+version = "6.3.0" # New Merge
 my_cur_skin = False
-cur_skin = config.skin.primary_skin.value.replace('/skin.xml', '')
+cur_skin = config.skin.primary_skin.value.replace('xDreamy/skin.xml', '')
 
 # Paths for weather plugins and boot logos
 OAWeather = resolveFilename(SCOPE_PLUGINS, "Extensions/OAWeather")
@@ -138,17 +138,17 @@ def isMountedInRW(path):
         return False
 
 # Paths for poster and backdrop images
-path_poster = "/tmp/poster"
-patch_backdrop = "/tmp/backdrop"
+path_poster = "/tmp/XDREAMY/poster"
+patch_backdrop = "/tmp/XDREAMY/backdrop"
 if os.path.exists("/media/hdd") and isMountedInRW("/media/hdd"):
-    path_poster = "/media/hdd/poster"
-    patch_backdrop = "/media/hdd/backdrop"
+    path_poster = "/media/hdd/XDREAMY/poster"
+    patch_backdrop = "/media/hdd/XDREAMY/backdrop"
 elif os.path.exists("/media/usb") and isMountedInRW("/media/usb"):
-    path_poster = "/media/usb/poster"
-    patch_backdrop = "/media/usb/backdrop"
+    path_poster = "/media/usb/XDREAMY/poster"
+    patch_backdrop = "/media/usb/XDREAMY/backdrop"
 elif os.path.exists("/media/mmc") and isMountedInRW("/media/mmc"):
-    path_poster = "/media/mmc/poster"
-    patch_backdrop = "/media/mmc/backdrop"
+    path_poster = "/media/mmc/XDREAMY/poster"
+    patch_backdrop = "/media/mmc/XDREAMY/backdrop"
 
 def removePng():
     """Remove all PNG and JPG files from the poster and backdrop directories."""
@@ -204,78 +204,135 @@ for plugin in plugin_names:
 
 # Light Color(ltbluette), Standard Color (bluette), Background Color (header)
 TEMPLATES = {
-    'Blue':           ('#64b5f6', '#1e88e5', '#000d47a1'),
-    'Brown':          ('#d7ccc8', '#8d6e63', '#004e342e'),
-    'Cyan':           ('#80deea', '#00acc1', '#00006064'),
-    'Gold':           ('#ffecb3', '#ffc107', '#00ffa000'),
-    'Green':          ('#a5d6a7', '#43a047', '#001b5e20'),
-    'Grey':           ('#e0e0e0', '#9e9e9e', '#00424242'),
-    'Maroon':         ('#ef9a9a', '#d32f2f', '#00880e4f'),
-    'Magenta':        ('#f48fb1', '#e91e63', '#00880e4f'),
-    'Navy':           ('#90caf9', '#1565c0', '#000d47a1'),
-    'Orange':         ('#ffcc80', '#fb8c00', '#00e65100'),
-    'Olive':          ('#e6ee9c', '#afb42b', '#00827717'),
-    'Red':            ('#ef9a9a', '#f44336', '#00b71c1c'),
-    'Pink':           ('#f8bbd0', '#ec407a', '#00880e4f'),
-    'Purple':         ('#ce93d8', '#8e24aa', '#004a148c'),
-    'Teal':           ('#80cbc4', '#009688', '#00004d40'),
-    'Violet':         ('#b39ddb', '#7e57c2', '#004527a0'),
-    'Lime':           ('#dce775', '#cddc39', '#00827717'),
-    'Salmon':         ('#ffab91', '#ff7043', '#00bf360c'),
-    'Turquoise':      ('#a7ffeb', '#1de9b6', '#00004d40'),
-    'Crimson':        ('#ffcdd2', '#e53935', '#00b71c1c'),
-    'Sand':           ('#fff8e1', '#fbc02d', '#00f57f17'),
-    'Midnight Blue':  ('#bbdefb', '#2196f3', '#001a237e'),
-    'Jungle Green':   ('#dcedc8', '#8bc34a', '#0033691e'),
-    'Forest Green':   ('#c5e1a5', '#689f38', '#0033691e'),
-    'Steel':          ('#cfd8dc', '#607d8b', '#0037474f'),
-    'Ruby':           ('#fce4ec', '#d81b60', '#00880e4f'),
-    'Sky Blue':       ('#B3E5FC', '#2196F3', '#000D47A1'),
-    'Earth Brown':    ('#D7CCC8', '#8D6E63', '#004E342E'),
-    'Aqua Cyan':      ('#B2EBF2', '#00BCD4', '#00006064'),
-    'Pyramids Gold':  ('#FFE082', '#FFC107', '#00FFA000'),
-    'Mint Green':     ('#C8E6C9', '#4CAF50', '#001B5E20'),
-    'Silver Grey':    ('#E0E0E0', '#9E9E9E', '#00424242'),
-    'Nile Maroon':    ('#EF9A9A', '#D32F2F', '#00880E4F'),
-    'Rose Magenta':   ('#F48FB1', '#E91E63', '#00880E4F'),
-    'Deep Navy':      ('#90CAF9', '#1976D2', '#000D47A1'),
-    'Desert Orange':  ('#FFCC80', '#FF9800', '#00E65100'),
-    'Olive Branch':   ('#F0F4C3', '#C0CA33', '#00827717'),
-    'Peach Pink':     ('#F8BBD0', '#EC407A', '#00880E4F'),
-    'Royal Purple':   ('#CE93D8', '#9C27B0', '#004A148C'),
-    'Cyber Teal':     ('#B2DFDB', '#009688', '#00004D40'),
-    'Violet Dream':   ('#D1C4E9', '#673AB7', '#00311B92'),
-    'Lime Juice':     ('#E6EE9C', '#CDDC39', '#00827717'),
-    'Salmon Skin':    ('#FFAB91', '#FF7043', '#00BF360C'),
-    'Turquoise Sea':  ('#A7FFEB', '#1DE9B6', '#00004D40'),
-    'Crimson Flame':  ('#FFCDD2', '#E53935', '#00B71C1C'),
-    'Egyptian Sand':  ('#FFF8E1', '#FBC02D', '#00F57F17'),
-    'Midnight Blue':  ('#BBDEFB', '#2196F3', '#001A237E'),
-    'Kemet Earth':    ('#E0F2F1', '#00796B', '#00004D40'),
-    'Ruby Rose':      ('#FCE4EC', '#D81B60', '#00880E4F'),
-    'Steel Grey':     ('#CFD8DC', '#607D8B', '#0037474F'),
-    'Egypt Blue':     ('#81D4FA', '#0288D1', '#0001579B'),
-    'Egypt Sunset':   ('#FFECB3', '#FFA726', '#00F57C00'),
-    'Egypt Dunes':    ('#FFF9C4', '#FBC02D', '#00F57F17'),
-    'Egypt Classic':  ('#E0E0E0', '#757575', '#00212121'),
-    'Egypt Jungle':   ('#DCEDC8', '#8BC34A', '#0033691E'),
-    'Egypt Forest':   ('#C5E1A5', '#689F38', '#0033691E'),
-    'Egypt Pyramids': ('#FFF59D', '#FDD835', '#00F57F17'),
-    'Egypt Kemet':    ('#FFF3B0', '#E0A800', '#00795548'),
-    'Egypt Sand':     ('#FFE0B2', '#FB8C00', '#00E65100'),
-    'Egypt Sun':      ('#FFF9C4', '#FDD835', '#00F57F17'),
-    'Blue-Black':     ('#B3E5FC', '#2196F3', '#00000000'),
-    'Brown-Black':    ('#D7CCC8', '#8D6E63', '#00000000'),
-    'Green-Black':    ('#C8E6C9', '#4CAF50', '#00000000'),
-    'Grey-Black':     ('#E0E0E0', '#9E9E9E', '#00000000'),
-    'Maroon-Black':   ('#EF9A9A', '#D32F2F', '#00000000'),
-    'Orange-Black':   ('#FFCC80', '#FB8C00', '#00000000'),
-    'Pink-Black':     ('#F8BBD0', '#F06292', '#00000000'),
-    'Purple-Black':   ('#CE93D8', '#BA68C8', '#00000000'),
-    'Teal-Black':     ('#B2DFDB', '#4DB6AC', '#00000000'),
-    'Gold-Black':     ('#FFF8E1', '#FFD600', '#00000000'),
-    'Red-Black':      ('#FFCDD2', '#F44336', '#00000000')
-}
+    # Classic Base Colors
+    'Blue':           ('#caf0f8', '#023e8a', '#0003045e'),  # Light: #caf0f8, Standard: #023e8a, Dark: #0003045e
+    'Blue1':          ('#9eb3c2', '#1b3b6f', '#0021295c'),  # Light: #9eb3c2, Standard: #1b3b6f, Dark: #0021295c
+    'Blue2':          ('#aecbeb', '#145c9e', '#00044389'),  # Light: #aecbeb, Standard: #145c9e, Dark: #00044389
+    'Brown':          ('#d7f75b', '#7d451b', '#00472c1b'),  # Light: #d7f75b, Standard: #7d451b, Dark: #00472c1b
+    'Brown1':         ('#ffdcc2', '#8f3e00', '#00522500'),  # Light: #ffdcc2, Standard: #8f3e00, Dark: #00522500
+    'Brown2':         ('#d19c1d', '#7d451b', '#00472c1b'),  # Light: #d19c1d, Standard: #7d451b, Dark: #00472c1b
+    'Brown3':         ('#f3e9dc', '#c08552', '#005e3023'),  # Light: #f3e9dc, Standard: #c08552, Dark: #005e3023
+    'Grey':           ('#ced4da', '#495057', '#00212529'),  # Light: #ced4da, Standard: #495057, Dark: #00212529
+    'Grey1':          ('#f8f4e3', '#706c61', '#002a2b2a'),  # Light: #f8f4e3, Standard: #706c61, Dark: #002a2b2a
+    'Grey2':          ('#f3f3f4', '#6d6a75', '#0034312d'),  # Light: #f3f3f4, Standard: #6d6a75, Dark: #0034312d
+    'Green':          ('#b7e4c7', '#1b4332', '#00081c15'),  # Light: #b7e4c7, Standard: #1b4332, Dark: #00081c15
+    'Green1':         ('#dad7cd', '#386641', '#00344e41'),  # Light: #dad7cd, Standard: #386641, Dark: #00344e41
+    'Green2':         ('#bce784', '#415d43', '#00415d43'),  # Light: #bce784, Standard: #415d43, Dark: #00415d43
+    'Green3':         ('#aad576', '#245501', '#00143601'),  # Light: #aad576, Standard: #245501, Dark: #00143601
+    'Red':            ('#ffba08', '#6a040f', '#00370617'),  # Light: #ffba08, Standard: #6a040f, Dark: #00370617
+    'Red1':           ('#fff3b0', '#9e2a2b', '#00540b0e'),  # Light: #fff3b0, Standard: #9e2a2b, Dark: #00540b0e
+    'Red2':           ('#ffccd5', '#800f2f', '#004f000b'),  # Light: #ffccd5, Standard: #800f2f, Dark: #004f000b
+    'Pink':           ('#fdbdc4', '#f51b5c', '#00950646'),  # Light: #fdbdc4, Standard: #f51b5c, Dark: #00950646
+    'Purple':         ('#97dffc', '#613dc1', '#004e148c'),  # Light: #97dffc, Standard: #613dc1, Dark: #004e148c
+    'Purple1':        ('#c2f8cb', '#8367c7', '#005603ad'),  # Light: #c2f8cb, Standard: #8367c7, Dark: #005603ad
+    'Purple2':        ('#dc97ff', '#5a108f', '#00310055'),  # Light: #dc97ff, Standard: #5a108f, Dark: #00310055
+    'Purple3':        ('#caa8f5', '#8332ac', '#004a0d67'),  # Light: #caa8f5, Standard: #8332ac, Dark: #004a0d67
+    'Olive':          ('#d8d174', '#424b1e', '#002f380f'),  # Light: #d8d174, Standard: #424b1e, Dark: #002f380f
+    'Olive1':         ('#e9f5db', '#344e41', '#00132a13'),  # Light: #e9f5db, Standard: #344e41, Dark: #00132a13
+    'Turquoise':      ('#6fffe9', '#1c2541', '#000b132b'),  # Light: #6fffe9, Standard: #1c2541, Dark: #000b132b
+    'Turquoise1':     ('#b5f8fe', '#326771', '#0028464b'),  # Light: #b5f8fe, Standard: #326771, Dark: #0028464b
+
+    'Blue':           ('#bbdefb', '#2196f3', '#000d47a1'),   # Light: #bbdefb, Standard: #2196f3, Dark: #0d47a1
+    'Brown':          ('#d7ccc8', '#795548', '#003e2723'),   # Light: #d7ccc8, Standard: #795548, Dark: #3e2723
+    'Green':          ('#a5d6a7', '#43a047', '#001b5e20'),   # Light: #a5d6a7, Standard: #43a047, Dark: #1b5e20
+    'Grey':           ('#e0e0e0', '#9e9e9e', '#00424242'),   # Light: #e0e0e0, Standard: #9e9e9e, Dark: #424242
+    'Cyan':           ('#80deea', '#00acc1', '#00006064'),   # Light: #80deea, Standard: #00acc1, Dark: #006064
+    'Gold':           ('#ffecb3', '#ffc107', '#00ffa000'),   # Light: #ffecb3, Standard: #ffc107, Dark: #ffa000
+    'Maroon':         ('#ef9a9a', '#d32f2f', '#00880e4f'),   # Light: #ef9a9a, Standard: #d32f2f, Dark: #880e4f
+    'Magenta':        ('#f48fb1', '#e91e63', '#00880e4f'),   # Light: #f48fb1, Standard: #e91e63, Dark: #880e4f
+    'Navy':           ('#90caf9', '#1565c0', '#000d47a1'),   # Light: #90caf9, Standard: #1565c0, Dark: #0d47a1
+    'Orange':         ('#ffcc80', '#fb8c00', '#00e65100'),   # Light: #ffcc80, Standard: #fb8c00, Dark: #e65100
+    'Olive':          ('#e6ee9c', '#afb42b', '#00827717'),   # Light: #e6ee9c, Standard: #afb42b, Dark: #827717
+    'Red':            ('#ef9a9a', '#f44336', '#00b71c1c'),   # Light: #ef9a9a, Standard: #f44336, Dark: #b71c1c
+    'Pink':           ('#f8bbd0', '#ec407a', '#00880e4f'),   # Light: #f8bbd0, Standard: #ec407a, Dark: #880e4f
+    'Purple':         ('#ce93d8', '#8e24aa', '#004a148c'),   # Light: #ce93d8, Standard: #8e24aa, Dark: #4a148c
+    'Teal':           ('#80cbc4', '#009688', '#00004d40'),   # Light: #80cbc4, Standard: #009688, Dark: #004d40
+    'Violet':         ('#b39ddb', '#7e57c2', '#004527a0'),   # Light: #b39ddb, Standard: #7e57c2, Dark: #4527a0
+    'Lime':           ('#dce775', '#cddc39', '#00827717'),   # Light: #dce775, Standard: #cddc39, Dark: #827717
+    'Salmon':         ('#ffab91', '#ff7043', '#00bf360c'),   # Light: #ffab91, Standard: #ff7043, Dark: #bf360c
+    'Turquoise':      ('#a7ffeb', '#1de9b6', '#00004d40'),   # Light: #a7ffeb, Standard: #1de9b6, Dark: #004d40
+    'Crimson':        ('#ffcdd2', '#e53935', '#00b71c1c'),   # Light: #ffcdd2, Standard: #e53935, Dark: #b71c1c
+    'Sun':            ('#fff8e1', '#fbc02d', '#00f57f17'),   # Light: #fff8e1, Standard: #fbc02d, Dark: #f57f17
+    'Midnight Blue':  ('#82b1ff', '#2962ff', '#001a237e'), # Light: #82b1ff, Standard: #2962ff, Dark: #001a237e
+    'Kemet Earth':    ('#e0f2f1', '#004d40', '#002e7d32'), # Light: #e0f2f1, Standard: #004d40, Dark: #002e7d32
+    'Ruby Rose':      ('#fce4ec', '#d81b60', '#009c0033'), # Light: #fce4ec, Standard: #d81b60, Dark: #009c0033
+    'Steel Grey':     ('#cfd8dc', '#607d8b', '#00374141'), # Light: #cfd8dc, Standard: #607d8b, Dark: #00374141
+    'Egypt Blue':     ('#49bbff', '#1b3c85', '#20000000'), # Light: #0049bbff, Standard: #1b3c85, Dark: #20000000
+
+    'Pyramids Gold':       ('#FFECB3', '#FFC107', '#00FFA000'),    # Light: #FFECB3, Standard: #FFC107, Dark: #00FFA000
+    'Tutankhamun':         ('#FFDB58', '#F1C232', '#00000A1A'),    # Light: #FFDB58, Standard: #F1C232, Dark: #00000A1A
+    'Cleopatra s Jewel':   ('#F3E5AB', '#FBC02D', '#00FF6A00'),    # Light: #F3E5AB, Standard: #FBC02D, Dark: #00FF6A00
+    'Ra s Fire':           ('#F2BDB6', '#D32F2F', '#008B0000'),    # Light: #F2BDB6, Standard: #D32F2F, Dark: #8B0000
+    'Nile River':          ('#80DEEA', '#00ACC1', '#00006064'),    # Light: #80DEEA, Standard: #00ACC1, Dark: #006064
+    'Lotus Blossom':       ('#FFEBEE', '#F44336', '#00B71C1C'),    # Light: #FFEBEE, Standard: #F44336, Dark: #B71C1C
+    'Pharaoh s Gold':      ('#FFB74D', '#FF9800', '#00E65100'),    # Light: #FFB74D, Standard: #FF9800, Dark: #E65100
+    'Sphinx Bronze':       ('#8D6E63', '#795548', '#003E2723'),    # Light: #8D6E63, Standard: #795548, Dark: #3E2723
+    'Anubis Night':        ('#E3F2FD', '#1976D2', '#000D47A1'),    # Light: #E3F2FD, Standard: #1976D2, Dark: #0D47A1
+    'Osiris Green':        ('#C8E6C9', '#4CAF50', '#00388E3C'),    # Light: #C8E6C9, Standard: #4CAF50, Dark: #388E3C
+    'Horus':               ('#FF9800', '#F57C00', '#00E65100'),    # Light: #FF9800, Standard: #F57C00, Dark: #E65100
+    'Scarab Jewel':        ('#FFDDC1', '#FF4081', '#00880E4F'),    # Light: #FFDDC1, Standard: #FF4081, Dark: #880E4F
+    'Ptolemaic Purple':    ('#D1C4E9', '#9C27B0', '#004A148C'),    # Light: #D1C4E9, Standard: #9C27B0, Dark: #4A148C
+    'Luxor Sands':         ('#FFF9C4', '#FFEB3B', '#00F57F17'),    # Light: #FFF9C4, Standard: #FFEB3B, Dark: #F57F17
+    'Cleopatra s Gold':    ('#FFECB3', '#FFD700', '#00FF8C00'),    # Light: #FFECB3, Standard: #FFD700, Dark: #FF8C00
+    'Kemet Black':         ('#2C3E50', '#34495E', '#00000000'),    # Light: #2C3E50, Standard: #34495E, Dark: #00000000
+    'Bastet s Eyes':       ('#A5D6A7', '#388E3C', '#00004D40'),    # Light: #A5D6A7, Standard: #388E3C, Dark: #004D40
+    'Isis Blue':           ('#BBDEFB', '#2196F3', '#000D47A1'),    # Light: #BBDEFB, Standard: #2196F3, Dark: #0D47A1
+    'Ankh Crystal':        ('#E8F5E9', '#43A047', '#001B5E20'),    # Light: #E8F5E9, Standard: #43A047, Dark: #1B5E20
+    'Luxurious Amber':     ('#FFD54F', '#FF9800', '#00E65100'),    # Light: #FFD54F, Standard: #FF9800, Dark: #E65100
+
+    'Arctic Breeze':       ('#e0f7fa', '#00bcd4', '#0000b46f'),  # Light: #e0f7fa, Standard: #00bcd4, Dark: #00b46f
+    'Frosted Lavender':    ('#e1bee7', '#9c27b0', '#00006a82'),  # Light: #e1bee7, Standard: #9c27b0, Dark: #006a82
+    'Icy Storm':           ('#bbdefb', '#1e88e5', '#000d47a1'),  # Light: #bbdefb, Standard: #1e88e5, Dark: #000d47a1
+    'Glacial Mint':        ('#b2dfdb', '#009688', '#00004d40'),  # Light: #b2dfdb, Standard: #009688, Dark: #004d40
+    'Blue Ice':            ('#e3f2fd', '#1976d2', '#000d47a1'),  # Light: #e3f2fd, Standard: #1976d2, Dark: #000d47a1
+    'Northern Lights':     ('#d1c4e9', '#673ab7', '#00003179'),  # Light: #d1c4e9, Standard: #673ab7, Dark: #003179
+    'Midnight Fog':        ('#b0bec5', '#607d8b', '#00003131'),  # Light: #b0bec5, Standard: #607d8b, Dark: #003131
+    'Frozen Sky':          ('#c5cae9', '#3f51b5', '#00001e46'),  # Light: #c5cae9, Standard: #3f51b5, Dark: #001e46
+    'Sapphire Mist':       ('#b2ebf2', '#00acc1', '#00004d40'),  # Light: #b2ebf2, Standard: #00acc1, Dark: #004d40
+    'Crystal Waters':      ('#b3e5fc', '#2196f3', '#000d47a1'),  # Light: #b3e5fc, Standard: #2196f3, Dark: #000d47a1
+    'Polar Night':         ('#cfd8dc', '#607d8b', '#00001e25'),  # Light: #cfd8dc, Standard: #607d8b, Dark: #001e25
+    'Winter Shade':        ('#b3e5fc', '#3f51b5', '#001a237e'),  # Light: #b3e5fc, Standard: #3f51b5, Dark: #001a237e
+    'Seafoam Blue':        ('#80deea', '#00acc1', '#00004064'),  # Light: #80deea, Standard: #00acc1, Dark: #004064
+    'Frostbite':           ('#b2ebf2', '#00bcd4', '#00004d40'),  # Light: #b2ebf2, Standard: #00bcd4, Dark: #004d40
+    'Shimmering Ice':      ('#e8eaf6', '#5c6bc0', '#00001f56'),  # Light: #e8eaf6, Standard: #5c6bc0, Dark: #001f56
+    'Winter Dawn':         ('#f1f8e9', '#7cb342', '#0000351e'),  # Light: #f1f8e9, Standard: #7cb342, Dark: #00351e
+    'Cool Slate':          ('#9e9e9e', '#607d8b', '#00001c29'),  # Light: #9e9e9e, Standard: #607d8b, Dark: #001c29
+    'Misty Mountain':      ('#c5e1a5', '#8bc34a', '#00006637'),  # Light: #c5e1a5, Standard: #8bc34a, Dark: #006637
+    'Electric Blue':       ('#80d4ff', '#00bcd4', '#00003e6f'),  # Light: #80d4ff, Standard: #00bcd4, Dark: #003e6f
+    'Crystal Lake':        ('#e0f7fa', '#00bcd4', '#0000796b'),  # Light: #e0f7fa, Standard: #00bcd4, Dark: #00796b
+
+    'Cold Blue':        ('#bbdefb', '#2196f3', '#000d47a1'),
+    'Cold Green':       ('#c8e6c9', '#4caf50', '#001b5e20'),
+    'Cold Purple':      ('#d1c4e9', '#7e57c2', '#004a148c'),
+    'Cold Teal':        ('#b2dfdb', '#009688', '#00004d40'),
+    'Cold Cyan':        ('#b2ebf2', '#00bcd4', '#00006064'),
+    'Cold Indigo':      ('#c5cae9', '#3f51b5', '#001a237e'),
+    'Cold Mint':        ('#b2fef7', '#00bfa5', '#00004d40'),
+    'Cold Sky':         ('#b3e5fc', '#0288d1', '#0001579b'),
+    'Cold Rose':        ('#fce4ec', '#ec407a', '#00880e4f'),
+    'Cold Amber':       ('#ffecb3', '#ffc107', '#00ff6f00'),
+    'Cold Charcoal':    ('#eceff1', '#546e7a', '#00263238'),
+    'Cold Slate':       ('#cfd8dc', '#78909c', '#0037474f'),
+    'Cold Graphite':    ('#e0e0e0', '#757575', '#00212121'),
+    'Cold Dust':        ('#f5f5f5', '#9e9e9e', '#00424242'),
+    'Cold Fog':         ('#e0f7fa', '#80deea', '#00006064'),
+    'Cold Steel':       ('#cfd8dc', '#607d8b', '#00263238'),
+    'Cold Ocean':       ('#b3e5fc', '#03a9f4', '#0001579b'),
+    'Cold Ice':         ('#e1f5fe', '#81d4fa', '#000288d1'),
+    'Cold Petrol':      ('#b2ebf2', '#00acc1', '#00006064'),
+    'Cold Midnight':    ('#d1c4e9', '#5e35b1', '#00311b92'),
+    # OLD COLORS SET
+    'Egypt Blue': ('#0049bbff', '#001b3c85', '#20000000'),
+    'Egypt Sunset': ('#FF8C00', '#A0522D', '#104E3B31'),
+    'Egypt Dunes': ('#D6CDAF', '#A67C3D', '#107A5B2A'),
+    'Egypt Classic': ('#BFBFBF', '#4B4B4B', '#101C1C1C'),
+    'Egypt Jungle': ('#A3C9A8', '#6B8E23', '#101B3A1A'),
+    'Egypt Forest': ('#D9CBA0', '#A67C2D', '#104E3B31'),
+    'Egypt Pyramids': ('#ffb703', '#fb8500', '#10023047'),
+    'Egypt Kemet': ('#fff3b0', '#e09f3e', '#109e2a2b'),
+    'Egypt Sand': ('#fb8b24', '#e09f3e', '#10335c67'),
+    'Egypt Sun': ('#c9cba3', '#c9cba3', '#10e26d5c'),
+    'Transparent': ('#ced4da', '#343a40', '#50000000')}
 
 # SKIN GENERAL SETUP
 config.plugins.xDreamy.head = ConfigSelection(default='head', choices=[('head', _('Default'))])
@@ -409,9 +466,7 @@ config.plugins.xDreamy.BasicColor = ConfigSelection(default='#ffffff', choices=[
     ('#CC18A8', _('L.Cold Maroon')),
     ('#D960AE', _('L.Cold Pink')),
     ('#7520F2', _('L.Cold Purple')),
-    ('#3F85BF', _('L.Cold Teal'))
-])
-
+    ('#3F85BF', _('L.Cold Teal'))])
 
 # Skin White Text Color  ltbluette (Light/Text Color)
 config.plugins.xDreamy.WhiteColor = ConfigSelection(default='#ffffff', choices=[
@@ -468,8 +523,7 @@ config.plugins.xDreamy.WhiteColor = ConfigSelection(default='#ffffff', choices=[
     ('#CC18A8', _('L.Cold Maroon')),
     ('#D960AE', _('L.Cold Pink')),
     ('#7520F2', _('L.Cold Purple')),
-    ('#3F85BF', _('L.Cold Teal'))
-])
+    ('#3F85BF', _('L.Cold Teal'))])
 
 # Skin Selection Color → bluette (Standard color)
 config.plugins.xDreamy.SelectionColor = ConfigSelection(default='#1e88e5', choices=[
@@ -525,8 +579,7 @@ config.plugins.xDreamy.SelectionColor = ConfigSelection(default='#1e88e5', choic
     ('#4D093F', _('Cold Maroon')),
     ('#592848', _('Cold Pink')),
     ('#310E66', _('Cold Purple')),
-    ('#224766', _('Cold Teal'))
-])
+    ('#224766', _('Cold Teal'))])
 
 # Skin Background Color → header (Dark background)
 config.plugins.xDreamy.BackgroundColor = ConfigSelection(default='#00000000', choices=[
@@ -565,8 +618,7 @@ config.plugins.xDreamy.BackgroundColor = ConfigSelection(default='#00000000', ch
     ('#0526051F', _('Cold Maroon')),
     ('#05331729', _('Cold Pink')),
     ('#05190733', _('Cold Purple')),
-    ('#05112333', _('Cold Teal'))
-])
+    ('#05112333', _('Cold Teal'))])
 
 config.plugins.xDreamy.transparency = ConfigSelection(default="00", choices=[
     ("00", _("Opaque")),
@@ -647,12 +699,15 @@ config.plugins.xDreamy.InfobarStyle = ConfigSelection(default='InfoBar-1P', choi
 # INFOBAR Header
 config.plugins.xDreamy.InfobarH = ConfigSelection(default='No Header', choices=[
     ('No Header', _('Default- No Header')),
+    ('InfoBar H0', _('H00- Clock & Date')),
     ('InfoBar H1', _('H01- EMU/Network/Card')),
-    ('InfoBar H2', _('H02- Current & Next Three Days Weather')),
-    ('InfoBar H3', _('H03- Slim Header'))])
+    ('InfoBar H2', _('H02- Three Days Weather')),
+    ('InfoBar H3', _('H03- One RAW Header')),
+    ('InfoBar H4', _('H04- Clock, Date & Weather'))])
 # INFOBAR Middle
 config.plugins.xDreamy.InfobarM = ConfigSelection(default='No Middle', choices=[
     ('No Middle', _('Default- No Middle')),
+    ('InfoBar M0', _('M00- ')),
     ('InfoBar M1', _('M01- ')),
     ('InfoBar M2', _('M02- ')),
     ('InfoBar M3', _('M03- ')),
@@ -660,10 +715,13 @@ config.plugins.xDreamy.InfobarM = ConfigSelection(default='No Middle', choices=[
 # INFOBAR Footer
 config.plugins.xDreamy.InfobarF = ConfigSelection(default='No Footer', choices=[
     ('No Footer', _('Default- No Footer')),
+    ('InfoBar F0', _('F00')),
     ('InfoBar F1', _('F01')),
     ('InfoBar F2', _('F02')),
     ('InfoBar F3', _('F03')),
-    ('InfoBar F4', _('F04'))])
+    ('InfoBar F4', _('F04')),
+    ('InfoBar F5', _('F05')),
+    ('InfoBar F6', _('F06'))])
 
 #============================== SECONDINFOBAR ============================
 # SECONDINFOBAR TEMPLATES
@@ -982,15 +1040,22 @@ def update_colors_in_file(file_path, ltbluette_value=None, white_value=None, blu
 
         # Process each line and update colors
         for line in lines:
+
             if '<color name="ltbluette"' in line and ltbluette_value is not None:
+
                 line = f'<color name="ltbluette" value="{ltbluette_value}"/>\n'
                 color_updated["ltbluette"] = True
+                  
             elif '<color name="white"' in line and white_value is not None:
+
                 line = f'<color name="white" value="{white_value}"/>\n'
                 color_updated["white"] = True
+
             elif '<color name="bluette"' in line and bluette_value is not None:
+
                 line = f'<color name="bluette" value="{bluette_value}"/>\n'
                 color_updated["bluette"] = True
+
             elif '<color name="header"' in line and header_value is not None:
                 # Ensure header_value starts with "#" and is 9 characters long
                 if header_value.startswith("#") and len(header_value) == 9:
@@ -1101,6 +1166,7 @@ def update_renderer_status(enable, files_to_update=None):
                             line = line.replace("class i", "class OFF_")
                         file.write(line)
 
+                                          
                 logger.info(_("Updated {file_path} to {'enable' if enable else 'disable'} renderer.").format(file_path=file_path))
             else:
                 logger.warning(_("File not found: {file_path}").format(file_path=file_path))
@@ -1249,6 +1315,7 @@ def convert_image(image):
 
 class xDreamySetup(ConfigListScreen, Screen):
     skin = '''
+                                    
                                     <screen name="xDreamySetup" position="center,center" size="1000,640" title="XDREAMY skin customization plugin">
                                         <eLabel font="Regular; 24" foregroundColor="#00ff4A3C" halign="center" position="20,598" size="120,26" text="Cancel"/>
                                         <eLabel font="Regular; 24" foregroundColor="#0056C856" halign="center" position="220,598" size="120,26" text="Save"/>
@@ -2121,57 +2188,38 @@ class xDreamySetup(ConfigListScreen, Screen):
 
     def checkforUpdate(self):
         try:
+            fp = ''
             destr = '/tmp/xDreamyv.txt'
             req = Request('https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/xDreamyv.txt')
-            req.add_header('User-Agent', 'Mozilla/5.0')
-            response = urlopen(req)
-            data = response.read().decode('utf-8').strip()
-
-            logger.debug(_('fp read: {fp}').format(fp=data))
-
+            req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36')
+            fp = urlopen(req)
+            fp = fp.read().decode('utf-8')
+            print('fp read:', fp)
             with open(destr, 'w') as f:
-                f.write(data)
-
-            if fileExists(destr):
+                f.write(str(fp))  # .decode("utf-8"))
+                f.seek(0)
+            if os.path.exists(destr):
                 with open(destr, 'r') as cc:
-                    line = cc.readline().strip()
-                    vers, url = line.split('#')
+                    s1 = cc.readline()  # .decode("utf-8")
+                    vers = s1.split('#')[0]
+                    url = s1.split('#')[1]
                     version_server = vers.strip()
                     self.updateurl = url.strip()
-
-                # Compare versions
-                if str(version_server) == str(version):
-                    message = _(
-                        '{server_version} {version_server}\n{installed_version} {version}\n\n{congrats}'
-                    ).format(
-                        server_version=_('Server version:'),
-                        version_server=version_server,
-                        installed_version=_('Version installed:'),
-                        version=version,
-                        congrats=_('Congratulation, You have the last version of XDREAMY!')
-                    )
-                    self.session.open(MessageBox, message, MessageBox.TYPE_INFO, timeout=10)
-
-                elif version_server > version:
-                    changelog = self.getChangelogText()
-                    message = _(
-                        'Server version: {server_v}\nInstalled version: {local_v}\n\nUpdate available!\n\nWhat’s New:\n{changelog}\n\nDo you want to run the update now?'
-                    ).format(
-                        server_v=version_server,
-                        local_v=version,
-                        changelog=changelog
-                    )
-                    self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
-
-                else:
-                    self.session.open(
-                        MessageBox,
-                        _('You have version {version}!!!').format(version=version),
-                        MessageBox.TYPE_INFO,
-                        timeout=10
-                    )
+                    cc.close()
+                    if str(version_server) == str(version):
+                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'), version_server,
+                                                          _('Version installed:'), version,
+                                                          _('You have the Last version of XDREAMY!'))
+                        self.session.open(MessageBox, message, MessageBox.TYPE_INFO)
+                    elif version_server > version:
+                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),  version_server,
+                                                          _('Version installed:'), version,
+                                                          _('The update is available!\n\nDo you want to run the update now?'))
+                        self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
+                    else:
+                        self.session.open(MessageBox, _('You have version %s!!!') % version, MessageBox.TYPE_ERROR)
         except Exception as e:
-            logger.error(_('error: {error}').format(error=str(e)))
+            print('error: ', str(e))
 
     def update(self, answer):
         if answer is True:
@@ -2288,16 +2336,11 @@ class xDreamyUpdater(Screen):
 
     def __init__(self, session, updateurl):
         self.session = session
-        skin = '''
-                
-                    
-                    
-                    
-                                    <screen name="xDreamyUpdater" position="center,center" size="840,260" flags="wfBorder" backgroundColor="background">
-                                        <widget name="status" position="20,10" size="800,70" transparent="1" font="Regular; 40" foregroundColor="foreground" backgroundColor="background" valign="center" halign="left" noWrap="1"/>
-                                        <widget source="progress" render="Progress" position="20,120" size="800,20" transparent="1" borderWidth="0" foregroundColor="white" backgroundColor="background"/>
-                                        <widget source="progresstext" render="Label" position="209,164" zPosition="2" font="Regular; 28" halign="center" transparent="1" size="400,70" foregroundColor="foreground" backgroundColor="background"/>
-                                    </screen>'''
+        skin = '''<screen name="xDreamyUpdater" position="center,center" size="840,260" flags="wfBorder" backgroundColor="background">
+        <widget name="status" position="20,10" size="800,70" transparent="1" font="Regular; 40" foregroundColor="foreground" backgroundColor="background" valign="center" halign="left" noWrap="1"/>
+        <widget source="progress" render="Progress" position="20,120" size="800,20" transparent="1" borderWidth="0" foregroundColor="white" backgroundColor="background"/>
+        <widget source="progresstext" render="Label" position="209,164" zPosition="2" font="Regular; 28" halign="center" transparent="1" size="400,70" foregroundColor="foreground" backgroundColor="background"/>
+    </screen>'''
 
         self.skin = skin
         Screen.__init__(self, session)
@@ -2312,19 +2355,6 @@ class xDreamyUpdater(Screen):
         self.download = None
         self.aborted = False
         self.startUpdate()
-
-    def getChangelogText(self):
-        try:
-            changelog_url = "https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/changelog.txt"
-            req = Request(changelog_url)
-            req.add_header('User-Agent', 'Mozilla/5.0')
-            response = urlopen(req, timeout=5)
-            if response.getcode() == 200:
-                return response.read().decode('utf-8').strip()
-            else:
-                return _("(Could not load changelog)")
-        except Exception as e:
-            return _("(Changelog error: %s)") % str(e)
 
     def startUpdate(self):
         self['status'].setText(_('Downloading XDREAMY Skin...'))
@@ -2366,6 +2396,19 @@ class xDreamyUpdater(Screen):
             self.session.open(TryQuitMainloop, 3)
         else:
             self.close()
+
+    def getChangelogText(self):
+        try:
+            changelog_url = "https://raw.githubusercontent.com/Insprion80/Skins/main/xDreamy/changelog.txt"
+            req = Request(changelog_url)
+            req.add_header('User-Agent', 'Mozilla/5.0')
+            response = urlopen(req, timeout=5)
+            if response.getcode() == 200:
+                return response.read().decode('utf-8').strip()
+            else:
+                return _("(Could not load changelog)")
+        except Exception as e:
+            return _("(Changelog error: %s)") % str(e)
 
     def goOAWeatherInstall(self, result=False):
         if result:
@@ -2414,72 +2457,6 @@ class xDreamyUpdater(Screen):
                 return
         except Exception as e:
             logger.error(f"Error in UpdateComponents2: {e}")
-
-class xDreamyUpdater(Screen):
-
-    def __init__(self, session, updateurl):
-        self.session = session
-        skin = '''
-                
-                    
-                    
-                    
-                                    <screen name="xDreamyUpdater" position="center,center" size="840,260" flags="wfBorder" backgroundColor="background">
-                                        <widget name="status" position="20,10" size="800,70" transparent="1" font="Regular; 40" foregroundColor="foreground" backgroundColor="background" valign="center" halign="left" noWrap="1"/>
-                                        <widget source="progress" render="Progress" position="20,120" size="800,20" transparent="1" borderWidth="0" foregroundColor="white" backgroundColor="background"/>
-                                        <widget source="progresstext" render="Label" position="209,164" zPosition="2" font="Regular; 28" halign="center" transparent="1" size="400,70" foregroundColor="foreground" backgroundColor="background"/>
-                                    </screen>'''
-
-        self.skin = skin
-        Screen.__init__(self, session)
-        self.updateurl = updateurl
-        logger.debug(f'self.updateurl: {self.updateurl}')
-        self['status'] = Label()
-        self['progress'] = Progress()
-        self['progresstext'] = StaticText()
-        self.downloading = False
-        self.last_recvbytes = 0
-        self.error_message = None
-        self.download = None
-        self.aborted = False
-        self.startUpdate()
-
-    def startUpdate(self):
-        self['status'].setText(_('Downloading XDREAMY Skin...'))
-        self.dlfile = '/tmp/xDreamy.ipk'
-        logger.debug(f'self.dlfile: {self.dlfile}')
-        self.download = downloadWithProgress(self.updateurl, self.dlfile)
-        self.download.addProgress(self.downloadProgress)
-        self.download.start().addCallback(self.downloadFinished).addErrback(self.downloadFailed)
-
-    def downloadFinished(self, string=''):
-        self['status'].setText(_('Installing updates please wait!'))
-        os.system('opkg install --force-reinstall --force-overwrite /tmp/xDreamy.ipk')
-        os.system('sync')
-        os.system('rm -r /tmp/xDreamy.ipk')
-        os.system('sync')
-        restartbox = self.session.openWithCallback(self.restartGUI, MessageBox, _('XDREAMY update was done!!!\nDo you want to restart the GUI now?'), MessageBox.TYPE_YESNO)
-        restartbox.setTitle(_('Restart GUI now?'))
-
-    def downloadFailed(self, failure_instance=None, error_message=''):
-        text = _('Error downloading files!')
-        if error_message == '' and failure_instance is not None:
-            error_message = failure_instance.getErrorMessage()
-            text += ': ' + error_message
-        self['status'].setText(text)
-        return
-
-    def downloadProgress(self, recvbytes, totalbytes):
-        self['status'].setText(_('Download in progress...'))
-        self['progress'].value = int(100 * self.last_recvbytes / float(totalbytes))
-        self['progresstext'].text = '%d of %d kBytes (%.2f%%)' % (self.last_recvbytes / 1024, totalbytes / 1024, 100 * self.last_recvbytes / float(totalbytes))
-        self.last_recvbytes = recvbytes
-
-    def restartGUI(self, answer):
-        if answer is True:
-            self.session.open(TryQuitMainloop, 3)
-        else:
-            self.close()
 
 def check_plugin_installed(plugin_name):
     plugin_paths = {
