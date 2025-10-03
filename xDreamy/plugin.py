@@ -37,7 +37,7 @@ from enigma import eTimer, loadPic
 try:
     from PIL import Image
 except ImportError:
-    from Image import Image
+    import Image
 from Plugins.Plugin import PluginDescriptor
 from Screens.Console import Console
 from Screens.MessageBox import MessageBox
@@ -74,7 +74,7 @@ _ = gettext.gettext
 PY3 = sys.version_info.major >= 3
 
 # Plugin version
-version = "6.3.0" # New Merge
+version = "6.5.0" # New Merge
 my_cur_skin = False
 cur_skin = config.skin.primary_skin.value.replace('xDreamy/skin.xml', '')
 
@@ -205,9 +205,9 @@ for plugin in plugin_names:
 # Light Color(ltbluette), Standard Color (bluette), Background Color (header)
 TEMPLATES = {
     # Classic Base Colors
-    'Blue':           ('#caf0f8', '#023e8a', '#0003045e'),  # Light: #caf0f8, Standard: #023e8a, Dark: #0003045e
-    'Blue1':          ('#9eb3c2', '#1b3b6f', '#0021295c'),  # Light: #9eb3c2, Standard: #1b3b6f, Dark: #0021295c
-    'Blue2':          ('#aecbeb', '#145c9e', '#00044389'),  # Light: #aecbeb, Standard: #145c9e, Dark: #00044389
+    'Blue1':           ('#caf0f8', '#023e8a', '#0003045e'),  # Light: #caf0f8, Standard: #023e8a, Dark: #0003045e
+    'Blue2':          ('#9eb3c2', '#1b3b6f', '#0021295c'),  # Light: #9eb3c2, Standard: #1b3b6f, Dark: #0021295c
+    'Blue3':          ('#aecbeb', '#145c9e', '#00044389'),  # Light: #aecbeb, Standard: #145c9e, Dark: #00044389
     'Brown':          ('#d7f75b', '#7d451b', '#00472c1b'),  # Light: #d7f75b, Standard: #7d451b, Dark: #00472c1b
     'Brown1':         ('#ffdcc2', '#8f3e00', '#00522500'),  # Light: #ffdcc2, Standard: #8f3e00, Dark: #00522500
     'Brown2':         ('#d19c1d', '#7d451b', '#00472c1b'),  # Light: #d19c1d, Standard: #7d451b, Dark: #00472c1b
@@ -1136,7 +1136,7 @@ def replace_class_names(file_path, enable):
 
 def update_renderer_status(enable, files_to_update=None):
     """
-    Enable or disable a renderer by updating class names in the specified files.
+    Enable or disable renderers by switching between iName and OFF_Name for specific classes only.
     
     :param enable: Boolean, True to enable the renderer, False to disable it.
     :param files_to_update: List of file paths to update. If None, defaults to PosterX files.
@@ -1150,29 +1150,53 @@ def update_renderer_status(enable, files_to_update=None):
             '/usr/lib/enigma2/python/Components/Renderer/iBackdropXDownloadThread.py',
         ]
 
+    # EXACT class names we want to transform - nothing else!
+    target_classes = [
+        'iPosterX',
+        'iPosterXDownloadThread', 
+        'iBackdropX',
+        'iBackdropXDownloadThread'
+    ]
+
     try:
         for file_path in files_to_update:
             if os.path.exists(file_path):
                 with open(file_path, 'r') as file:
-                    lines = file.readlines()
-
-                with open(file_path, 'w') as file:
-                    for line in lines:
-                        # Enable: Replace "OFF_" with "i"
-                        if enable:
-                            line = line.replace("OFF_", "i")
-                        # Disable: Replace "i" with "OFF_"
-                        else:
-                            line = line.replace("class i", "class OFF_")
-                        file.write(line)
-
-                                          
-                logger.info(_("Updated {file_path} to {'enable' if enable else 'disable'} renderer.").format(file_path=file_path))
+                    content = file.read()
+                
+                new_content = content
+                changes_made = False
+                
+                for class_name in target_classes:
+                    if enable:
+                        # ENABLE: Replace OFF_ClassName with iClassName
+                        off_class = 'OFF_' + class_name[1:]  # Remove 'i' and add 'OFF_'
+                        pattern = r'class\s+' + off_class + r'\b'
+                        replacement = 'class ' + class_name
+                    else:
+                        # DISABLE: Replace iClassName with OFF_ClassName
+                        off_class = 'OFF_' + class_name[1:]  # Remove 'i' and add 'OFF_'
+                        pattern = r'class\s+' + class_name + r'\b'
+                        replacement = 'class ' + off_class
+                    
+                    # Replace only exact class name matches
+                    new_content, count = re.subn(pattern, replacement, new_content)
+                    if count > 0:
+                        changes_made = True
+                
+                # Only write if we actually made changes
+                if changes_made:
+                    with open(file_path, 'w') as file:
+                        file.write(new_content)
+                    
+                    status = "enabled" if enable else "disabled"
+                    logger.info(_("Updated {file_path} to {status}").format(file_path=file_path, status=status))
+                else:
+                    logger.debug(_("No changes needed for {file_path}").format(file_path=file_path))
             else:
                 logger.warning(_("File not found: {file_path}").format(file_path=file_path))
 
-        os.system("sync")  # Ensure changes are saved
-        logger.info(_("Renderer {'enabled' if enable else 'disabled'} successfully."))
+        logger.info(_("Renderer {status} successfully.").format(status="enabled" if enable else "disabled"))
     except Exception as e:
         logger.error(_("Error updating renderer status: {error}").format(error=e))
 
@@ -2171,8 +2195,7 @@ class xDreamySetup(ConfigListScreen, Screen):
                 self.restartGUI, 
                 MessageBox, 
                 _('GUI needs a restart to apply a new skin.\nDo you want to Restart the GUI now?'), 
-                MessageBox.TYPE_YESNO
-            )
+                MessageBox.TYPE_YESNO)
 
         except Exception as e:
             if hasattr(self, 'session'):
@@ -2195,31 +2218,39 @@ class xDreamySetup(ConfigListScreen, Screen):
             fp = urlopen(req)
             fp = fp.read().decode('utf-8')
             print('fp read:', fp)
+            
             with open(destr, 'w') as f:
-                f.write(str(fp))  # .decode("utf-8"))
-                f.seek(0)
+                f.write(str(fp))
+            
             if os.path.exists(destr):
                 with open(destr, 'r') as cc:
-                    s1 = cc.readline()  # .decode("utf-8")
-                    vers = s1.split('#')[0]
-                    url = s1.split('#')[1]
-                    version_server = vers.strip()
-                    self.updateurl = url.strip()
-                    cc.close()
-                    if str(version_server) == str(version):
-                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'), version_server,
-                                                          _('Version installed:'), version,
-                                                          _('You have the Last version of XDREAMY!'))
-                        self.session.open(MessageBox, message, MessageBox.TYPE_INFO)
-                    elif version_server > version:
-                        message = '%s %s\n%s %s\n\n%s' % (_('Server version:'),  version_server,
-                                                          _('Version installed:'), version,
-                                                          _('The update is available!\n\nDo you want to run the update now?'))
-                        self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
-                    else:
-                        self.session.open(MessageBox, _('You have version %s!!!') % version, MessageBox.TYPE_ERROR)
+                    s1 = cc.readline()
+                    if '#' in s1:
+                        vers = s1.split('#')[0]
+                        url = s1.split('#')[1]
+                        version_server = vers.strip()
+                        self.updateurl = url.strip()
+                        
+                        print(f'Server version: {version_server}, Local version: {version}')
+                        
+                        # FIXED: Only show message when server version is newer
+                        if str(version_server) > str(version):
+                            message = _('Update available!\nServer version: {server_ver}\nYour version: {local_ver}\n\nDo you want to update now?').format(
+                                server_ver=version_server, 
+                                local_ver=version
+                            )
+                            self.session.openWithCallback(self.update, MessageBox, message, MessageBox.TYPE_YESNO)
+                        # No message if versions are equal or local is newer - just silent
+                        elif str(version_server) < str(version):
+                            # Optional: Show message if local version is newer (development version)
+                            message = _('You have a development version! ({version})').format(version=version)
+                            self.session.open(MessageBox, message, MessageBox.TYPE_INFO, timeout=3)
+                        # No message if versions are equal - this is what you wanted
+                        
         except Exception as e:
             print('error: ', str(e))
+            # Optional: Show error message
+            self.session.open(MessageBox, _('Update check failed: {error}').format(error=str(e)), MessageBox.TYPE_ERROR, timeout=3)
 
     def update(self, answer):
         if answer is True:
