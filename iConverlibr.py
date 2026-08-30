@@ -371,6 +371,7 @@ SKIP_CHANNEL_KEYWORDS = (
     "polsat sport", "canal+ sport", "sportklub",
 )
 
+# Expanded NO_INFO words – include sports, shopping, promos, generic programming
 _NO_INFO_WORDS = (
     "no information", "no info", "no event info", "press epg",
     "brak informacji", "brak danych", "informacja niedostępna",
@@ -384,6 +385,11 @@ _NO_INFO_WORDS = (
     "przerwa w programie", "noticias 24 h", "telediario matinal",
     "greek music", "music videos", "news. local time",
     "fashion court", "living well", "programmes de la nuit",
+    # Additions for sports, shopping, promos
+    "piłka nożna", "sport", "blok promocyjny", "promocyjny",
+    "telezakupy", "zakupy", "reklama", "promo", "shopping",
+    "program", "kolaż", "kolaž", "pkobp", "ekstraklasa",
+    "mecz", "live", "spużvabob", "spongebob",  # SpongeBob is allowed, but we keep it safe
 )
 
 _NO_INFO_RE = re.compile(
@@ -391,6 +397,7 @@ _NO_INFO_RE = re.compile(
     re.I | re.U,
 )
 
+# Expanded skip keywords for specific events (sports, live events)
 _SKIP_EVENT_KEYWORDS = (
     "formula 1", "formula one", "motogp", "motorsport", "nascar",
     "indycar", "grand prix", "eprix", "e-prix",
@@ -398,6 +405,8 @@ _SKIP_EVENT_KEYWORDS = (
     "premier league live", "football live", "soccer live",
     "tennis live", "basketball live", "boxing live",
     "ufc live", "wwe live", "atp live", "wta live",
+    # Additional
+    "pkobp", "ekstraklasa", "piłka nożna", "mecz", "live",
 )
 
 
@@ -495,62 +504,91 @@ _EPISODE_RE = re.compile(
     re.I | re.U | re.X,
 )
 
+# Roman numerals 1-49, longest-alternative-first so e.g. "XIX" isn't
+# cut short by an earlier partial match. Covers every season number
+# actually seen in EPG data (shows rarely exceed season 49).
+_ROMAN_NUM = (
+    r"XXXVIII|XXVIII|XXXVII|XXXIII|XLVIII|XXXIX|XVIII|XLIII|XXXVI|XXXIV|"
+    r"XLVII|XXVII|XXXII|XXIII|XLVI|XVII|XXVI|XXIX|XXXV|VIII|XLIX|XLII|"
+    r"XXXI|XXII|XLIV|XXIV|XIII|VII|XII|XVI|XXX|XIV|XLV|XXI|XIX|III|XLI|"
+    r"XXV|IV|XL|IX|XX|II|XV|XI|VI|V|I|X"
+)
+
 # Roman-number season/episode forms.
 _ROMAN_EPISODE_RE = re.compile(
-    r"""
-    \bS(?:EASON)?\s*
-    (?P<s>I{1,3}|IV|V|VI{0,3}|IX|X{1,3}|XL|L)
-    \s*
-    E(?:PISODE)?\s*
-    (?P<e>I{1,3}|IV|V|VI{0,3}|IX|X{1,3}|XL|L)
-    \b
-    """,
-    re.I | re.U | re.X,
+    r"\bS(?:EASON)?\s*(?P<s>" + _ROMAN_NUM + r")\s*"
+    r"E(?:PISODE)?\s*(?P<e>" + _ROMAN_NUM + r")\b",
+    re.I | re.U,
 )
 
 _ROMAN_SEASON_WORD_RE = re.compile(
-    r"""
-    \b(?:SEASON|SAISON|SERIE|SERIES|STAGIONE|TEMPORADA|SEZON|MUSIM|موسم)
-    \s*
-    (?P<s>I{1,3}|IV|V|VI{0,3}|IX|X{1,3}|XL|L)
-    \b
-    """,
-    re.I | re.U | re.X,
+    r"\b(?:SEASON|SAISON|SERIE|SERIES|STAGIONE|TEMPORADA|SEZON|MUSIM|موسم)"
+    r"\s*(?P<s>" + _ROMAN_NUM + r")\b",
+    re.I | re.U,
 )
 
-# Common "part/episode" marker. We remove it but don't treat it as season.
+# Common "episode" marker. We remove it but don't treat it as season.
+# NOTE: PART / PT are intentionally NOT treated as episode markers -
+# ambiguous with legitimate title text (e.g. "Show 2 - Part 2").
 _PART_RE = re.compile(
-    r"""
-    (?:
-        \b(?:EPISODE|EP|ODCINEK|ODC|FOLGE|TEIL|EPISODIO|EPISOD|
-        CHAPITRE|CAPITULO|CAPÍTULO|BÖLÜM|BOLUM|PUNTATA|PART|PT|
-        حلقة|جزء)\s*[.:_-]?\s*\d{1,4}\b
-    )
-    """,
-    re.I | re.U | re.X,
+    r"\b(?:EPISODE|EP|ODCINEK|ODC|FOLGE|TEIL|EPISODIO|EPISOD|CHAPITRE|CAPITULO|CAPÍTULO|BÖLÜM|BOLUM|PUNTATA|حلقة|جزء)"
+    r"\s*[.:_-]?\s*\d{1,4}(?:\s*[,/&]\s*\d{1,4})*(?:\s*[.:,-]\s*[^-–—:,()]{0,40})?\b",
+    re.I | re.U,
 )
 
 _PAREN_EPISODE_RE = re.compile(
-    r"""
-    \s*\(
-        [^)]*
-        (?:
-            odc|ep|season|serija|p\.|#|série|stagione|temporada|sezon|
-            حلقة|جزء|موسم
-        )
-        \s*\.?\s*\d+
-        [^)]*
-    \)
-    """,
-    re.I | re.U | re.X,
+    r"\s*\([^)]*(?:odc|ep|season|serija|p\.|#|série|stagione|temporada|sezon|حلقة|جزء|موسم)"
+    r"\s*\.?\s*\d+(?:\s*[,/&]\s*\d+)*[^)]*\)",
+    re.I | re.U,
+)
+
+# Bare numbered-season markers not introduced by the word "season" but
+# immediately followed by an explicit episode marker, e.g.
+# "Show 2: ep. 08", "Show 2, odc.08", "Show 2 - Episode 08". Season is
+# preserved (group "s"); marker + episode number(s) + optional trailing
+# episode-subtitle are removed.
+_NUMBERED_SEASON_MARKER_RE = re.compile(
+    r"\b(?P<s>\d{1,3})\s*(?:[:,]\s*|\s*-\s*)(?:ep(?:isode)?|odc)\.?\s*\d{1,4}(?:\s*[,/&]\s*\d{1,4})*(?:\s*[.:,-]\s*[^-–—:,()]{0,40})?\b",
+    re.I | re.U,
+)
+
+# Same idea, but the episode marker sits inside parentheses, e.g.
+# "Show 2 (odc. 08)", "Sonic Prime I (14)", "Balthazar III (2)",
+# "Ordinace v růžové zahradě II (447)". A plain digit before the
+# parenthesis is preserved as season; a Roman numeral is treated as
+# season syntax and dropped along with it. Roman-numeral seasons allow
+# a wider bare episode-count range (up to 4 digits) since a Roman
+# numeral directly before parens is never a stray year annotation,
+# unlike a plain digit (which could precede "(1982)").
+_NUMBERED_SEASON_PAREN_RE = re.compile(
+    r"\s(?P<s>\d{1,3})\s*\("
+    r"(?:(?:ep(?:isode)?|odc)\.?\s*\d{1,4}(?:\s*[,/&]\s*\d{1,4})*|\d{1,2}(?:\s*[,/&]\s*\d{1,2})*)\)"
+    r"|\s(?P<sr>" + _ROMAN_NUM + r")\s*\("
+    r"(?:(?:ep(?:isode)?|odc)\.?\s*)?\d{1,4}(?:\s*[,/&]\s*\d{1,4})*\)",
+    re.I | re.U,
+)
+
+# A bare trailing "(N)" episode counter with no season marker at all,
+# e.g. "Zoom In (211)", "Riskuj! (1033)", "Susedia (8)". Excludes
+# plausible 4-digit years so "Ted 2 (1982)" is left untouched.
+_TRAILING_EPISODE_PAREN_RE = re.compile(
+    r"\s*\((?!(?:19\d{2}|20[0-4]\d)\))\d{1,4}\)\s*$",
+    re.I | re.U,
+)
+
+# NEW: Season-episode with just a dash, e.g. "37 - 13"
+_SEASON_EPISODE_DASH_RE = re.compile(
+    r'\b(?P<s>\d{1,3})\s*[-–]\s*(?P<e>\d{1,4})[\s.,;:!]*$',
+    re.I | re.U
 )
 
 _TRAILING_FILM_RE = re.compile(
     r"""
     \s*,?\s*
     (?:
-        film|movie|reality\s*show|talk-show|
-        dokumentarni|dokumentar|documentary|reality
+        film|movie|reality\s*show|talk-show|serija|
+        dokumentarni|dokumentar|documentary|reality|
+        pillole|galeria|promo|promocyjny|trailer|extra
     )
     \s*$
     """,
@@ -590,7 +628,7 @@ _AMBIGUOUS_TRAILING_RE = re.compile(
 
 def _separator_normalize(text):
     text = text.replace("_", " ")
-    text = re.sub(r"[|/\\]+", " ", text)
+    text = re.sub(r"[|\\]+", " ", text)
     text = re.sub(r"\s*[–—]\s*", " - ", text)
     return text
 
@@ -623,6 +661,27 @@ def _extract_season(text):
     match = _ROMAN_SEASON_WORD_RE.search(text)
     if match:
         season = _number_value(match.group("s"))
+        text = text[:match.start()] + " " + text[match.end():]
+        return season, text
+
+    match = _NUMBERED_SEASON_MARKER_RE.search(text)
+    if match:
+        season = _number_value(match.group("s"))
+        text = text[:match.start()] + " " + text[match.end():]
+        return season, text
+
+    match = _NUMBERED_SEASON_PAREN_RE.search(text)
+    if match:
+        raw_s = match.group("s")
+        season = _number_value(raw_s) if raw_s else None
+        text = text[:match.start()] + " " + text[match.end():]
+        return season, text
+
+    # NEW: dash-separated season-episode at end, e.g. "37 - 13"
+    match = _SEASON_EPISODE_DASH_RE.search(text)
+    if match:
+        season = _number_value(match.group("s"))
+        # Remove the entire " - episode" part
         text = text[:match.start()] + " " + text[match.end():]
         return season, text
 
@@ -660,6 +719,7 @@ def simple_clean_title(raw):
         season, text = _extract_season(text)
 
         text = _PAREN_EPISODE_RE.sub(" ", text)
+        text = _TRAILING_EPISODE_PAREN_RE.sub("", text)
         text = _PART_RE.sub(" ", text)
         text = _JUNK_WORDS_RE.sub(" ", text)
         text = _NOISE_PHRASE_RE.sub(" ", text)
@@ -714,10 +774,26 @@ def simple_clean_title(raw):
         if raw_clean and raw_clean not in candidates:
             candidates.append(raw_clean)
 
+        # ================================================================
+        # FINAL CLEANUP: Remove trailing punctuation from each candidate
+        # ================================================================
         result = []
-        for candidate in candidates:
-            if candidate and len(candidate) > 1 and candidate not in result:
-                result.append(candidate)
+        for c in candidates:
+            c = re.sub(r"\s+", " ", to_text(c)).strip().lower()
+
+            # Protect digit-dash-digit before removing punctuation
+            c = re.sub(r"(\d)\s*-\s*(\d)", r"\1¤\2", c)
+
+            # Remove all trailing punctuation that is not a digit
+            c = re.sub(r"[\s:;,\-–—.]+$", "", c)
+
+            # Remove stray apostrophes
+            c = re.sub(r"(?<!\w)'|'(?!\\w)", " ", c)
+            c = re.sub(r"\s+", " ", c).strip()
+            c = c.replace("¤", "-")
+
+            if c and len(c) > 1 and c not in result:
+                result.append(c)
             if len(result) >= 4:
                 break
 
