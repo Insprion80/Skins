@@ -1,404 +1,506 @@
-2026-09-15 09:21:28 | NOT_FOUND  | TMDB_NO_MA | FATEEN                                   | FATEEN                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:21:28 | NOT_FOUND  | TMDB_NO_MA | AMOUNA                                   | AMOUNA                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:21:40 | NOT_FOUND  | TMDB_NO_MA | Shaqet Faisal                            | Shaqet Faisal                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:21:43 | NOT_FOUND  | ELCIN_NO_M | Ahlan Bi El Sittat                       | Ahlan Bi El Sittat                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:21:44 | NOT_FOUND  | CACHE_NEGA | Ahlan Bi El Sittat                       | Ahlan Bi El Sittat                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:21:44 | NOT_FOUND  | CACHE_NEGA | Shaqet Faisal                            | Shaqet Faisal                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:21:45 | NOT_FOUND  | CACHE_NEGA | Ahlan Bi El Sittat                       | Ahlan Bi El Sittat                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:21:45 | NOT_FOUND  | CACHE_NEGA | Shaqet Faisal                            | Shaqet Faisal                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:21:47 | NOT_FOUND  | CACHE_NEGA | Ahlan Bi El Sittat                       | Ahlan Bi El Sittat                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:21:47 | NOT_FOUND  | CACHE_NEGA | Shaqet Faisal                            | Shaqet Faisal                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:21:51 | NOT_FOUND  | ELCIN_NO_M | Min El Qalb Lil Qalb                     | Min El Qalb Lil Qalb                     | P:-   B:-   L:-   M:-  
-2026-09-15 09:21:51 | NOT_FOUND  | CACHE_NEGA | Min El Qalb Lil Qalb                     | Min El Qalb Lil Qalb                     | P:-   B:-   L:-   M:-  
-2026-09-15 09:21:55 | NOT_FOUND  | TMDB_NO_MA | Min Kothr Hobbi Lak                      | Min Kothr Hobbi Lak                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:21:56 | NOT_FOUND  | ELCIN_NO_M | Asdiqaa Al Omr                           | Asdiqaa Al Omr                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:05 | NOT_FOUND  | ELCIN_NO_M | اسماعيل يس بوليس سرى                     | اسماعيل يس بوليس سرى                     | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:06 | NOT_FOUND  | ELCIN_NO_M | مصر تستطيع                               | مصر تستطيع                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:09 | NOT_FOUND  | CACHE_NEGA | اسماعيل يس بوليس سرى                     | اسماعيل يس بوليس سرى                     | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:09 | NOT_FOUND  | CACHE_NEGA | مصر تستطيع                               | مصر تستطيع                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:14 | NOT_FOUND  | ELCIN_NO_M | مصر تغنى                                 | مصر تغنى                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:14 | NOT_FOUND  | ELCIN_NO_M | كورة كل يوم                              | كورة كل يوم                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:22 | NOT_FOUND  | CACHE_NEGA | كورة كل يوم                              | كورة كل يوم                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:22 | NOT_FOUND  | CACHE_NEGA | مصر تغنى                                 | مصر تغنى                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:37 | NOT_FOUND  | TMDB_NO_MA | Lil Mawt                                 | Lil Mawt                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:38 | NOT_FOUND  | ELCIN_NO_M | Woroud Wa Thonoub                        | Woroud Wa Thonoub                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:42 | NOT_FOUND  | ELCIN_NO_M | Sirr Al Haneen                           | Sirr Al Haneen                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:44 | NOT_FOUND  | ELCIN_NO_M | Ala Sada Al Khalkhal                     | Ala Sada Al Khalkhal                     | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:53 | NOT_FOUND  | ELCIN_NO_M | جديد وسريع                               | جديد وسريع                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:54 | NOT_FOUND  | ELCIN_NO_M | عمايل ايديا                              | عمايل ايديا                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:54 | NOT_FOUND  | ELCIN_NO_M | ناناة                                    | ناناة                                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:22:55 | NOT_FOUND  | ELCIN_NO_M | زعفران و فانيلا                          | زعفران و فانيلا                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:05 | NOT_FOUND  | ELCIN_NO_M | مذيع الاخبار                             | مذيع الاخبار                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:06 | NOT_FOUND  | ELCIN_NO_M | رعد وعجرفة                               | رعد وعجرفة                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:08 | NOT_FOUND  | CACHE_NEGA | رعد وعجرفة                               | رعد وعجرفة                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:08 | NOT_FOUND  | CACHE_NEGA | مذيع الاخبار                             | مذيع الاخبار                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:08 | NOT_FOUND  | CACHE_NEGA | رعد وعجرفة                               | رعد وعجرفة                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:09 | NOT_FOUND  | TMDB_NO_MA | Sherlock & Daughter - 3                  | Sherlock & Daughter - 3                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:13 | NOT_FOUND  | TMDB_NO_MA | Two Weeks In August - 4                  | Two Weeks In August - 4                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:17 | NOT_FOUND  | ELCIN_NO_M | متزوجون ولهم اطفال 5 ح 9                 | متزوجون ولهم اطفال 5                     | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:19 | NOT_FOUND  | ELCIN_NO_M | عرض سنوات ال70                           | عرض سنوات ال70                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:20 | NOT_FOUND  | TMDB_NO_MA | Clip Time - Episode 12                   | Clip Time                                | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:23 | NOT_FOUND  | TMDB_NO_MA | Waves of Love - Ep. 13                   | Waves of Love                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:23 | NOT_FOUND  | TMDB_NO_MA | Little Big Heart - Ep. 24                | Little Big Heart                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:26 | NOT_FOUND  | TMDB_NO_MA | Vendetta 3 - Ep. 625                     | Vendetta                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:28 | NOT_FOUND  | TMDB_NO_MA | Winds Of Love - Ep. 34                   | Winds Of Love                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:30 | NOT_FOUND  | TMDB_NO_MA | Grand Hotel - All Secrets Stay Here - Ep | Grand Hotel - All Secrets Stay Here      | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:31 | NOT_FOUND  | TMDB_NO_MA | Lifeline 3 - Ep. 198                     | Lifeline                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:42 | NOT_FOUND  | TMDB_NO_MA | Przyjaciele 3: odc.5                     | Przyjaciele                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:45 | NOT_FOUND  | TMDB_NO_MA | Na skraju nadziei                        | Na skraju nadziei                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:48 | NOT_FOUND  | TMDB_NO_MA | Wiarołomni 1 (odc. 4)                    | Wiarołomni                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:48 | NOT_FOUND  | TMDB_NO_MA | Premierowa jazda: Rafał Kowalski         | Premierowa jazda: Rafał Kowalski         | P:-   B:-   L:-   M:-  
-2026-09-15 09:23:55 | NOT_FOUND  | TMDB_NO_MA | Bestia 2 (odc. 3)                        | Bestia                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:00 | NOT_FOUND  | CACHE_NEGA | Bestia 2 (odc. 3)                        | Bestia                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:00 | NOT_FOUND  | CACHE_NEGA | Bestia 2 (odc. 4)                        | Bestia                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:02 | NOT_FOUND  | TMDB_NO_MA | Racers                                   | Racers                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:19 | NOT_FOUND  | TMDB_NO_MA | Che Dio ci aiuti - Vite parallele ep.7   | Che Dio ci aiuti - Vite parallele        | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:19 | NOT_FOUND  | TMDB_NO_MA | Che Dio ci aiuti - Donne e motori ep.8   | Che Dio ci aiuti - Donne e motori        | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:20 | NOT_FOUND  | ELCIN_NO_M | Un posto al sole 30 - p.142              | Un posto al sole 30                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:24 | NOT_FOUND  | TMDB_NO_MA | Jasnowidzka i to, co niewidzialne        | Jasnowidzka i to, co niewidzialne        | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:30 | NOT_FOUND  | TMDB_NO_MA | Kasandra 4: odc.1                        | Kasandra                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:30 | NOT_FOUND  | TMDB_NO_MA | Zbrodnia w Luberon                       | Zbrodnia w Luberon                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:30 | NOT_FOUND  | TMDB_NO_MA | Morderstwo w Sainte Baume                | Morderstwo w Sainte Baume                | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:31 | NOT_FOUND  | TMDB_NO_MA | Motyw 2 (odc. 8)                         | Motyw                                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:34 | NOT_FOUND  | TMDB_NO_MA | Brytyjskie fabryki 10: odc.2             | Brytyjskie fabryki                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:39 | NOT_FOUND  | TMDB_NO_MA | Rodzina Steedów - część 2                | Rodzina Steedów - część 2                | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:42 | NOT_FOUND  | TMDB_NO_MA | Goldbergowie 7 (odc. 10)                 | Goldbergowie                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:44 | NOT_FOUND  | TMDB_NO_MA | Sniff, pies bohater                      | Sniff, pies bohater                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:44 | NOT_FOUND  | TMDB_NO_MA | Pies z armii                             | Pies z armii                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:48 | NOT_FOUND  | TMDB_NO_MA | Dama z burleski                          | Dama z burleski                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:48 | NOT_FOUND  | TMDB_NO_MA | Malowana pustynia                        | Malowana pustynia                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:54 | NOT_FOUND  | CACHE_NEGA | Przyjaciele 9: odc.21                    | Przyjaciele                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:54 | NOT_FOUND  | CACHE_NEGA | Przyjaciele 9: odc.22                    | Przyjaciele                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:24:54 | NOT_FOUND  | CACHE_NEGA | Przyjaciele 9: odc.17                    | Przyjaciele                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:11 | NOT_FOUND  | TMDB_NO_MA | Widok za miliony: odc.13                 | Widok za miliony                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:11 | NOT_FOUND  | TMDB_NO_MA | Widok za miliony - Ameryka 2: odc.1      | Widok za miliony - Ameryka               | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:11 | NOT_FOUND  | TMDB_NO_MA | Sposób na zamek 6: odc.13                | Sposób na zamek                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:25 | NOT_FOUND  | TMDB_NO_MA | Pan Kleks w kosmosie: Porwanie Agnieszki | Pan Kleks w kosmosie: Porwanie Agnieszki | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:26 | NOT_FOUND  | TMDB_NO_MA | Potop: odc.2                             | Potop                                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:31 | NOT_FOUND  | TMDB_NO_MA | Pyszne dania w 10 minut z Julią Oleś 2:  | Pyszne dania w 10 minut z Julią Oleś     | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:31 | NOT_FOUND  | TMDB_NO_MA | Robert Makłowicz: Polska - Międzyzdroje  | Robert Makłowicz: Polska - Międzyzdroje  | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:32 | NOT_FOUND  | TMDB_NO_MA | Pastorka                                 | Pastorka                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:32 | NOT_FOUND  | TMDB_NO_MA | Statek Marzeń - Mauritius                | Statek Marzeń - Mauritius                | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:34 | NOT_FOUND  | TMDB_NO_MA | Kabaretowy szał 4: Jurki: odc.7          | Kabaretowy szał 4: Jurki                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:34 | NOT_FOUND  | TMDB_NO_MA | Kabaretowy szał 4: Ciach: odc.6          | Kabaretowy szał 4: Ciach                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:34 | NOT_FOUND  | TMDB_NO_MA | Kabaretowy szał 4: Chyba: odc.8          | Kabaretowy szał 4: Chyba                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:34 | NOT_FOUND  | TMDB_NO_MA | Kabaretowy szał 4: Moralnego Niepokoju:  | Kabaretowy szał 4: Moralnego Niepokoju   | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:35 | NOT_FOUND  | TMDB_NO_MA | Sidła namiętności                        | Sidła namiętności                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:35 | NOT_FOUND  | TMDB_NO_MA | Miłość w Cabo 1 (odc. 23)                | Miłość w Cabo                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:38 | NOT_FOUND  | TMDB_NO_MA | Policjanci z sąsiedztwa 4: odc.26        | Policjanci z sąsiedztwa                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:38 | NOT_FOUND  | TMDB_NO_MA | Tłit: odc.1555                           | Tłit                                     | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:38 | NOT_FOUND  | TMDB_NO_MA | Strażacy z sąsiedztwa: odc.8             | Strażacy z sąsiedztwa                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:40 | NOT_FOUND  | TMDB_NO_MA | Handlarz dziełami sztuki Hitlera         | Handlarz dziełami sztuki Hitlera         | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:44 | NOT_FOUND  | TMDB_NO_MA | Gliniarze 7 (odc. 10)                    | Gliniarze                                | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:53 | NOT_FOUND  | TMDB_NO_MA | Odprawa przedmeczowa: Zapowiedź 9. kolej | Odprawa przedmeczowa: Zapowiedź 9. kolej | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:55 | NOT_FOUND  | TMDB_NO_MA | Wypasiona kuchnia: odc.16                | Wypasiona kuchnia                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:55 | NOT_FOUND  | TMDB_NO_MA | Trudne sprawy 15 (odc. 2)                | Trudne sprawy                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:57 | NOT_FOUND  | CACHE_NEGA | Gliniarze: odc.1044                      | Gliniarze                                | P:-   B:-   L:-   M:-  
-2026-09-15 09:25:57 | NOT_FOUND  | CACHE_NEGA | Gliniarze: odc.974                       | Gliniarze                                | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:00 | NOT_FOUND  | CACHE_NEGA | Gliniarze: odc.1044                      | Gliniarze                                | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:00 | NOT_FOUND  | CACHE_NEGA | Gliniarze: odc.974                       | Gliniarze                                | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:08 | NOT_FOUND  | CACHE_NEGA | Wypasiona kuchnia: odc.15                | Wypasiona kuchnia                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:08 | NOT_FOUND  | TMDB_NO_MA | Trudne sprawy II: odc.1363               | Trudne sprawy II                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:08 | NOT_FOUND  | TMDB_NO_MA | Bogaty dom - biedny dom 14 (odc. 3)      | Bogaty dom - biedny dom                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:11 | NOT_FOUND  | TMDB_NO_MA | Zaklinaczka duchów 5: odc.91             | Zaklinaczka duchów                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:11 | NOT_FOUND  | TMDB_NO_MA | Nie igraj z aniołem: odc.161             | Nie igraj z aniołem                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:12 | NOT_FOUND  | TMDB_NO_MA | Masza i Niedźwiedź 9: odc.17             | Masza i Niedźwiedź                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:13 | NOT_FOUND  | TMDB_NO_MA | Na sygnale: Pułapka ewolucji             | Na sygnale: Pułapka ewolucji             | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:14 | NOT_FOUND  | ELCIN_NO_M | Wielkie przygody małego rekina 3: odc.5  | Wielkie przygody małego rekina           | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:14 | NOT_FOUND  | ELCIN_NO_M | Na sygnale: Nie ma takiej opcji          | Na sygnale: Nie ma takiej opcji          | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:16 | NOT_FOUND  | TMDB_NO_MA | Serwis Info                              | Serwis Info                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:18 | NOT_FOUND  | TMDB_NO_MA | Rosół polski: odc.38                     | Rosół polski                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:19 | NOT_FOUND  | TMDB_NO_MA | Kryminalna siódemka                      | Kryminalna siódemka                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:19 | NOT_FOUND  | TMDB_NO_MA | Wykrywacz kłamstw                        | Wykrywacz kłamstw                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:19 | NOT_FOUND  | CACHE_NEGA | Kryminalna siódemka                      | Kryminalna siódemka                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:19 | NOT_FOUND  | TMDB_NO_MA | Dlaczego krowa...: Ptaki                 | Dlaczego krowa...: Ptaki                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:19 | NOT_FOUND  | TMDB_NO_MA | Kochaj bliźniego                         | Kochaj bliźniego                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:19 | NOT_FOUND  | TMDB_NO_MA | Cyberbezpiecznie: Kradzione dane         | Cyberbezpiecznie: Kradzione dane         | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:26 | NOT_FOUND  | TMDB_NO_MA | Kuchenne rewolucje: Kawice, Paradiso: od | Kuchenne rewolucje: Kawice, Paradiso     | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:26 | NOT_FOUND  | TMDB_NO_MA | Kuchenne rewolucje: Lublin, Zapiecek: od | Kuchenne rewolucje: Lublin, Zapiecek     | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:26 | NOT_FOUND  | TMDB_NO_MA | Kuchenne rewolucje: Konstantynów Łódzki, | Kuchenne rewolucje: Konstantynów Łódzki, | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:27 | NOT_FOUND  | TMDB_NO_MA | Raport Turbo                             | Raport Turbo                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:27 | NOT_FOUND  | TMDB_NO_MA | Wyburzacze 8 (odc. 3)                    | Wyburzacze                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:31 | NOT_FOUND  | TMDB_NO_MA | C'est vous qui le dites                  | C'est vous qui le dites                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:35 | NOT_FOUND  | TMDB_NO_MA | Matin Première                           | Matin Première                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:35 | NOT_FOUND  | TMDB_NO_MA | Jets privés: un privilège de milliardair | Jets privés: un privilège de milliardair | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:35 | NOT_FOUND  | TMDB_NO_MA | Les Belges du bout du monde              | Les Belges du bout du monde              | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:35 | NOT_FOUND  | TMDB_NO_MA | Le grand dossier - Le débat              | Le grand dossier - Le débat              | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:35 | NOT_FOUND  | CACHE_NEGA | Matin Première                           | Matin Première                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:37 | NOT_FOUND  | TMDB_NO_MA | Le réveil de Tipik                       | Le réveil de Tipik                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:38 | NOT_FOUND  | TMDB_NO_MA | bel RTL vision                           | bel RTL vision                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:38 | NOT_FOUND  | CACHE_NEGA | bel RTL vision                           | bel RTL vision                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:38 | NOT_FOUND  | TMDB_NO_MA | Shopping Hours                           | Shopping Hours                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:40 | NOT_FOUND  | CACHE_NEGA | Shopping Hours                           | Shopping Hours                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:40 | NOT_FOUND  | CACHE_NEGA | Shopping Hours                           | Shopping Hours                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:41 | NOT_FOUND  | CACHE_NEGA | Shopping Hours                           | Shopping Hours                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:45 | NOT_FOUND  | TMDB_NO_MA | Mattino Cinque News                      | Mattino Cinque News                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:46 | NOT_FOUND  | TMDB_NO_MA | Forum                                    | Forum                                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:51 | NOT_FOUND  | TMDB_NO_MA | Rai Parlamento Telegiornale              | Rai Parlamento Telegiornale              | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:51 | NOT_FOUND  | TMDB_NO_MA | TG 1 L.I.S.                              | TG 1 L.I.S                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:51 | NOT_FOUND  | TMDB_NO_MA | UnoMattina                               | UnoMattina                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:53 | NOT_FOUND  | TMDB_NO_MA | Radio2 Social Club                       | Radio2 Social Club                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:53 | NOT_FOUND  | TMDB_NO_MA | Il volo dell'aquila                      | Il volo dell'aquila                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:53 | NOT_FOUND  | TMDB_NO_MA | Meteo 2                                  | Meteo 2                                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:55 | NOT_FOUND  | TMDB_NO_MA | Agorà                                    | Agorà                                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:55 | NOT_FOUND  | TMDB_NO_MA | Elisir                                   | Elisir                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:56 | NOT_FOUND  | TMDB_NO_MA | Private Eyes II ep.15                    | Private Eyes II                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:56 | NOT_FOUND  | CACHE_NEGA | Private Eyes II ep.15                    | Private Eyes II                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:56 | NOT_FOUND  | TMDB_NO_MA | Fast Forward VIII ep.2                   | Fast Forward VIII                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:26:56 | NOT_FOUND  | TMDB_NO_MA | Senza Traccia II ep.10                   | Senza Traccia II                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:00 | NOT_FOUND  | TMDB_NO_MA | Le isole scozzesi con Ben Fogle S2 Isola | Le isole scozzesi con Ben Fogle Isola    | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:00 | NOT_FOUND  | CACHE_NEGA | Le isole scozzesi con Ben Fogle S2 Isola | Le isole scozzesi con Ben Fogle Isola    | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:00 | NOT_FOUND  | TMDB_NO_MA | Le meraviglie del Pianeta Ep. 1 - Territ | Le meraviglie del Pianeta                | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:00 | NOT_FOUND  | TMDB_NO_MA | Geo 2026-2027 1 tx Rai                   | Geo -2027 1 tx Rai                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:00 | NOT_FOUND  | TMDB_NO_MA | Overland 22 Pakistan: ai piedi dei gigan | Overland 22 Pakistan: ai piedi dei gigan | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:02 | NOT_FOUND  | CACHE_NEGA | Odprawa przedmeczowa: Zapowiedź 9. kolej | Odprawa przedmeczowa: Zapowiedź 9. kolej | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:03 | NOT_FOUND  | CACHE_NEGA | Trudne sprawy 15 (odc. 2)                | Trudne sprawy                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:03 | NOT_FOUND  | CACHE_NEGA | Wypasiona kuchnia: odc.16                | Wypasiona kuchnia                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:03 | NOT_FOUND  | CACHE_NEGA | Trudne sprawy 15 (odc. 2)                | Trudne sprawy                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:10 | NOT_FOUND  | TMDB_NO_MA | Wieża zabaw: odc.15                      | Wieża zabaw                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:10 | NOT_FOUND  | TMDB_NO_MA | Nikhil i Jay: odc.30                     | Nikhil i Jay                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:10 | NOT_FOUND  | TMDB_NO_MA | JoJo i Babcia 2: odc.39                  | JoJo i Babcia                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:10 | NOT_FOUND  | TMDB_NO_MA | Blue 3: odc.41                           | Blue                                     | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:14 | NOT_FOUND  | CACHE_NEGA | Blue 3: odc.139                          | Blue                                     | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:22 | NOT_FOUND  | TMDB_NO_MA | Barbapapa - szczęśliwa rodzinka! 1 (odc. | Barbapapa - szczęśliwa rodzinka!         | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:22 | NOT_FOUND  | TMDB_NO_MA | Pan Krokodyl 1 (odc. 7)                  | Pan Krokodyl                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:28 | NOT_FOUND  | TMDB_NO_MA | Dino Kumple: odc.15                      | Dino Kumple                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:31 | NOT_FOUND  | CACHE_NEGA | Dino Kumple: odc.15                      | Dino Kumple                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:31 | NOT_FOUND  | CACHE_NEGA | Dino Kumple: odc.15                      | Dino Kumple                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:33 | NOT_FOUND  | TMDB_NO_MA | Króliczek Bing 4: odc.10                 | Króliczek Bing                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:33 | NOT_FOUND  | TMDB_NO_MA | Lego Duplo Nursery Rhymes: odc.16        | Lego Duplo Nursery Rhymes                | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:38 | NOT_FOUND  | ELCIN_NO_M | Małpka wie - nauczy cię 2: odc.12        | Małpka wie - nauczy cię                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:40 | NOT_FOUND  | TMDB_NO_MA | Firebuds 3 EP.55                         | Firebuds 3                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:40 | NOT_FOUND  | TMDB_NO_MA | Hello Kitty Super Style 2 EP.11          | Hello Kitty Super Style 2                | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:45 | NOT_FOUND  | CACHE_NEGA | Racers                                   | Racers                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:50 | NOT_FOUND  | TMDB_NO_MA | Bonjour !. "Avec vous"...                | Bonjour! . "Avec vous"                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:54 | NOT_FOUND  | TMDB_NO_MA | TOP Info. "Episode 258"...               | TOP Info. "                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:54 | NOT_FOUND  | TMDB_NO_MA | Les frères Scott. "Tous au...            | Les frères Scott. "Tous au               | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:54 | NOT_FOUND  | TMDB_NO_MA | Baby boom. "Naissances sous...           | Baby boom. "Naissances sous              | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:54 | NOT_FOUND  | TMDB_NO_MA | Sous le soleil. "La fille...             | Sous le soleil. "La fille                | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:54 | NOT_FOUND  | TMDB_NO_MA | Sous le soleil. "Prise...                | Sous le soleil. "Prise                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:54 | NOT_FOUND  | TMDB_NO_MA | Drop Dead Diva. "Maladie...              | Drop Dead Diva. "Maladie                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:54 | NOT_FOUND  | TMDB_NO_MA | Drop Dead Diva. "Tout pour...            | Drop Dead Diva. "Tout pour               | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:55 | NOT_FOUND  | TMDB_NO_MA | Drop Dead Diva. "Secret de...            | Drop Dead Diva. "Secret de               | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:55 | NOT_FOUND  | CACHE_NEGA | TOP Info. "Episode 258"...               | TOP Info. "                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:55 | NOT_FOUND  | CACHE_NEGA | Baby boom. "Naissances sous...           | Baby boom. "Naissances sous              | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:55 | NOT_FOUND  | CACHE_NEGA | Les frères Scott. "Tous au...            | Les frères Scott. "Tous au               | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:55 | NOT_FOUND  | CACHE_NEGA | TOP Info. "Episode 258"...               | TOP Info. "                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:58 | NOT_FOUND  | CACHE_NEGA | Sous le soleil. "La fille...             | Sous le soleil. "La fille                | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:58 | NOT_FOUND  | CACHE_NEGA | Sous le soleil. "Prise...                | Sous le soleil. "Prise                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:58 | NOT_FOUND  | CACHE_NEGA | Drop Dead Diva. "Maladie...              | Drop Dead Diva. "Maladie                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:58 | NOT_FOUND  | CACHE_NEGA | Drop Dead Diva. "Tout pour...            | Drop Dead Diva. "Tout pour               | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:58 | NOT_FOUND  | CACHE_NEGA | Drop Dead Diva. "Secret de...            | Drop Dead Diva. "Secret de               | P:-   B:-   L:-   M:-  
-2026-09-15 09:27:58 | NOT_FOUND  | CACHE_NEGA | Sous le soleil. "La fille...             | Sous le soleil. "La fille                | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:02 | NOT_FOUND  | TMDB_NO_MA | Spots Partenaires C8 / Cstar             | Spots Partenaires C8/ Cstar              | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:02 | NOT_FOUND  | TMDB_NO_MA | Top Actu                                 | Top Actu                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:02 | NOT_FOUND  | TMDB_NO_MA | Top Albums                               | Top Albums                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:03 | NOT_FOUND  | TMDB_NO_MA | Top CStar                                | Top CStar                                | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:05 | NOT_FOUND  | CACHE_NEGA | Spots Partenaires C8 / Cstar             | Spots Partenaires C8/ Cstar              | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:05 | NOT_FOUND  | CACHE_NEGA | Top CStar                                | Top CStar                                | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:05 | NOT_FOUND  | CACHE_NEGA | Top Albums                               | Top Albums                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:05 | NOT_FOUND  | CACHE_NEGA | Top Actu                                 | Top Actu                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:11 | NOT_FOUND  | TMDB_NO_MA | Les visages du crime en région           | Les visages du crime en région           | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:12 | NOT_FOUND  | TMDB_NO_MA | Nos héros du quotidien                   | Nos héros du quotidien                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:15 | NOT_FOUND  | TMDB_NO_MA | Télématin, la suite                      | Télématin, la suite                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:15 | NOT_FOUND  | TMDB_NO_MA | Journal Météo climat outre-mer           | Journal Météo climat outre-mer           | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:17 | NOT_FOUND  | TMDB_NO_MA | ICI Matin                                | ICI Matin                                | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:17 | NOT_FOUND  | TMDB_NO_MA | ICI dans votre région                    | ICI dans votre région                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:17 | NOT_FOUND  | TMDB_NO_MA | Escales en France                        | Escales en France                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:20 | NOT_FOUND  | TMDB_NO_MA | Mojo TipTop                              | Mojo TipTop                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:24 | NOT_FOUND  | TMDB_NO_MA | V6                                       | V6                                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:25 | NOT_FOUND  | TMDB_NO_MA | LCI Live                                 | LCI Live                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:25 | NOT_FOUND  | TMDB_NO_MA | L'interview d'Amélie Carrouër            | L'interview d'Amélie Carrouër            | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:25 | NOT_FOUND  | TMDB_NO_MA | Brunet Sans filtre                       | Brunet Sans filtre                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:26 | NOT_FOUND  | TMDB_NO_MA | Bonjour chez vous !                      | Bonjour chez vous!                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:26 | NOT_FOUND  | TMDB_NO_MA | 100% Sénat                               | 100% Sénat                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:26 | NOT_FOUND  | TMDB_NO_MA | La politique et moi                      | La politique et moi                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:28 | NOT_FOUND  | TMDB_NO_MA | LE MORNING - LE SUPPLEMENT               | LE MORNING - LE SUPPLEMENT               | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:28 | NOT_FOUND  | TMDB_NO_MA | LES GRANDES GUEULES : DÉBAT, SOCIÉTÉ, DI | LES GRANDES GUEULES: DÉBAT, SOCIÉTÉ, DIV | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:29 | NOT_FOUND  | TMDB_NO_MA | LE MYSTÈRE D'OAK ISLAND : LA COURSE AU T | LE MYSTÈRE D'OAK ISLAND: LA COURSE AU TR | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:30 | NOT_FOUND  | TMDB_NO_MA | Grand Teton, la reine des Griz           | Grand Teton, la reine des Griz           | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:30 | NOT_FOUND  | TMDB_NO_MA | Extrême Namibie                          | Extrême Namibie                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:32 | NOT_FOUND  | TMDB_NO_MA | La Garonne, précieuse goutte d'eau       | La Garonne, précieuse goutte d'eau       | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:33 | NOT_FOUND  | TMDB_NO_MA | Chasseur d'aventure                      | Chasseur d'aventure                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:33 | NOT_FOUND  | TMDB_NO_MA | Bleu blanc or                            | Bleu blanc or                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:33 | NOT_FOUND  | TMDB_NO_MA | Là où mes chiens m'amènent               | Là où mes chiens m'amènent               | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:33 | NOT_FOUND  | TMDB_NO_MA | Chiens d'arrêt de A à Z                  | Chiens d'arrêt de A à Z                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:35 | NOT_FOUND  | TMDB_NO_MA | Abyss, les plongeurs de l'impossible     | Abyss, les plongeurs de l'impossible     | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:35 | NOT_FOUND  | TMDB_NO_MA | Rêve de gosses                           | Rêve de gosses                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:36 | NOT_FOUND  | TMDB_NO_MA | J'irai atterrir chez vous !              | J'irai atterrir chez vous!               | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:43 | NOT_FOUND  | TMDB_NO_MA | Les pires meurtres d'Afrique du Sud      | Les pires meurtres d'Afrique du Sud      | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:45 | NOT_FOUND  | TMDB_NO_MA | Réparer la nature                        | Réparer la nature                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:49 | NOT_FOUND  | TMDB_NO_MA | High Side : Le Meilleur                  | High Side: Le Meilleur                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:51 | NOT_FOUND  | TMDB_NO_MA | Météo 9h                                 | Météo 9h                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:51 | NOT_FOUND  | TMDB_NO_MA | 100% Frontières                          | 100% Frontières                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:53 | NOT_FOUND  | TMDB_NO_MA | 8h30 franceinfo                          | 8h30 franceinfo                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:53 | NOT_FOUND  | TMDB_NO_MA | L'info s'éclaire                         | L'info s'éclaire                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:53 | NOT_FOUND  | TMDB_NO_MA | Le fil info                              | Le fil info                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:53 | NOT_FOUND  | TMDB_NO_MA | L'info outre-mer                         | L'info outre-mer                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:54 | NOT_FOUND  | TMDB_NO_MA | Invitation au voyage - Hanoï / Andes / B | Invitation au voyage - Hanoï/ Andes/ Bén | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:54 | NOT_FOUND  | TMDB_NO_MA | Les États-Unis sur les flots - Le long d | Les États-Unis sur les flots - Le long d | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:54 | NOT_FOUND  | TMDB_NO_MA | Invitation au voyage - Le Gujarat de Gan | Invitation au voyage - Le Gujarat de Gan | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:54 | NOT_FOUND  | TMDB_NO_MA | Les États-Unis sur les flots - Les Grand | Les États-Unis sur les flots - Les Grand | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:54 | NOT_FOUND  | TMDB_NO_MA | Les États-Unis sur les flots - Le long d | Les États-Unis sur les flots - Le long d | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:56 | NOT_FOUND  | TMDB_NO_MA | Midi BFM                                 | Midi BFM                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:28:56 | NOT_FOUND  | TMDB_NO_MA | Arnaud direct                            | Arnaud direct                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:17 | NOT_FOUND  | TMDB_NO_MA | Poszukiwacze domów: raj na własność: odc | Poszukiwacze domów: raj na własność      | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:20 | NOT_FOUND  | TMDB_NO_MA | Planet Earth III - Le meraviglie della n | Planet Earth III - Le meraviglie della n | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:20 | NOT_FOUND  | TMDB_NO_MA | Prove sepolte - le avventure dell'archeo | Prove sepolte - le avventure dell'archeo | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:26 | NOT_FOUND  | CACHE_NEGA | Mattino Cinque News                      | Mattino Cinque News                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:26 | NOT_FOUND  | CACHE_NEGA | Forum                                    | Forum                                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:30 | NOT_FOUND  | CACHE_NEGA | UnoMattina                               | UnoMattina                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:30 | NOT_FOUND  | CACHE_NEGA | Rai Parlamento Telegiornale              | Rai Parlamento Telegiornale              | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:30 | NOT_FOUND  | CACHE_NEGA | TG 1 L.I.S.                              | TG 1 L.I.S                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:32 | NOT_FOUND  | CACHE_NEGA | Il volo dell'aquila                      | Il volo dell'aquila                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:32 | NOT_FOUND  | CACHE_NEGA | Radio2 Social Club                       | Radio2 Social Club                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:32 | NOT_FOUND  | CACHE_NEGA | Meteo 2                                  | Meteo 2                                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:32 | NOT_FOUND  | CACHE_NEGA | Il volo dell'aquila                      | Il volo dell'aquila                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:33 | NOT_FOUND  | CACHE_NEGA | Agorà                                    | Agorà                                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:33 | NOT_FOUND  | CACHE_NEGA | Elisir                                   | Elisir                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:33 | NOT_FOUND  | CACHE_NEGA | Agorà                                    | Agorà                                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:34 | NOT_FOUND  | CACHE_NEGA | Private Eyes II ep.15                    | Private Eyes II                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:34 | NOT_FOUND  | CACHE_NEGA | Fast Forward VIII ep.2                   | Fast Forward VIII                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:34 | NOT_FOUND  | CACHE_NEGA | Senza Traccia II ep.10                   | Senza Traccia II                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:34 | NOT_FOUND  | CACHE_NEGA | Private Eyes II ep.15                    | Private Eyes II                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:36 | NOT_FOUND  | CACHE_NEGA | Le isole scozzesi con Ben Fogle S2 Isola | Le isole scozzesi con Ben Fogle Isola    | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:36 | NOT_FOUND  | CACHE_NEGA | Le meraviglie del Pianeta Ep. 1 - Territ | Le meraviglie del Pianeta                | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:36 | NOT_FOUND  | CACHE_NEGA | Geo 2026-2027 1 tx Rai                   | Geo -2027 1 tx Rai                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:36 | NOT_FOUND  | CACHE_NEGA | Overland 22 Pakistan: ai piedi dei gigan | Overland 22 Pakistan: ai piedi dei gigan | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:36 | NOT_FOUND  | CACHE_NEGA | Le isole scozzesi con Ben Fogle S2 Isola | Le isole scozzesi con Ben Fogle Isola    | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:39 | NOT_FOUND  | TMDB_NO_MA | Che Dio ci aiuti - Vite parallele ep.7   | Che Dio ci aiuti - Vite parallele        | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:39 | NOT_FOUND  | TMDB_NO_MA | Che Dio ci aiuti - Donne e motori ep.8   | Che Dio ci aiuti - Donne e motori        | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:41 | NOT_FOUND  | CACHE_NEGA | Firebuds 3 EP.55                         | Firebuds 3                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:41 | NOT_FOUND  | CACHE_NEGA | Hello Kitty Super Style 2 EP.11          | Hello Kitty Super Style 2                | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:41 | NOT_FOUND  | CACHE_NEGA | Hello Kitty Super Style 2 EP.12          | Hello Kitty Super Style 2                | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:42 | NOT_FOUND  | CACHE_NEGA | Firebuds 3 EP.55                         | Firebuds 3                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:42 | NOT_FOUND  | ELCIN_NO_M | Un posto al sole 30 - p.142              | Un posto al sole 30                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:43 | NOT_FOUND  | TMDB_NO_MA | LA BANDA DELLA NATURA - EP. 45           | LA BANDA DELLA NATURA                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:47 | NOT_FOUND  | TMDB_NO_MA | Il giorno e la storia                    | Il giorno e la storia                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:47 | NOT_FOUND  | TMDB_NO_MA | Trapani Show Pt.3                        | Trapani Show                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:47 | NOT_FOUND  | TMDB_NO_MA | Passato e presente - L'egittomania       | Passato e presente - L'egittomania       | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:47 | NOT_FOUND  | TMDB_NO_MA | Viaggio in Sicilia.La mia Palermo        | Viaggio in Sicilia.La mia Palermo        | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:47 | NOT_FOUND  | TMDB_NO_MA | Gli occhi cambiano.Ridere                | Gli occhi cambiano.Ridere                | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:48 | NOT_FOUND  | TMDB_NO_MA | Un giorno per: il paesaggio              | Un giorno per: il paesaggio              | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:48 | NOT_FOUND  | TMDB_NO_MA | Progetto Scienza 2022 Newton - p.17 - La | Progetto Scienza Newton                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:48 | NOT_FOUND  | TMDB_NO_MA | Borneo, la foresta ancestrale            | Borneo, la foresta ancestrale            | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:52 | NOT_FOUND  | TMDB_NO_MA | IL RUGGITO DEL CONIGLIO                  | IL RUGGITO DEL CONIGLIO                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:52 | NOT_FOUND  | TMDB_NO_MA | RADIO2 SOCIAL CLUB                       | RADIO2 SOCIAL CLUB                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:29:52 | NOT_FOUND  | TMDB_NO_MA | segue IL RUGGITO DEL CONIGLIO            | segue IL RUGGITO DEL CONIGLIO            | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:04 | NOT_FOUND  | TMDB_NO_MA | Transportuesi                            | Transportuesi                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:04 | NOT_FOUND  | TMDB_NO_MA | Rrjedha                                  | Rrjedha                                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:04 | NOT_FOUND  | TMDB_NO_MA | Pagesa                                   | Pagesa                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:04 | NOT_FOUND  | TMDB_NO_MA | Njeriu që njihte infinitin               | Njeriu që njihte infinitin               | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:06 | NOT_FOUND  | TMDB_NO_MA | 40 takime në 40 net                      | 40 takime në 40 net                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:06 | NOT_FOUND  | TMDB_NO_MA | Edhe nëse kjo dashuri zhduket sonte      | Edhe nëse kjo dashuri zhduket sonte      | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:06 | NOT_FOUND  | TMDB_NO_MA | Fitili                                   | Fitili                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:06 | NOT_FOUND  | CACHE_NEGA | 40 takime në 40 net                      | 40 takime në 40 net                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:06 | NOT_FOUND  | TMDB_NO_MA | Zonjat të parat                          | Zonjat të parat                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:08 | NOT_FOUND  | TMDB_NO_MA | Kurth në fund të detit                   | Kurth në fund të detit                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:08 | NOT_FOUND  | TMDB_NO_MA | Të jesh një Flin                         | Të jesh një Flin                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:08 | NOT_FOUND  | TMDB_NO_MA | Të shpejtë si vetëtima                   | Të shpejtë vetëtima                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:08 | NOT_FOUND  | TMDB_NO_MA | Në tokë të huaj                          | Në tokë të huaj                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:08 | NOT_FOUND  | TMDB_NO_MA | Dragoi                                   | Dragoi                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:11 | NOT_FOUND  | TMDB_NO_MA | Të vdesësh i ri                          | Të vdesësh i ri                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:11 | NOT_FOUND  | TMDB_NO_MA | Jetën e ke përpara                       | Jetën e ke përpara                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:11 | NOT_FOUND  | TMDB_NO_MA | Arrati dashurie                          | Arrati dashurie                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:11 | NOT_FOUND  | TMDB_NO_MA | Ura e Arnhemit                           | Ura e Arnhemit                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:11 | NOT_FOUND  | TMDB_NO_MA | Kali i Luftës                            | Kali i Luftës                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:13 | NOT_FOUND  | TMDB_NO_MA | Histori e vërtetë                        | Histori e vërtetë                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:13 | NOT_FOUND  | TMDB_NO_MA | Kalorësit e fortë                        | Kalorësit e fortë                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:13 | NOT_FOUND  | TMDB_NO_MA | E keqja të ndjek                         | E keqja të ndjek                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:13 | NOT_FOUND  | TMDB_NO_MA | Përbindëshat mbi rrota                   | Përbindëshat mbi rrota                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:13 | NOT_FOUND  | TMDB_NO_MA | Zoti Krokit                              | Zoti Krokit                              | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:14 | NOT_FOUND  | TMDB_NO_MA | Buzëkuqi nën perçe                       | Buzëkuqi nën perçe                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:14 | NOT_FOUND  | TMDB_NO_MA | Sheshxhirimi                             | Sheshxhirimi                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:14 | NOT_FOUND  | TMDB_NO_MA | Sprova e Kejt Mekollit                   | Sprova e Kejt Mekollit                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:15 | NOT_FOUND  | TMDB_NO_MA | Fundi i një rrugëtimi                    | Fundi i një rrugëtimi                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:15 | NOT_FOUND  | TMDB_NO_MA | Shërbyesja nga Manhatani                 | Shërbyesja nga Manhatani                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:16 | NOT_FOUND  | TMDB_NO_MA | Vizita e monarkëve                       | Vizita e monarkëve                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:16 | NOT_FOUND  | TMDB_NO_MA | Gjaku i humbësve                         | Gjaku i humbësve                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:16 | NOT_FOUND  | TMDB_NO_MA | Lëvizja e pinguinit                      | Lëvizja e pinguinit                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:16 | NOT_FOUND  | TMDB_NO_MA | Një ditë e papritur                      | Një ditë e papritur                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:16 | NOT_FOUND  | TMDB_NO_MA | 1898, të fundit në Filipine              | 1898, të fundit në Filipine              | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:17 | NOT_FOUND  | TMDB_NO_MA | Perandoria                               | Perandoria                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:19 | NOT_FOUND  | TMDB_NO_MA | LAJME ORA 12:00 dhe MOTI                 | LAJME ORA 12: 00 dhe MOTI                | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:19 | NOT_FOUND  | TMDB_NO_MA | Mes'Dritë                                | Mes'Dritë                                | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:19 | NOT_FOUND  | TMDB_NO_MA | Trashegimtari Halef                      | Trashegimtari Halef                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:19 | NOT_FOUND  | TMDB_NO_MA | Hakmarrja e trëndafilit                  | Hakmarrja e trëndafilit                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:21 | NOT_FOUND  | TMDB_NO_MA | Zjarr TV                                 | Zjarr TV                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:23 | NOT_FOUND  | TMDB_NO_MA | Posejdonova avantura, mini-serija        | Posejdonova avantura, mini-serija        | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:27 | NOT_FOUND  | TMDB_NO_MA | Rozvod (5)                               | Rozvod (5)                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:29 | NOT_FOUND  | TMDB_NO_MA | Před kamerou XXIII (34)                  | Před kamerou                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:29 | NOT_FOUND  | TMDB_NO_MA | Za prste polizati, film                  | Za prste polizati                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:29 | NOT_FOUND  | TMDB_NO_MA | U bratskoj zemlji, film                  | U bratskoj zemlji                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:29 | NOT_FOUND  | CACHE_NEGA | Za prste polizati, film                  | Za prste polizati                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:29 | NOT_FOUND  | TMDB_NO_MA | Dobar dan, tugo, film                    | Dobar dan, tugo                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:30 | NOT_FOUND  | TMDB_NO_MA | Zlomený                                  | Zlomený                                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:32 | NOT_FOUND  | TMDB_NO_MA | Na rubu nade, film                       | Na rubu nade                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:32 | NOT_FOUND  | TMDB_NO_MA | Male ljubavi, film                       | Male ljubavi                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:35 | NOT_FOUND  | CACHE_NEGA | Na rubu nade, film                       | Na rubu nade                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:35 | NOT_FOUND  | CACHE_NEGA | Male ljubavi, film                       | Male ljubavi                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:37 | NOT_FOUND  | TMDB_NO_MA | Na hraně naděje                          | Na hraně naděje                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:38 | NOT_FOUND  | TMDB_NO_MA | Quenska logika, film                     | Quenska logika                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:38 | NOT_FOUND  | TMDB_NO_MA | U potrazi za ocem, film                  | U potrazi za ocem                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:39 | NOT_FOUND  | TMDB_NO_MA | Nježnost, film                           | Nježnost                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:39 | NOT_FOUND  | TMDB_NO_MA | Da se ne zaboravi, film                  | Da se ne zaboravi                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:40 | NOT_FOUND  | TMDB_NO_MA | KOLAŽ PROGRAM                            | KOLAŽ PROGRAM                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:41 | NOT_FOUND  | TMDB_NO_MA | Ljubav bez granica, film                 | Ljubav bez granica                       | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:41 | NOT_FOUND  | TMDB_NO_MA | Vremenski gusari, film                   | Vremenski gusari                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:41 | NOT_FOUND  | TMDB_NO_MA | Dokazana krivica, film                   | Dokazana krivica                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:41 | NOT_FOUND  | TMDB_NO_MA | Svijet parkoura, film                    | Svijet parkoura                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:43 | NOT_FOUND  | CACHE_NEGA | KOLAŽ PROGRAM                            | KOLAŽ PROGRAM                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:43 | NOT_FOUND  | TMDB_NO_MA | Boja iz svemira, film                    | Boja iz svemira                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:43 | NOT_FOUND  | TMDB_NO_MA | Djetinjstvo vođe, film                   | Djetinjstvo vođe                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:43 | NOT_FOUND  | TMDB_NO_MA | Nešto je tu čudno, film                  | Nešto je tu čudno                        | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:44 | NOT_FOUND  | CACHE_NEGA | KOLAŽ PROGRAM                            | KOLAŽ PROGRAM                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:44 | NOT_FOUND  | TMDB_NO_MA | Daleki rođaci: Francuska revolucija, fil | Daleki rođaci: Francuska revolucija      | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:44 | NOT_FOUND  | TMDB_NO_MA | Volim, ne volim, film                    | Volim, ne volim                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:44 | NOT_FOUND  | CACHE_NEGA | KOLAŽ PROGRAM                            | KOLAŽ PROGRAM                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:45 | NOT_FOUND  | TMDB_NO_MA | Skutočné vraždy: Záhada starého domu (4) | Skutočné vraždy: Záhada starého domu (4) | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:46 | NOT_FOUND  | TMDB_NO_MA | Louise na obali, film                    | Louise na obali                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:46 | NOT_FOUND  | TMDB_NO_MA | Lastavice i Amazonci, film               | Lastavice i Amazonci                     | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:48 | NOT_FOUND  | TMDB_NO_MA | Ljubav na ledu, TV film                  | Ljubav na ledu                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:48 | NOT_FOUND  | CACHE_NEGA | Skutočné vraždy: Záhada starého domu (4) | Skutočné vraždy: Záhada starého domu (4) | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:48 | NOT_FOUND  | CACHE_NEGA | Louise na obali, film                    | Louise na obali                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:48 | NOT_FOUND  | CACHE_NEGA | Lastavice i Amazonci, film               | Lastavice i Amazonci                     | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:48 | NOT_FOUND  | CACHE_NEGA | Ljubav na ledu, TV film                  | Ljubav na ledu                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:57 | NOT_FOUND  | TMDB_NO_MA | Mušketiri                                | Mušketiri                                | P:-   B:-   L:-   M:-  
-2026-09-15 09:30:57 | NOT_FOUND  | TMDB_NO_MA | Od Lark Risea do Candleforda             | Od Lark Risea do Candleforda             | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:01 | NOT_FOUND  | TMDB_NO_MA | Familja Simpson                          | Familja Simpson                          | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:04 | NOT_FOUND  | TMDB_NO_MA | Dani i vërtetë                           | Dani i vërtetë                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:04 | NOT_FOUND  | TMDB_NO_MA | Peter Rabit 2: The Runaway               | Peter Rabit 2: The Runaway               | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:05 | NOT_FOUND  | TMDB_NO_MA | Danova prava ljubav, film                | Danova prava ljubav                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:07 | NOT_FOUND  | TMDB_NO_MA | Umorstva u Midsomeru 24, ep. 4. serija   | Umorstva u Midsomeru                     | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:07 | NOT_FOUND  | TMDB_NO_MA | Detektiv na Floridi 2, ep. 9. serija     | Detektiv na Floridi                      | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:08 | NOT_FOUND  | TMDB_NO_MA | Dadilja 2, ep. 17. serija                | Dadilja                                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:12 | NOT_FOUND  | TMDB_NO_MA | U sjeni sumnje, ep. 5. serija            | U sjeni sumnje                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:12 | NOT_FOUND  | TMDB_NO_MA | Inspektorica Ray 2, ep. 1. serija        | Inspektorica Ray                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:12 | NOT_FOUND  | TMDB_NO_MA | Glava, ep. 1. serija                     | Glava                                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:13 | NOT_FOUND  | TMDB_NO_MA | Neočekivani sumnjivci, ep. 3. mini-serij | Neočekivani sumnjivci                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:14 | NOT_FOUND  | CACHE_NEGA | Glava, ep. 1. serija                     | Glava                                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:14 | NOT_FOUND  | CACHE_NEGA | U sjeni sumnje, ep. 5. serija            | U sjeni sumnje                           | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:14 | NOT_FOUND  | CACHE_NEGA | Inspektorica Ray 2, ep. 1. serija        | Inspektorica Ray                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:14 | NOT_FOUND  | CACHE_NEGA | Neočekivani sumnjivci, ep. 3. mini-serij | Neočekivani sumnjivci                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:17 | NOT_FOUND  | TMDB_NO_MA | Probudi se                               | Probudi se                               | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:17 | NOT_FOUND  | TMDB_NO_MA | Mentalno razgibavanje                    | Mentalno razgibavanje                    | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:17 | NOT_FOUND  | TMDB_NO_MA | Totalni obrt                             | Totalni obrt                             | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:17 | NOT_FOUND  | TMDB_NO_MA | Glas, Dirka, Bas                         | Glas, Dirka, Bas                         | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:19 | NOT_FOUND  | TMDB_NO_MA | TV izlog                                 | TV izlog                                 | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:20 | NOT_FOUND  | TMDB_NO_MA | Nad lipom 35, ep. 60.                    | Nad lipom                                | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:21 | NOT_FOUND  | TMDB_NO_MA | Ad Astra: Osudová mise                   | Ad Astra: Osudová mise                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:23 | NOT_FOUND  | TMDB_NO_MA | Námořní vyšetřovací služba XX (19)       | Námořní vyšetřovací služba               | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:26 | NOT_FOUND  | TMDB_NO_MA | Moj tata socijalistički kulak, film      | Moj tata socijalistički kulak            | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:26 | NOT_FOUND  | TMDB_NO_MA | Isprani, film                            | Isprani                                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:41 | NOT_FOUND  | CACHE_NEGA | Isprani, film                            | Isprani                                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:41 | NOT_FOUND  | CACHE_NEGA | Moj tata socijalistički kulak, film      | Moj tata socijalistički kulak            | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:41 | NOT_FOUND  | CACHE_NEGA | Isprani, film                            | Isprani                                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:43 | NOT_FOUND  | CACHE_NEGA | Pagesa                                   | Pagesa                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:43 | NOT_FOUND  | CACHE_NEGA | Transportuesi                            | Transportuesi                            | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:43 | NOT_FOUND  | CACHE_NEGA | Rrjedha                                  | Rrjedha                                  | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:43 | NOT_FOUND  | CACHE_NEGA | Njeriu që njihte infinitin               | Njeriu që njihte infinitin               | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:43 | NOT_FOUND  | CACHE_NEGA | Pagesa                                   | Pagesa                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:46 | NOT_FOUND  | CACHE_NEGA | Pagesa                                   | Pagesa                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:46 | NOT_FOUND  | CACHE_NEGA | Pagesa                                   | Pagesa                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:47 | NOT_FOUND  | CACHE_NEGA | Pagesa                                   | Pagesa                                   | P:-   B:-   L:-   M:-  
-2026-09-15 09:31:47 | NOT_FOUND  | CACHE_NEGA | Pagesa                                   | Pagesa                                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:27:38 | NOT_FOUND  | ELCIN_NO_M | Shu Al Rai 2                             | Shu Al Rai 2                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:27:40 | NOT_FOUND  | ELCIN_NO_M | THUNDER                                  | THUNDER                                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:01 | NOT_FOUND  | ELCIN_NO_M | بتول بعمر اربعين                         | بتول بعمر اربعين                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:01 | NOT_FOUND  | ELCIN_NO_M | فتاة مجنونة                              | فتاة مجنونة                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:01 | NOT_FOUND  | ELCIN_NO_M | روك في المدرسة                           | روك في المدرسة                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:05 | NOT_FOUND  | ELCIN_NO_M | Kabul - 6                                | Kabul - 6                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:06 | NOT_FOUND  | ELCIN_NO_M | Hotel Costiera - 1                       | Hotel Costiera - 1                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:06 | NOT_FOUND  | ELCIN_NO_M | The Irrational - 11                      | The Irrational - 11                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:13 | NOT_FOUND  | ELCIN_NO_M | Fire Dance - 2                           | Fire Dance - 2                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:14 | NOT_FOUND  | ELCIN_NO_M | Beauty Queen of Jerusalem - 1            | Beauty Queen of Jerusalem - 1            | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:18 | NOT_FOUND  | ELCIN_NO_M | عرض سنوات ال70                           | عرض سنوات ال70                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:21 | NOT_FOUND  | ELCIN_NO_M | Anashim Ktumim                           | Anashim Ktumim                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:22 | NOT_FOUND  | ELCIN_NO_M | 999 Aliza Mizrahi                        | 999 Aliza Mizrahi                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:31 | NOT_FOUND  | ELCIN_NO_M | One Love Season 4 - Ep. 404              | One Love Season                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:37 | NOT_FOUND  | ELCIN_NO_M | Flame Of Fate - Ep. 56                   | Flame Of Fate                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:46 | NOT_FOUND  | ELCIN_NO_M | Grand Hotel - All Secrets Stay Here - Ep | Grand Hotel                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:50 | NOT_FOUND  | ELCIN_NO_M | Glick and Tamar                          | Glick and Tamar                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:51 | NOT_FOUND  | ELCIN_NO_M | Seven - with Ayala Hasson                | Seven - with Ayala Hasson                | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:51 | NOT_FOUND  | ELCIN_NO_M | The World Today - with Michal Reshef and | The World Today - with Michal Reshef and | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:53 | NOT_FOUND  | ELCIN_NO_M | Kan at Six - with Maya Rachlin           | Kan at - with Maya Rachlin               | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:57 | NOT_FOUND  | ELCIN_NO_M | Main Edition                             | Main Edition                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:58 | NOT_FOUND  | ELCIN_NO_M | Seven PM with - Gidon Uko                | Seven PM with - Gidon Uko                | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:58 | NOT_FOUND  | ELCIN_NO_M | Today's edition - With Amalya Duek and O | Today's edition - With Amalya Duek and O | P:-   B:-   L:-   M:-  
+2026-09-16 16:28:59 | NOT_FOUND  | ELCIN_NO_M | Five With - Rafi Reshef                  | Five With - Rafi Reshef                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:00 | NOT_FOUND  | ELCIN_NO_M | 6:00 P.M with... - Six with...           | 6: 00 P.M with... - with                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:00 | NOT_FOUND  | CACHE_NEGA | Glick and Tamar                          | Glick and Tamar                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:00 | NOT_FOUND  | CACHE_NEGA | The World Today - with Michal Reshef and | The World Today - with Michal Reshef and | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:00 | NOT_FOUND  | CACHE_NEGA | Kan at Six - with Maya Rachlin           | Kan at - with Maya Rachlin               | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:01 | NOT_FOUND  | CACHE_NEGA | Glick and Tamar                          | Glick and Tamar                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:01 | NOT_FOUND  | CACHE_NEGA | Seven - with Ayala Hasson                | Seven - with Ayala Hasson                | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:01 | NOT_FOUND  | ELCIN_NO_M | Moriya & Berko                           | Moriya & Berko                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:02 | NOT_FOUND  | ELCIN_NO_M | Today's Talk - With Lucy Aharish         | Today's Talk - With Lucy Aharish         | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:02 | NOT_FOUND  | ELCIN_NO_M | Election Zone - Raviv Druker             | Election Zone - Raviv Druker             | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:03 | NOT_FOUND  | ELCIN_NO_M | The Main News Edition                    | The Main News Edition                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:03 | NOT_FOUND  | ELCIN_NO_M | Today's News                             | Today's News                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:29 | NOT_FOUND  | ELCIN_NO_M | Trzy rodziny: odc.1                      | Trzy rodziny                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:34 | NOT_FOUND  | ELCIN_NO_M | Premierowa jazda: Rafał Kowalski         | Premierowa jazda: Rafał Kowalski         | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:48 | NOT_FOUND  | ELCIN_NO_M | Star Trek 7: Pokolenia                   | Star Trek 7: Pokolenia                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:55 | NOT_FOUND  | CACHE_NEGA | Star Trek 7: Pokolenia                   | Star Trek 7: Pokolenia                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:55 | NOT_FOUND  | CACHE_NEGA | Star Trek 7: Pokolenia                   | Star Trek 7: Pokolenia                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:29:59 | NOT_FOUND  | CACHE_NEGA | Star Trek 7: Pokolenia                   | Star Trek 7: Pokolenia                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:00 | NOT_FOUND  | CACHE_NEGA | Star Trek 7: Pokolenia                   | Star Trek 7: Pokolenia                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:03 | NOT_FOUND  | ELCIN_NO_M | Pełniejsza chata 3                       | Pełniejsza chata 3                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:07 | NOT_FOUND  | CACHE_NEGA | Pełniejsza chata 3                       | Pełniejsza chata 3                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:07 | NOT_FOUND  | CACHE_NEGA | Pełniejsza chata 3                       | Pełniejsza chata 3                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:07 | NOT_FOUND  | CACHE_NEGA | Pełniejsza chata 3                       | Pełniejsza chata 3                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:07 | NOT_FOUND  | ELCIN_NO_M | Heartland 4 - Fiocco rosa ep.18          | Heartland 4                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:08 | NOT_FOUND  | ELCIN_NO_M | Che Dio ci aiuti - Il gusto della vita e | Che Dio ci aiuti - Il gusto della vita e | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:09 | NOT_FOUND  | CACHE_NEGA | Heartland 4 - Fiocco rosa ep.18          | Heartland 4                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:09 | NOT_FOUND  | CACHE_NEGA | Che Dio ci aiuti - Il gusto della vita e | Che Dio ci aiuti - Il gusto della vita e | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:10 | NOT_FOUND  | ELCIN_NO_M | Anica - Appuntamento al Cinema           | Anica - Appuntamento al Cinema           | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:16 | NOT_FOUND  | CACHE_NEGA | Anica - Appuntamento al Cinema           | Anica - Appuntamento al Cinema           | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:16 | NOT_FOUND  | CACHE_NEGA | Heartland 4 - Fiocco rosa ep.18          | Heartland 4                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:16 | NOT_FOUND  | CACHE_NEGA | Che Dio ci aiuti - Il gusto della vita e | Che Dio ci aiuti - Il gusto della vita e | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:25 | NOT_FOUND  | ELCIN_NO_M | Uroki zwykłego życia                     | Uroki zwykłego życia                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:26 | NOT_FOUND  | ELCIN_NO_M | An Accidental Friendship                 | An Accidental Friendship                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:26 | NOT_FOUND  | ELCIN_NO_M | Mystery Woman 2: Snapshot                | Mystery Woman 2: Snapshot                | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:41 | NOT_FOUND  | ELCIN_NO_M | Morderstwo w Miribel                     | Morderstwo w Miribel                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:47 | NOT_FOUND  | ELCIN_NO_M | Zabójczy cyberszantaż                    | Zabójczy cyberszantaż                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:47 | NOT_FOUND  | ELCIN_NO_M | Ben Fogle w Detroit                      | Ben Fogle w Detroit                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:48 | NOT_FOUND  | ELCIN_NO_M | Brytyjskie fabryki 10: odc.4             | Brytyjskie fabryki                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:48 | NOT_FOUND  | ELCIN_NO_M | Zbrodnie na Szetlandach 2: odc.5         | Zbrodnie na Szetlandach                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:49 | NOT_FOUND  | ELCIN_NO_M | Line of Duty - Wydział wewnętrzny 2: odc | Line of Duty                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:30:58 | NOT_FOUND  | ELCIN_NO_M | Kozie uszy                               | Kozie uszy                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:31:03 | NOT_FOUND  | ELCIN_NO_M | Goldbergowie 7 (odc. 12)                 | Goldbergowie                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:31:11 | NOT_FOUND  | ELCIN_NO_M | Zachowuj się!                            | Zachowuj się!                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:31:11 | NOT_FOUND  | ELCIN_NO_M | Kapitan Kidd                             | Kapitan Kidd                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:31:12 | NOT_FOUND  | ELCIN_NO_M | Obcy                                     | Obcy                                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:31:32 | NOT_FOUND  | ELCIN_NO_M | Jedną nogą w grobie 5: odc.4             | Jedną nogą w grobie                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:31:51 | NOT_FOUND  | ELCIN_NO_M | Zagadki z przeszłości: odc.2             | Zagadki z przeszłości                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:31:59 | NOT_FOUND  | ELCIN_NO_M | Nowy kraj, nowe życie 2 (odc. 7)         | Nowy kraj, nowe życie                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:31:59 | NOT_FOUND  | ELCIN_NO_M | Gdy zaginięcie oznacza najgorsze 1 (odc. | Gdy zaginięcie oznacza najgorsze         | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:00 | NOT_FOUND  | ELCIN_NO_M | Panna Marple: Błękitne geranium          | Panna Marple: Błękitne geranium          | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:00 | NOT_FOUND  | ELCIN_NO_M | Wesele, ale gdzie? 2 (odc. 2)            | Wesele, ale gdzie?                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:02 | NOT_FOUND  | ELCIN_NO_M | Marlow: klub zbrodni 2: odc.1            | Marlow: klub zbrodni                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:11 | NOT_FOUND  | ELCIN_NO_M | Avanti un altro - prime time             | Avanti un altro - prime time             | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:15 | NOT_FOUND  | ELCIN_NO_M | Il ritorno di Colombo                    | Il ritorno di Colombo                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:22 | NOT_FOUND  | ELCIN_NO_M | La vita e' una cosa meravigliosa         | La vita e' una cosa meravigliosa         | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:24 | NOT_FOUND  | ELCIN_NO_M | Il delitto della porta accanto           | Il delitto della porta accanto           | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:25 | NOT_FOUND  | ELCIN_NO_M | L'investigatore Wolfe                    | L'investigatore Wolfe                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:26 | NOT_FOUND  | ELCIN_NO_M | Delitti di provincia                     | Delitti di provincia                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:31 | NOT_FOUND  | ELCIN_NO_M | Law & Order: Unita' speciale             | Law & Order: Unita' speciale             | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:38 | NOT_FOUND  | ELCIN_NO_M | Magda M. 3                               | Magda M. 3                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:38 | NOT_FOUND  | ELCIN_NO_M | Idź na całość 2                          | Idź na całość 2                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:38 | NOT_FOUND  | ELCIN_NO_M | Złomowisko PL 4                          | Złomowisko PL 4                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:46 | NOT_FOUND  | ELCIN_NO_M | Hitler i Niemcy. Chora namiętność 1 (odc | Hitler i Niemcy. Chora namiętność        | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:49 | NOT_FOUND  | ELCIN_NO_M | Rodzina Andersów - Przez różowe okulary  | Rodzina Andersów - Przez różowe okulary  | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:49 | NOT_FOUND  | ELCIN_NO_M | Rodzina Andersów - Mężczyzna numer 1     | Rodzina Andersów - Mężczyzna numer 1     | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:49 | NOT_FOUND  | ELCIN_NO_M | Kryminał z Bolzano - Bez śladu           | Kryminał z Bolzano - Bez śladu           | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:50 | NOT_FOUND  | ELCIN_NO_M | Górski lekarz: odc.87                    | Górski lekarz                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:50 | NOT_FOUND  | ELCIN_NO_M | Rosamunde Pilcher: Decyzja z miłości     | Rosamunde Pilcher: Decyzja z miłości     | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:52 | NOT_FOUND  | ELCIN_NO_M | Kabaretowy szał: Kabaret Młodych Panów:  | Kabaretowy szał: Kabaret Młodych Panów   | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:52 | NOT_FOUND  | ELCIN_NO_M | Kabaretowy szał 4: Czesuaf: odc.10       | Kabaretowy szał 4: Czesuaf               | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:52 | NOT_FOUND  | ELCIN_NO_M | Kabaretowy szał 4: Zdolni i Skromni: odc | Kabaretowy szał 4: Zdolni i Skromni      | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:52 | NOT_FOUND  | ELCIN_NO_M | Kabaretowy szał 4: Trzecia Strona Medalu | Kabaretowy szał 4: Trzecia Strona Medalu | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:54 | NOT_FOUND  | ELCIN_NO_M | Mistrzowie kabaretu 12 (odc. 1)          | Mistrzowie kabaretu                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:56 | NOT_FOUND  | ELCIN_NO_M | Pokochaj lub sprzedaj Quebec 3: odc.9    | Pokochaj lub sprzedaj Quebec             | P:-   B:-   L:-   M:-  
+2026-09-16 16:32:57 | NOT_FOUND  | ELCIN_NO_M | Milf manor - mamuśki rządzą: Twoja milfe | Milf manor                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:11 | NOT_FOUND  | ELCIN_NO_M | Odprawa przedmeczowa: Zapowiedź 9. kolej | Odprawa przedmeczowa: Zapowiedź 9. kolej | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:21 | NOT_FOUND  | ELCIN_NO_M | Wypasiona kuchnia: odc.14                | Wypasiona kuchnia                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:22 | NOT_FOUND  | ELCIN_NO_M | Najniebezpieczniejsze drogi do szkoły: o | Najniebezpieczniejsze drogi do szkoły    | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:32 | NOT_FOUND  | ELCIN_NO_M | Trudne sprawy II: odc.1364               | Trudne sprawy II                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:42 | NOT_FOUND  | ELCIN_NO_M | Przed ekranem: odc.108                   | Przed ekranem                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:42 | NOT_FOUND  | ELCIN_NO_M | Lato z Radiem i Telewizją Polską: Bielsk | Lato z Radiem i Telewizją Polską: Bielsk | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:42 | NOT_FOUND  | ELCIN_NO_M | Muzyka na dobry wieczór: Kortez          | Muzyka na dobry wieczór: Kortez          | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:43 | NOT_FOUND  | ELCIN_NO_M | Muzyka na dobry wieczór: LemON na dobry  | Muzyka na dobry wieczór: LemON na dobry  | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:48 | NOT_FOUND  | ELCIN_NO_M | La Promesa - pałac tajemnic: odc.478     | La Promesa                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:51 | NOT_FOUND  | ELCIN_NO_M | Dobrego dnia                             | Dobrego dnia                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:51 | NOT_FOUND  | ELCIN_NO_M | Srebrny telefon                          | Srebrny telefon                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:51 | NOT_FOUND  | ELCIN_NO_M | Kurier Warszawy i Mazowsza               | Kurier Warszawy i Mazowsza               | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:52 | NOT_FOUND  | ELCIN_NO_M | Lekcja pamięci: prof. Leszek Żukowski ps | Lekcja pamięci: prof. Leszek Żukowski ps | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:57 | NOT_FOUND  | ELCIN_NO_M | Top 100: filmy wszech czasów: odc.5      | Top 100: filmy wszech czasów             | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:58 | NOT_FOUND  | ELCIN_NO_M | Kuchenne rewolucje: Tczew, Pierogarnia:  | Kuchenne rewolucje: Tczew, Pierogarnia   | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:58 | NOT_FOUND  | ELCIN_NO_M | Kuchenne rewolucje: Warszawa, Bistro Tar | Kuchenne rewolucje: Warszawa, Bistro Tar | P:-   B:-   L:-   M:-  
+2026-09-16 16:33:59 | NOT_FOUND  | ELCIN_NO_M | Kuchenne rewolucje: Nowogard, Pierogarni | Kuchenne rewolucje: Nowogard, Pierogarni | P:-   B:-   L:-   M:-  
+2026-09-16 16:34:04 | NOT_FOUND  | ELCIN_NO_M | Dziewczyny z Hollywood 3: odc.3          | Dziewczyny z Hollywood                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:34:11 | NOT_FOUND  | ELCIN_NO_M | Dans votre canap' VIP                    | Dans votre canap' VIP                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:34:22 | NOT_FOUND  | ELCIN_NO_M | Studio Aperto Live                       | Studio Aperto Live                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:34:34 | NOT_FOUND  | ELCIN_NO_M | Diario del giorno                        | Diario del giorno                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:34:36 | NOT_FOUND  | ELCIN_NO_M | Tg4 - Diario del giorno (Anteprima)      | Diario del giorno (Anteprima)            | P:-   B:-   L:-   M:-  
+2026-09-16 16:34:49 | NOT_FOUND  | ELCIN_NO_M | TG 1                                     | TG 1                                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:34:52 | NOT_FOUND  | ELCIN_NO_M | Bellama'                                 | Bellama'                                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:34:53 | NOT_FOUND  | ELCIN_NO_M | Squadra Speciale Cobra 11 Conti in sospe | Squadra Speciale Cobra 11 Conti in sospe | P:-   B:-   L:-   M:-  
+2026-09-16 16:34:54 | NOT_FOUND  | ELCIN_NO_M | Rai Parlamento Telegiornale              | Rai Parlamento Telegiornale              | P:-   B:-   L:-   M:-  
+2026-09-16 16:34:59 | NOT_FOUND  | ELCIN_NO_M | Aspettando Geo                           | Aspettando Geo                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:34:59 | NOT_FOUND  | ELCIN_NO_M | TG Regione                               | TG Regione                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:00 | NOT_FOUND  | ELCIN_NO_M | Geo                                      | Geo                                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:02 | NOT_FOUND  | ELCIN_NO_M | Private Eyes II ep.17                    | Private Eyes II                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:02 | NOT_FOUND  | ELCIN_NO_M | 70x70 - Vol. 2 ... - Chissà chi lo sa    | 70x70 - Vol. 2 ... - Chissà chi lo sa    | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:29 | NOT_FOUND  | ELCIN_NO_M | Camping paradis. "Un Boys...             | Camping paradis. "Un Boys                | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:36 | NOT_FOUND  | ELCIN_NO_M | Miami Vice - Deux flics à Miam           | Miami Vice - Deux flics à Miam           | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:38 | NOT_FOUND  | CACHE_NEGA | Miami Vice - Deux flics à Miam           | Miami Vice - Deux flics à Miam           | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:38 | NOT_FOUND  | CACHE_NEGA | Miami Vice - Deux flics à Miam           | Miami Vice - Deux flics à Miam           | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:47 | NOT_FOUND  | ELCIN_NO_M | JT 20h Semaine. "Le 20h"...              | JT 20h Semaine. "Le 20h"                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:47 | NOT_FOUND  | ELCIN_NO_M | Loto. "Loto" (111/156)                   | Loto. "Loto" (111/ 156)                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:47 | NOT_FOUND  | ELCIN_NO_M | Météo. "Météo 20h50" (259/365)           | Météo. "Météo 20h50" (259/ 365)          | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:50 | NOT_FOUND  | ELCIN_NO_M | Beverly Hills, 90210. "Le...             | Beverly Hills, 90210. "Le                | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:50 | NOT_FOUND  | ELCIN_NO_M | Beverly Hills, 90210. "La...             | Beverly Hills, 90210. "La                | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:50 | NOT_FOUND  | ELCIN_NO_M | Beverly Hills, 90210. "A...              | Beverly Hills, 90210. "A                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:55 | NOT_FOUND  | ELCIN_NO_M | 4 mariages pour 1 lune de...             | 4 mariages pour 1 lune de                | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:56 | NOT_FOUND  | CACHE_NEGA | Camping paradis. "Un Boys...             | Camping paradis. "Un Boys                | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:56 | NOT_FOUND  | CACHE_NEGA | Camping paradis. "Un Boys...             | Camping paradis. "Un Boys                | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:59 | NOT_FOUND  | ELCIN_NO_M | Quotidien, première partie....           | Quotidien, première partie               | P:-   B:-   L:-   M:-  
+2026-09-16 16:35:59 | NOT_FOUND  | ELCIN_NO_M | L'avant Quotidien. "Episode...           | L'avant Quotidien. "Episode              | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:01 | NOT_FOUND  | CACHE_NEGA | Camping paradis. "Un Boys...             | Camping paradis. "Un Boys                | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:16 | NOT_FOUND  | ELCIN_NO_M | Top Actu                                 | Top Actu                                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:16 | NOT_FOUND  | ELCIN_NO_M | Top Clip                                 | Top Clip                                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:16 | NOT_FOUND  | ELCIN_NO_M | Top Albums                               | Top Albums                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:20 | NOT_FOUND  | CACHE_NEGA | Top Albums                               | Top Albums                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:20 | NOT_FOUND  | CACHE_NEGA | Top Actu                                 | Top Actu                                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:20 | NOT_FOUND  | CACHE_NEGA | Top Clip                                 | Top Clip                                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:20 | NOT_FOUND  | CACHE_NEGA | Top Albums                               | Top Albums                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:24 | NOT_FOUND  | ELCIN_NO_M | TBT9                                     | TBT9                                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:31 | NOT_FOUND  | ELCIN_NO_M | Nos héros du quotidien                   | Nos héros du quotidien                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:38 | NOT_FOUND  | ELCIN_NO_M | Mot de passe : le duel                   | Mot de passe: le duel                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:38 | NOT_FOUND  | ELCIN_NO_M | Affaire conclue, tout le monde a quelque | Affaire conclue, tout le monde a quelque | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:41 | NOT_FOUND  | ELCIN_NO_M | Journal Météo climat                     | Journal Météo climat                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:42 | NOT_FOUND  | ELCIN_NO_M | Rex                                      | Rex                                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:49 | NOT_FOUND  | ELCIN_NO_M | Terre des mondes                         | Terre des mondes                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:53 | NOT_FOUND  | ELCIN_NO_M | L'Equipe du soir                         | L'Equipe du soir                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:53 | NOT_FOUND  | ELCIN_NO_M | L'Equipe de Greg                         | L'Equipe de Greg                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:54 | NOT_FOUND  | ELCIN_NO_M | Cyclisme : Tour de Luxembourg            | Cyclisme: Tour de Luxembourg             | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:55 | NOT_FOUND  | ELCIN_NO_M | LCI Direct                               | LCI Direct                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:36:56 | NOT_FOUND  | ELCIN_NO_M | JOURNAL Langue des signes                | JOURNAL Langue des signes                | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:00 | NOT_FOUND  | ELCIN_NO_M | Sens public                              | Sens public                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:02 | NOT_FOUND  | ELCIN_NO_M | AU CêUR DES DOUANES                      | AU CêUR DES DOUANES                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:07 | NOT_FOUND  | ELCIN_NO_M | Animaux & Cie : une seconde ch           | Animaux & Cie: une seconde ch            | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:07 | NOT_FOUND  | ELCIN_NO_M | Camera à la patte                        | Camera à la patte                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:08 | NOT_FOUND  | ELCIN_NO_M | Extrême Namibie                          | Extrême Namibie                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:14 | NOT_FOUND  | ELCIN_NO_M | Chasseur d'aventure                      | Chasseur d'aventure                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:15 | NOT_FOUND  | ELCIN_NO_M | Chiens d'arrêt de A à Z                  | Chiens d'arrêt de A à Z                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:18 | NOT_FOUND  | ELCIN_NO_M | L'école du ciel                          | L'école du ciel                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:21 | NOT_FOUND  | ELCIN_NO_M | Dans le secret des grands bâti           | Dans le secret des grands bâti           | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:23 | NOT_FOUND  | ELCIN_NO_M | Les pires meurtres d'Afrique du Sud      | Les pires meurtres d'Afrique du Sud      | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:24 | NOT_FOUND  | ELCIN_NO_M | Meurtres sur ordonnance                  | Meurtres sur ordonnance                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:26 | NOT_FOUND  | ELCIN_NO_M | La Terre depuis l'espace : une           | La Terre depuis l'espace: une            | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:27 | NOT_FOUND  | ELCIN_NO_M | A la merci des éléments                  | A la merci des éléments                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:27 | NOT_FOUND  | ELCIN_NO_M | Quand les éléments se déchaîne           | Quand les éléments se déchaîne           | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:39 | NOT_FOUND  | ELCIN_NO_M | Patrouilles sous tension (US)            | Patrouilles sous tension (US)            | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:45 | NOT_FOUND  | ELCIN_NO_M | L'Info de Vilno                          | L'Info de Vilno                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:45 | NOT_FOUND  | ELCIN_NO_M | Face à l'Info Le 18H30                   | Face à l'Info Le 18H30                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:45 | NOT_FOUND  | ELCIN_NO_M | La sélection CNEWS                       | La sélection CNEWS                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:46 | NOT_FOUND  | ELCIN_NO_M | Avant le 20h                             | Avant le 20h                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:48 | NOT_FOUND  | ELCIN_NO_M | Le Scan info                             | Le Scan info                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:48 | NOT_FOUND  | ELCIN_NO_M | Le fil info                              | Le fil info                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:48 | NOT_FOUND  | ELCIN_NO_M | Les informés du soir                     | Les informés du soir                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:48 | NOT_FOUND  | ELCIN_NO_M | A Suivre avec Loïc de La Mornais         | A Suivre avec Loïc de La Mornais         | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:49 | NOT_FOUND  | ELCIN_NO_M | La firme (VM)                            | La firme (VM)                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:50 | NOT_FOUND  | ELCIN_NO_M | Invitation au voyage - Leonor Fini à Tri | Invitation au voyage - Leonor Fini à Tri | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:50 | NOT_FOUND  | ELCIN_NO_M | Invitation au voyage - Bénin / Tasmanie  | Invitation au voyage - Bénin/ Tasmanie/  | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:51 | NOT_FOUND  | ELCIN_NO_M | Voyage en cuisine - La pizza argentine : | Voyage en cuisine - La pizza argentine:  | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:51 | NOT_FOUND  | ELCIN_NO_M | BFM Non Stop                             | BFM Non Stop                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:51 | NOT_FOUND  | ELCIN_NO_M | 100% Mabrouk                             | 100% Mabrouk                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:52 | NOT_FOUND  | ELCIN_NO_M | Marschall Truchot BFM Story              | Marschall Truchot BFM Story              | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:52 | NOT_FOUND  | ELCIN_NO_M | BFM Grand Soir                           | BFM Grand Soir                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:52 | NOT_FOUND  | ELCIN_NO_M | Le direct BFMTV                          | Le direct BFMTV                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:37:54 | NOT_FOUND  | ELCIN_NO_M | Avanti un altro - prime time             | Avanti un altro - prime time             | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:02 | NOT_FOUND  | ELCIN_NO_M | Il ritorno di Colombo                    | Il ritorno di Colombo                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:04 | NOT_FOUND  | CACHE_NEGA | Il ritorno di Colombo                    | Il ritorno di Colombo                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:04 | NOT_FOUND  | CACHE_NEGA | Il ritorno di Colombo                    | Il ritorno di Colombo                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:06 | NOT_FOUND  | ELCIN_NO_M | La vita e' una cosa meravigliosa         | La vita e' una cosa meravigliosa         | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:11 | NOT_FOUND  | CACHE_NEGA | La vita e' una cosa meravigliosa         | La vita e' una cosa meravigliosa         | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:13 | NOT_FOUND  | CACHE_NEGA | Il ritorno di Colombo                    | Il ritorno di Colombo                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:13 | NOT_FOUND  | CACHE_NEGA | Il ritorno di Colombo                    | Il ritorno di Colombo                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:25 | NOT_FOUND  | ELCIN_NO_M | Delitti di provincia                     | Delitti di provincia                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:25 | NOT_FOUND  | ELCIN_NO_M | L'investigatore Wolfe                    | L'investigatore Wolfe                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:25 | NOT_FOUND  | ELCIN_NO_M | Il delitto della porta accanto           | Il delitto della porta accanto           | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:32 | NOT_FOUND  | ELCIN_NO_M | Talking Tom Heroes: Super Amici          | Talking Tom Heroes: Super Amici          | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:36 | NOT_FOUND  | ELCIN_NO_M | Sogni in costruzione                     | Sogni in costruzione                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:37 | NOT_FOUND  | ELCIN_NO_M | Mieszkanie na miarę: odc.4               | Mieszkanie na miarę                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:37 | NOT_FOUND  | CACHE_NEGA | Sogni in costruzione                     | Sogni in costruzione                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:37 | NOT_FOUND  | CACHE_NEGA | Sogni in costruzione                     | Sogni in costruzione                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:37 | NOT_FOUND  | CACHE_NEGA | Sogni in costruzione                     | Sogni in costruzione                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:37 | NOT_FOUND  | CACHE_NEGA | Sogni in costruzione                     | Sogni in costruzione                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:41 | NOT_FOUND  | ELCIN_NO_M | Dimmi Doc                                | Dimmi Doc                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:43 | NOT_FOUND  | CACHE_NEGA | Tg4 - Diario del giorno (Anteprima)      | Diario del giorno (Anteprima)            | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:43 | NOT_FOUND  | CACHE_NEGA | Diario del giorno                        | Diario del giorno                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:43 | NOT_FOUND  | CACHE_NEGA | Tg4 - Diario del giorno (Anteprima)      | Diario del giorno (Anteprima)            | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:45 | NOT_FOUND  | CACHE_NEGA | Studio Aperto Live                       | Studio Aperto Live                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:47 | NOT_FOUND  | CACHE_NEGA | Tg4 - Diario del giorno (Anteprima)      | Diario del giorno (Anteprima)            | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:47 | NOT_FOUND  | CACHE_NEGA | Diario del giorno                        | Diario del giorno                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:47 | NOT_FOUND  | CACHE_NEGA | Tg4 - Diario del giorno (Anteprima)      | Diario del giorno (Anteprima)            | P:-   B:-   L:-   M:-  
+2026-09-16 16:38:49 | NOT_FOUND  | ELCIN_NO_M | Studio Aperto                            | Studio Aperto                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:11 | NOT_FOUND  | CACHE_NEGA | TG 1                                     | TG 1                                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:11 | NOT_FOUND  | ELCIN_NO_M | Il Ranch Dei Ricordi 1^TV                | Il Ranch Dei Ricordi 1^TV                | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:13 | NOT_FOUND  | CACHE_NEGA | Bellama'                                 | Bellama'                                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:13 | NOT_FOUND  | CACHE_NEGA | Squadra Speciale Cobra 11 Conti in sospe | Squadra Speciale Cobra 11 Conti in sospe | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:13 | NOT_FOUND  | CACHE_NEGA | Rai Parlamento Telegiornale              | Rai Parlamento Telegiornale              | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:13 | NOT_FOUND  | CACHE_NEGA | Bellama'                                 | Bellama'                                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:14 | NOT_FOUND  | CACHE_NEGA | TG 1                                     | TG 1                                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:21 | NOT_FOUND  | CACHE_NEGA | Il Ranch Dei Ricordi 1^TV                | Il Ranch Dei Ricordi 1^TV                | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:23 | NOT_FOUND  | CACHE_NEGA | TG 1                                     | TG 1                                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:24 | NOT_FOUND  | CACHE_NEGA | Bellama'                                 | Bellama'                                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:24 | NOT_FOUND  | CACHE_NEGA | Squadra Speciale Cobra 11 Conti in sospe | Squadra Speciale Cobra 11 Conti in sospe | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:24 | NOT_FOUND  | CACHE_NEGA | Rai Parlamento Telegiornale              | Rai Parlamento Telegiornale              | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:24 | NOT_FOUND  | CACHE_NEGA | Bellama'                                 | Bellama'                                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:26 | NOT_FOUND  | CACHE_NEGA | Aspettando Geo                           | Aspettando Geo                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:26 | NOT_FOUND  | CACHE_NEGA | Geo                                      | Geo                                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:26 | NOT_FOUND  | CACHE_NEGA | TG Regione                               | TG Regione                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:28 | NOT_FOUND  | CACHE_NEGA | 70x70 - Vol. 2 ... - Chissà chi lo sa    | 70x70 - Vol. 2 ... - Chissà chi lo sa    | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:28 | NOT_FOUND  | CACHE_NEGA | Private Eyes II ep.17                    | Private Eyes II                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:36 | NOT_FOUND  | ELCIN_NO_M | Heartland 4 - Fiocco rosa ep.18          | Heartland 4                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:36 | NOT_FOUND  | ELCIN_NO_M | Che Dio ci aiuti - Il gusto della vita e | Che Dio ci aiuti - Il gusto della vita e | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:36 | NOT_FOUND  | ELCIN_NO_M | Anica - Appuntamento al Cinema           | Anica - Appuntamento al Cinema           | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:38 | NOT_FOUND  | ELCIN_NO_M | Pocoyo 5 EP.22                           | Pocoyo 5                                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:38 | NOT_FOUND  | ELCIN_NO_M | Masha e Orso 7 EP.5                      | Masha e Orso 7                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:38 | NOT_FOUND  | ELCIN_NO_M | Un cerotto per amico Ep. 8               | Un cerotto per amico                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:43 | NOT_FOUND  | ELCIN_NO_M | Le montagne della luce Ngai, dio senza c | Le montagne della luce Ngai, dio senza c | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:43 | NOT_FOUND  | ELCIN_NO_M | Illuminate. 5 serie Maria Callas         | Illuminate. 5 serie Maria Callas         | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:43 | NOT_FOUND  | ELCIN_NO_M | Porto Azzurro Un carcere sotto sequestro | Porto Azzurro Un carcere sotto sequestro | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:43 | NOT_FOUND  | ELCIN_NO_M | Diario civile L'Ora, storia di un giorna | Diario civile L'Ora, storia di un giorna | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:43 | NOT_FOUND  | ELCIN_NO_M | Rai News Giorno                          | Giorno                                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:44 | NOT_FOUND  | ELCIN_NO_M | Inglese Dr. Jack Hill and Mr. Speech: St | Inglese Dr. Jack Hill and Mr. Speech: St | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:44 | NOT_FOUND  | ELCIN_NO_M | Intelligenze Umane Ep. 3 - Crimini perfe | Intelligenze Umane                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:46 | NOT_FOUND  | ELCIN_NO_M | American Genius - Hearst VS Pulitzer     | American Genius - Hearst VS Pulitzer     | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:46 | NOT_FOUND  | ELCIN_NO_M | Digital World Ep. 2 Digital Travel       | Digital World                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:47 | NOT_FOUND  | ELCIN_NO_M | CASA RADIO2                              | CASA RADIO2                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:47 | NOT_FOUND  | ELCIN_NO_M | GENERAZIONE RADIO2                       | GENERAZIONE RADIO2                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:47 | NOT_FOUND  | ELCIN_NO_M | GR 2                                     | GR 2                                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:48 | NOT_FOUND  | ELCIN_NO_M | L' archipendolo Ep. 1 Il Primo Cinquecen | L' archipendolo                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:48 | NOT_FOUND  | ELCIN_NO_M | RADIO2 CATERPILLAR                       | RADIO2 CATERPILLAR                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:49 | NOT_FOUND  | ELCIN_NO_M | RADIO2 ESTATE DA MATTI                   | RADIO2 ESTATE DA MATTI                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:52 | NOT_FOUND  | ELCIN_NO_M | Luftë baballarësh                        | Luftë baballarësh                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:52 | NOT_FOUND  | ELCIN_NO_M | Udhëtimi i Paharrueshëm i Jetës          | Udhëtimi i Paharrueshëm i Jetës          | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:53 | NOT_FOUND  | ELCIN_NO_M | Alvin dhe fytyrëketrushët 4: Aventura e  | Alvin dhe fytyrëketrushët 4: Aventura e  | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:53 | NOT_FOUND  | ELCIN_NO_M | Në ring me familjen                      | Në ring me familjen                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:54 | NOT_FOUND  | ELCIN_NO_M | Nën fre                                  | Nën fre                                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:56 | NOT_FOUND  | ELCIN_NO_M | 40 takime në 40 net                      | 40 takime në 40 net                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:57 | NOT_FOUND  | ELCIN_NO_M | Edhe nëse kjo dashuri zhduket sonte      | Edhe nëse kjo dashuri zhduket sonte      | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:57 | NOT_FOUND  | ELCIN_NO_M | Fitili                                   | Fitili                                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:57 | NOT_FOUND  | ELCIN_NO_M | Zonjat të parat                          | Zonjat të parat                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:39:59 | NOT_FOUND  | ELCIN_NO_M | Dashuri në Midëllton                     | Dashuri në Midëllton                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:00 | NOT_FOUND  | ELCIN_NO_M | Pëshpëritësi i shpirtrave 2              | Pëshpëritësi i shpirtrave 2              | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:00 | NOT_FOUND  | ELCIN_NO_M | Gjëja e fundit që donte                  | Gjëja e fundit që donte                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:01 | NOT_FOUND  | ELCIN_NO_M | Njeriu i jashtezakonshëm Merimangë 2     | Njeriu i jashtezakonshëm Merimangë 2     | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:01 | NOT_FOUND  | ELCIN_NO_M | I panjohuri                              | I panjohuri                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:04 | NOT_FOUND  | ELCIN_NO_M | E shkuara                                | E shkuara                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:04 | NOT_FOUND  | ELCIN_NO_M | Vajza me të ardhme                       | Vajza me të ardhme                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:04 | NOT_FOUND  | CACHE_NEGA | E shkuara                                | E shkuara                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:05 | NOT_FOUND  | CACHE_NEGA | E shkuara                                | E shkuara                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:05 | NOT_FOUND  | ELCIN_NO_M | Kthehu, e dashur!                        | Kthehu, e dashur!                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:05 | NOT_FOUND  | ELCIN_NO_M | Kontesha Zhanë Dy Barri                  | Kontesha Zhanë Dy Barri                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:05 | NOT_FOUND  | CACHE_NEGA | E shkuara                                | E shkuara                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:10 | NOT_FOUND  | CACHE_NEGA | E shkuara                                | E shkuara                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:10 | NOT_FOUND  | CACHE_NEGA | Kthehu, e dashur!                        | Kthehu, e dashur!                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:10 | NOT_FOUND  | CACHE_NEGA | Kontesha Zhanë Dy Barri                  | Kontesha Zhanë Dy Barri                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:10 | NOT_FOUND  | CACHE_NEGA | Vajza me të ardhme                       | Vajza me të ardhme                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:10 | NOT_FOUND  | CACHE_NEGA | E shkuara                                | E shkuara                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:21 | NOT_FOUND  | CACHE_NEGA | Nën fre                                  | Nën fre                                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:21 | NOT_FOUND  | CACHE_NEGA | Luftë baballarësh                        | Luftë baballarësh                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:21 | NOT_FOUND  | CACHE_NEGA | Në ring me familjen                      | Në ring me familjen                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:21 | NOT_FOUND  | CACHE_NEGA | Alvin dhe fytyrëketrushët 4: Aventura e  | Alvin dhe fytyrëketrushët 4: Aventura e  | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:21 | NOT_FOUND  | CACHE_NEGA | Udhëtimi i Paharrueshëm i Jetës          | Udhëtimi i Paharrueshëm i Jetës          | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:21 | NOT_FOUND  | CACHE_NEGA | Nën fre                                  | Nën fre                                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:22 | NOT_FOUND  | CACHE_NEGA | Fitili                                   | Fitili                                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:22 | NOT_FOUND  | CACHE_NEGA | 40 takime në 40 net                      | 40 takime në 40 net                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:22 | NOT_FOUND  | CACHE_NEGA | Zonjat të parat                          | Zonjat të parat                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:22 | NOT_FOUND  | CACHE_NEGA | Edhe nëse kjo dashuri zhduket sonte      | Edhe nëse kjo dashuri zhduket sonte      | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:22 | NOT_FOUND  | CACHE_NEGA | Fitili                                   | Fitili                                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:23 | NOT_FOUND  | CACHE_NEGA | Dashuri në Midëllton                     | Dashuri në Midëllton                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:23 | NOT_FOUND  | CACHE_NEGA | Gjëja e fundit që donte                  | Gjëja e fundit që donte                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:23 | NOT_FOUND  | CACHE_NEGA | Njeriu i jashtezakonshëm Merimangë 2     | Njeriu i jashtezakonshëm Merimangë 2     | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:23 | NOT_FOUND  | CACHE_NEGA | I panjohuri                              | I panjohuri                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:23 | NOT_FOUND  | CACHE_NEGA | Pëshpëritësi i shpirtrave 2              | Pëshpëritësi i shpirtrave 2              | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:23 | NOT_FOUND  | CACHE_NEGA | Dashuri në Midëllton                     | Dashuri në Midëllton                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:29 | NOT_FOUND  | ELCIN_NO_M | Mision i pamundur 8: Gjykimi i fundit    | Mision i pamundur 8: Gjykimi i fundit    | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:29 | NOT_FOUND  | ELCIN_NO_M | Vajza të prapa                           | Vajza të prapa                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:30 | NOT_FOUND  | ELCIN_NO_M | Gruaja e momentit                        | Gruaja e momentit                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:30 | NOT_FOUND  | ELCIN_NO_M | Agjenti sekret                           | Agjenti sekret                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:30 | NOT_FOUND  | ELCIN_NO_M | Shersha                                  | Shersha                                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:32 | NOT_FOUND  | ELCIN_NO_M | Epoka e heronjëve                        | Epoka e heronjëve                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:33 | NOT_FOUND  | ELCIN_NO_M | Vrapuesi i vdekur                        | Vrapuesi i vdekur                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:33 | NOT_FOUND  | ELCIN_NO_M | Gjëmim në Bronks                         | Gjëmim në Bronks                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:33 | NOT_FOUND  | ELCIN_NO_M | Lufta e yjeve III Hakmarrja e Sithit     | Lufta e yjeve III Hakmarrja e Sithit     | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:33 | NOT_FOUND  | ELCIN_NO_M | Për 60 sekonda                           | Për 60 sekonda                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:33 | NOT_FOUND  | CACHE_NEGA | E shkuara                                | E shkuara                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:33 | NOT_FOUND  | CACHE_NEGA | Kthehu, e dashur!                        | Kthehu, e dashur!                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:33 | NOT_FOUND  | CACHE_NEGA | Kontesha Zhanë Dy Barri                  | Kontesha Zhanë Dy Barri                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:33 | NOT_FOUND  | CACHE_NEGA | Vajza me të ardhme                       | Vajza me të ardhme                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:33 | NOT_FOUND  | CACHE_NEGA | E shkuara                                | E shkuara                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:37 | NOT_FOUND  | ELCIN_NO_M | Zgjedhja e duhur                         | Zgjedhja e duhur                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:37 | NOT_FOUND  | ELCIN_NO_M | Dëshmitari i dashuruar                   | Dëshmitari i dashuruar                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:37 | NOT_FOUND  | ELCIN_NO_M | Mësuesja e keqe                          | Mësuesja e keqe                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:37 | NOT_FOUND  | ELCIN_NO_M | Stuhi e papritur                         | Stuhi e papritur                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:39 | NOT_FOUND  | ELCIN_NO_M | Vajza më fatlume në botë                 | Vajza më fatlume në botë                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:39 | NOT_FOUND  | ELCIN_NO_M | Errësira                                 | Errësira                                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:39 | NOT_FOUND  | ELCIN_NO_M | Shofere e re                             | Shofere e re                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:40 | NOT_FOUND  | ELCIN_NO_M | Përmbytje fatale                         | Përmbytje fatale                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:40 | NOT_FOUND  | ELCIN_NO_M | E bija e Aprilit                         | E bija e Aprilit                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:40 | NOT_FOUND  | ELCIN_NO_M | Heshtja                                  | Heshtja                                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:40 | NOT_FOUND  | ELCIN_NO_M | I dashuri im është zombi                 | I dashuri im është zombi                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:41 | NOT_FOUND  | ELCIN_NO_M | Një fillim i ri                          | Një fillim i ri                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:42 | NOT_FOUND  | ELCIN_NO_M | Të shfrenuarit                           | Të shfrenuarit                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:42 | NOT_FOUND  | ELCIN_NO_M | Zëri i heshtur i Melodisë                | Zëri i heshtur i Melodisë                | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:44 | NOT_FOUND  | ELCIN_NO_M | Gjithçka për tim bir                     | Gjithçka për tim bir                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:44 | NOT_FOUND  | ELCIN_NO_M | Sekreti i madh                           | Sekreti i madh                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:44 | NOT_FOUND  | ELCIN_NO_M | Fundjavë beqarësh                        | Fundjavë beqarësh                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:44 | NOT_FOUND  | ELCIN_NO_M | E mahnitshmja Kaprisë                    | E mahnitshmja Kaprisë                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:45 | NOT_FOUND  | ELCIN_NO_M | Perandoria                               | Perandoria                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:55 | NOT_FOUND  | ELCIN_NO_M | Pritja                                   | Pritja                                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:56 | NOT_FOUND  | ELCIN_NO_M | Përballë 7: Rajmonda Bulku               | Përballë 7: Rajmonda Bulku               | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:56 | NOT_FOUND  | ELCIN_NO_M | 40 vjeç je vetë                          | 40 vjeç je vetë                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:40:56 | NOT_FOUND  | ELCIN_NO_M | Tirana e barrikadave                     | Tirana e barrikadave                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:01 | NOT_FOUND  | ELCIN_NO_M | Zjarr TV                                 | Zjarr TV                                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:06 | NOT_FOUND  | ELCIN_NO_M | Otmica metroa 123, film                  | Otmica metroa 123                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:07 | NOT_FOUND  | ELCIN_NO_M | Od klinke do komada, film                | Od klinke do komada                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:08 | NOT_FOUND  | ELCIN_NO_M | Lanterns (5)                             | Lanterns (5)                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:08 | NOT_FOUND  | ELCIN_NO_M | Monstrum a já                            | Monstrum a já                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:11 | NOT_FOUND  | ELCIN_NO_M | Rozvod (5)                               | Rozvod (5)                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:11 | NOT_FOUND  | CACHE_NEGA | Rozvod (5)                               | Rozvod (5)                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:20 | NOT_FOUND  | ELCIN_NO_M | Crvene cipele, film                      | Crvene cipele                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:21 | NOT_FOUND  | ELCIN_NO_M | Čudna riba, film                         | Čudna riba                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:21 | NOT_FOUND  | ELCIN_NO_M | Rođeni ubojice, film                     | Rođeni ubojice                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:21 | NOT_FOUND  | ELCIN_NO_M | Ludo proljeće, film                      | Ludo proljeće                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:25 | NOT_FOUND  | ELCIN_NO_M | Kosturski blizanci, film                 | Kosturski blizanci                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:26 | NOT_FOUND  | ELCIN_NO_M | Tri obitelji, ep. 1. mini-serija         | Tri obitelji                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:26 | NOT_FOUND  | ELCIN_NO_M | Tři rodiny (2)                           | Tři rodiny (2)                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:32 | NOT_FOUND  | ELCIN_NO_M | Na putu prema dolje 2, ep. 6. serija     | Na putu prema dolje                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:34 | NOT_FOUND  | ELCIN_NO_M | Kralj glazbe, film                       | Kralj glazbe                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:35 | NOT_FOUND  | ELCIN_NO_M | Simulirana prijetnja, film               | Simulirana prijetnja                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:43 | NOT_FOUND  | CACHE_NEGA | Kralj glazbe, film                       | Kralj glazbe                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:43 | NOT_FOUND  | CACHE_NEGA | Simulirana prijetnja, film               | Simulirana prijetnja                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:49 | NOT_FOUND  | ELCIN_NO_M | Granice zločina 3, ep. 5. serija         | Granice zločina                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:50 | NOT_FOUND  | ELCIN_NO_M | Tajna jezera Devil's Den, film           | Tajna jezera Devil's Den                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:50 | NOT_FOUND  | ELCIN_NO_M | U školi je najgore, film                 | U školi je najgore                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:52 | NOT_FOUND  | ELCIN_NO_M | KOLAŽ PROGRAM                            | KOLAŽ PROGRAM                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:53 | NOT_FOUND  | ELCIN_NO_M | Djetinjstvo vođe, film                   | Djetinjstvo vođe                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:54 | NOT_FOUND  | ELCIN_NO_M | Nešto je tu čudno, film                  | Nešto je tu čudno                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:54 | NOT_FOUND  | ELCIN_NO_M | Boja iz svemira, film                    | Boja iz svemira                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:55 | NOT_FOUND  | ELCIN_NO_M | Britanski supertalent, film              | Britanski supertalent                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:56 | NOT_FOUND  | ELCIN_NO_M | Posljednja poker igra, film              | Posljednja poker igra                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:56 | NOT_FOUND  | ELCIN_NO_M | Gradska cura, film                       | Gradska cura                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:58 | NOT_FOUND  | ELCIN_NO_M | Postolar, film                           | Postolar                                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:41:59 | NOT_FOUND  | ELCIN_NO_M | Što će ljudi reći, film                  | Što će ljudi reći                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:00 | NOT_FOUND  | ELCIN_NO_M | Istočno od Bukurešta, film               | Istočno od Bukurešta                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:00 | NOT_FOUND  | ELCIN_NO_M | Skutočné vraždy: Záhada starého domu (4) | Skutočné vraždy: Záhada starého domu (4) | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:01 | NOT_FOUND  | ELCIN_NO_M | Sinbad: Legende sedam mora, film         | Sinbad: Legende sedam mora               | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:20 | NOT_FOUND  | ELCIN_NO_M | Velečasni Brown                          | Velečasni Brown                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:20 | NOT_FOUND  | ELCIN_NO_M | Smrt u raju                              | Smrt u raju                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:21 | NOT_FOUND  | ELCIN_NO_M | Misteriji sestre Boniface                | Misteriji sestre Boniface                | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:26 | NOT_FOUND  | ELCIN_NO_M | Two and a half man                       | Two and a half man                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:31 | NOT_FOUND  | CACHE_NEGA | Two and a half man                       | Two and a half man                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:34 | NOT_FOUND  | ELCIN_NO_M | Hawaii Five-0 7, ep. 4. serija           | Hawaii Five-0                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:36 | NOT_FOUND  | ELCIN_NO_M | Smërfët                                  | Smërfët                                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:37 | NOT_FOUND  | ELCIN_NO_M | Dashuri e ndërlikuar                     | Dashuri e ndërlikuar                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:37 | NOT_FOUND  | ELCIN_NO_M | Ultimatumi Born                          | Ultimatumi Born                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:38 | NOT_FOUND  | ELCIN_NO_M | Dëmi anësor                              | Dëmi anësor                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:43 | NOT_FOUND  | ELCIN_NO_M | Dadilja 2, ep. 17. serija                | Dadilja                                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:43 | NOT_FOUND  | ELCIN_NO_M | Shtëpiake të dëshpëruara                 | Shtëpiake të dëshpëruara                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:44 | NOT_FOUND  | ELCIN_NO_M | Sherlock i Watson, ep. 19. serija        | Sherlock i Watson                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:45 | NOT_FOUND  | ELCIN_NO_M | Umorstva u Midsomeru 24, ep. 4. serija   | Umorstva u Midsomeru                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:45 | NOT_FOUND  | ELCIN_NO_M | Zločinački umovi 14, ep. 2. serija       | Zločinački umovi                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:46 | NOT_FOUND  | ELCIN_NO_M | Dr. House 7, ep. 12. serija              | Dr. House                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:47 | NOT_FOUND  | ELCIN_NO_M | Detektiv na Floridi 2, ep. 9. serija     | Detektiv na Floridi                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:51 | NOT_FOUND  | ELCIN_NO_M | Zaštita svjedoka, ep. 1. mini-serija     | Zaštita svjedoka                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:54 | NOT_FOUND  | ELCIN_NO_M | Inspektorica Ray 2, ep. 3. serija        | Inspektorica Ray                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:54 | NOT_FOUND  | ELCIN_NO_M | Endeavour, mladi Morse 2, ep. 3. serija  | Endeavour, mladi Morse                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:54 | NOT_FOUND  | ELCIN_NO_M | Dicte, ep. 3. serija                     | Dicte                                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:55 | NOT_FOUND  | ELCIN_NO_M | Agatha Christie: Prema ništici, ep. 1. m | Agatha Christie: Prema ništici           | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:55 | NOT_FOUND  | ELCIN_NO_M | Totalni obrt                             | Totalni obrt                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:42:56 | NOT_FOUND  | ELCIN_NO_M | Keš ili treš                             | Keš ili treš                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:06 | NOT_FOUND  | ELCIN_NO_M | Vijesti u 17:00                          | Vijesti u 17: 00                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:08 | NOT_FOUND  | ELCIN_NO_M | IN magazin                               | IN magazin                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:12 | NOT_FOUND  | ELCIN_NO_M | Rabín Jákob                              | Rabín Jákob                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:28 | NOT_FOUND  | ELCIN_NO_M | Klub milijardera, film                   | Klub milijardera                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:28 | NOT_FOUND  | ELCIN_NO_M | Janis, tužna djevojka, film              | Janis, tužna djevojka                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:29 | NOT_FOUND  | ELCIN_NO_M | Izgubljeni u ljubavi, film               | Izgubljeni u ljubavi                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:29 | NOT_FOUND  | ELCIN_NO_M | Hipnotizer, film                         | Hipnotizer                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:39 | NOT_FOUND  | ELCIN_NO_M | Watch What Happens Live 23, ep. 141. tal | Watch What Happens Live                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:40 | NOT_FOUND  | ELCIN_NO_M | Traljav posao 5, ep. 16. A Revision Runs | Traljav posao                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:42 | NOT_FOUND  | ELCIN_NO_M | Keeping Up With The Kardashians 12, ep.  | Keeping Up With The Kardashians          | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:46 | NOT_FOUND  | ELCIN_NO_M | Lajme                                    | Lajme                                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:46 | NOT_FOUND  | ELCIN_NO_M | Rënia e mbretit                          | Rënia e mbretit                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:46 | NOT_FOUND  | ELCIN_NO_M | Rudina                                   | Rudina                                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:47 | NOT_FOUND  | ELCIN_NO_M | Mëkate dhe trëndafila                    | Mëkate dhe trëndafila                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:48 | NOT_FOUND  | ELCIN_NO_M | Publicitet                               | Publicitet                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:49 | NOT_FOUND  | ELCIN_NO_M | Lajme 20/00                              | Lajme 20/ 00                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:53 | NOT_FOUND  | ELCIN_NO_M | Rockové legendy IV (15)                  | Rockové legendy                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:53 | NOT_FOUND  | ELCIN_NO_M | Matlocková (7)                           | Matlocková (7)                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:53 | NOT_FOUND  | CACHE_NEGA | Matlocková (7)                           | Matlocková (7)                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:53 | NOT_FOUND  | CACHE_NEGA | Matlocková (7)                           | Matlocková (7)                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:54 | NOT_FOUND  | ELCIN_NO_M | Mimozemské spisy: Znovuotvorené I (5)    | Mimozemské spisy: Znovuotvorené          | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:54 | NOT_FOUND  | ELCIN_NO_M | Dr. Dokonalý (16/16)                     | Dr. Dokonalý (16/ 16)                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:54 | NOT_FOUND  | ELCIN_NO_M | Zázraky prírody                          | Zázraky prírody                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:55 | NOT_FOUND  | ELCIN_NO_M | Zbrane Hollywoodu II (4)                 | Zbrane Hollywoodu                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:43:56 | NOT_FOUND  | ELCIN_NO_M | Záchrana divokých zvierat I (10)         | Záchrana divokých zvierat                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:00 | NOT_FOUND  | CACHE_NEGA | Matlocková (7)                           | Matlocková (7)                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:00 | NOT_FOUND  | CACHE_NEGA | Dr. Dokonalý (16/16)                     | Dr. Dokonalý (16/ 16)                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:00 | NOT_FOUND  | CACHE_NEGA | Matlocková (7)                           | Matlocková (7)                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:01 | NOT_FOUND  | CACHE_NEGA | Záchrana divokých zvierat I (10)         | Záchrana divokých zvierat                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:01 | NOT_FOUND  | CACHE_NEGA | Zázraky prírody                          | Zázraky prírody                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:01 | NOT_FOUND  | CACHE_NEGA | Zbrane Hollywoodu II (4)                 | Zbrane Hollywoodu                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:01 | NOT_FOUND  | CACHE_NEGA | Rockové legendy IV (15)                  | Rockové legendy                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:01 | NOT_FOUND  | CACHE_NEGA | Mimozemské spisy: Znovuotvorené I (5)    | Mimozemské spisy: Znovuotvorené          | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:01 | NOT_FOUND  | CACHE_NEGA | Záchrana divokých zvierat I (10)         | Záchrana divokých zvierat                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:04 | NOT_FOUND  | CACHE_NEGA | Vijesti u 17:00                          | Vijesti u 17: 00                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:04 | NOT_FOUND  | CACHE_NEGA | IN magazin                               | IN magazin                               | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:07 | NOT_FOUND  | ELCIN_NO_M | Riskuj! (1047)                           | Riskuj! (1047)                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:08 | NOT_FOUND  | ELCIN_NO_M | Ulice (5188)                             | Ulice (5188)                             | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:09 | NOT_FOUND  | ELCIN_NO_M | Liječnica sa sela 4, ep. 5. serija       | Liječnica sa sela                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:09 | NOT_FOUND  | ELCIN_NO_M | Polední Televizní noviny                 | Polední Televizní noviny                 | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:09 | NOT_FOUND  | ELCIN_NO_M | Specialisté (173)                        | Specialisté (173)                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:11 | NOT_FOUND  | ELCIN_NO_M | Cobra 11, ep. 2. serija                  | Cobra                                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:11 | NOT_FOUND  | ELCIN_NO_M | Specijalisti: Beč 15, ep. 3. serija      | Specijalisti: Beč                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:12 | NOT_FOUND  | ELCIN_NO_M | Hamburg 112, ep. 10. serija              | Hamburg                                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:14 | NOT_FOUND  | ELCIN_NO_M | Naše zprávy                              | Naše zprávy                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:14 | NOT_FOUND  | ELCIN_NO_M | Šťastná 7                                | Šťastná 7                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:15 | NOT_FOUND  | ELCIN_NO_M | Policie Delta                            | Policie Delta                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:15 | NOT_FOUND  | CACHE_NEGA | Šťastná 7                                | Šťastná 7                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:15 | NOT_FOUND  | CACHE_NEGA | Policie Delta                            | Policie Delta                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:15 | NOT_FOUND  | CACHE_NEGA | Naše zprávy                              | Naše zprávy                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:28 | NOT_FOUND  | ELCIN_NO_M | Polabí (86)                              | Polabí (86)                              | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:30 | NOT_FOUND  | ELCIN_NO_M | Sladká pomsta (53)                       | Sladká pomsta (53)                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:30 | NOT_FOUND  | ELCIN_NO_M | Sladká pomsta (54)                       | Sladká pomsta (54)                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:30 | NOT_FOUND  | ELCIN_NO_M | Dvojka na zabitie I (4)                  | Dvojka na zabitie                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:31 | NOT_FOUND  | CACHE_NEGA | Sladká pomsta (53)                       | Sladká pomsta (53)                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:31 | NOT_FOUND  | CACHE_NEGA | Sladká pomsta (54)                       | Sladká pomsta (54)                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:31 | NOT_FOUND  | CACHE_NEGA | Sladká pomsta (53)                       | Sladká pomsta (53)                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:35 | NOT_FOUND  | ELCIN_NO_M | Autosalon                                | Autosalon                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:36 | NOT_FOUND  | ELCIN_NO_M | Top Gear speciál: Nejlepší závody (6)    | Top Gear speciál: Nejlepší závody (6)    | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:38 | NOT_FOUND  | CACHE_NEGA | Autosalon                                | Autosalon                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:38 | NOT_FOUND  | CACHE_NEGA | Top Gear speciál: Nejlepší závody (6)    | Top Gear speciál: Nejlepší závody (6)    | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:40 | NOT_FOUND  | CACHE_NEGA | Záchrana divokých zvierat I (10)         | Záchrana divokých zvierat                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:40 | NOT_FOUND  | CACHE_NEGA | Zázraky prírody                          | Zázraky prírody                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:40 | NOT_FOUND  | CACHE_NEGA | Zbrane Hollywoodu II (4)                 | Zbrane Hollywoodu                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:40 | NOT_FOUND  | CACHE_NEGA | Rockové legendy IV (15)                  | Rockové legendy                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:40 | NOT_FOUND  | CACHE_NEGA | Mimozemské spisy: Znovuotvorené I (5)    | Mimozemské spisy: Znovuotvorené          | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:40 | NOT_FOUND  | CACHE_NEGA | Záchrana divokých zvierat I (10)         | Záchrana divokých zvierat                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:46 | NOT_FOUND  | ELCIN_NO_M | RTL Danas                                | RTL Danas                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:48 | NOT_FOUND  | ELCIN_NO_M | Dođi, pogodi, osvoji! 3, ep. 90. game sh | Dođi, pogodi, osvoji!                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:48 | NOT_FOUND  | ELCIN_NO_M | Večera za 5, ep. 48. kulinarski show     | Večera za                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:48 | NOT_FOUND  | CACHE_NEGA | Dr. House 5, ep. 12. serija              | Dr. House                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:48 | NOT_FOUND  | CACHE_NEGA | Dr. House 5, ep. 13. serija              | Dr. House                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:48 | NOT_FOUND  | CACHE_NEGA | Dr. House 5, ep. 12. serija              | Dr. House                                | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:52 | NOT_FOUND  | ELCIN_NO_M | Hitna: Chicago 9, ep. 12. serija         | Hitna: Chicago                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:53 | NOT_FOUND  | ELCIN_NO_M | Djevojke na zadatku 3, ep. 10. serija    | Djevojke na zadatku                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:56 | NOT_FOUND  | ELCIN_NO_M | Inspektor Rex 4, ep. 7. serija           | Inspektor Rex                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:57 | NOT_FOUND  | ELCIN_NO_M | Zaboravljeni slučaj 2, ep. 5. serija     | Zaboravljeni slučaj                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:58 | NOT_FOUND  | ELCIN_NO_M | Djevojke sunca, ep. 83. serija           | Djevojke sunca                           | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:58 | NOT_FOUND  | ELCIN_NO_M | Slatka osveta, ep. 46. serija            | Slatka osveta                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:44:58 | NOT_FOUND  | ELCIN_NO_M | Gospodar neba 5, ep. 79. serija          | Gospodar neba                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:00 | NOT_FOUND  | ELCIN_NO_M | Edicion informativ                       | Edicion informativ                       | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:01 | NOT_FOUND  | ELCIN_NO_M | Bibin čarobni svijet 2, ep. 17.          | Bibin čarobni svijet                     | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:02 | NOT_FOUND  | ELCIN_NO_M | Xhadat                                   | Xhadat                                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:02 | NOT_FOUND  | ELCIN_NO_M | MCN Informacion                          | MCN Informacion                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:02 | NOT_FOUND  | ELCIN_NO_M | Naša mala klinika, ep. 7. serija         | Naša mala klinika                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:03 | NOT_FOUND  | ELCIN_NO_M | Bijeg u dvorac: Sam svoj majstor 4, ep.  | Bijeg u dvorac: Sam svoj majstor         | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:03 | NOT_FOUND  | ELCIN_NO_M | RTSH 1                                   | RTSH 1                                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:04 | NOT_FOUND  | ELCIN_NO_M | Çapkëni i pasur                          | Çapkëni i pasur                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:04 | NOT_FOUND  | ELCIN_NO_M | Lajme Klan Plus                          | Lajme Klan Plus                          | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:04 | NOT_FOUND  | ELCIN_NO_M | Shpirt i egër                            | Shpirt i egër                            | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:05 | NOT_FOUND  | ELCIN_NO_M | Opinion                                  | Opinion                                  | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:05 | NOT_FOUND  | ELCIN_NO_M | Programet e RTSH                         | Programet e RTSH                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:08 | NOT_FOUND  | ELCIN_NO_M | Programet e RTSH2                        | Programet e RTSH2                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:08 | NOT_FOUND  | ELCIN_NO_M | RTSH 2                                   | RTSH 2                                   | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:11 | NOT_FOUND  | ELCIN_NO_M | 6 personazhe kërkojnë autor              | 6 personazhe kërkojnë autor              | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:16 | NOT_FOUND  | ELCIN_NO_M | Animatik: Škola hodanja Borivoja Dovniko | Animatik: Škola hodanja Borivoja Dovniko | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:16 | NOT_FOUND  | ELCIN_NO_M | Svijet klasike: Odjeci prošlosti na Fest | Svijet klasike: Odjeci prošlosti na Fest | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:17 | NOT_FOUND  | ELCIN_NO_M | Svijet jazza: James Morrison             | Svijet jazza: James Morrison             | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:18 | NOT_FOUND  | ELCIN_NO_M | Drevne supergrađevine 3, ep. 6.          | Drevne supergrađevine                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:20 | NOT_FOUND  | ELCIN_NO_M | Poročila ob petih                        | Poročila ob petih                        | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:21 | NOT_FOUND  | ELCIN_NO_M | Slovenija danes, regionalne novice       | Slovenija danes, regionalne novice       | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:21 | NOT_FOUND  | ELCIN_NO_M | Poletna avantura                         | Poletna avantura                         | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:21 | NOT_FOUND  | ELCIN_NO_M | Dobrodošli pri Jonu                      | Dobrodošli pri Jonu                      | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:23 | NOT_FOUND  | ELCIN_NO_M | Vreme                                    | Vreme                                    | P:-   B:-   L:-   M:-  
+2026-09-16 16:45:24 | NOT_FOUND  | ELCIN_NO_M | Dumb And Dumber 2                        | Dumb And Dumber 2                        | P:-   B:-   L:-   M:-  
